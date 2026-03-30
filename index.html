@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Latihan OSN SD — Olimpiade Sains Nasional</title>
+<meta name="description" content="Platform latihan soal HOTS untuk Olimpiade Sains Nasional (OSN) tingkat Sekolah Dasar. Tersedia materi IPA dan IPS berbasis kisi-kisi resmi OSN 2025.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue: #4263EB;
+  --teal: #0E9DBF;
+  --green: #0F9D6E;
+  --amber: #C17517;
+  --text: #1E293B;
+  --muted: #64748B;
+  --border: #E2E8F0;
+  --bg2: #F8FAFC;
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 8px rgba(0,0,0,0.06), 0 12px 32px rgba(0,0,0,0.08);
+  --radius: 16px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: #fff;
+  color: var(--text);
+  min-height: 100vh;
+  border-top: 3px solid var(--blue);
+}
+
+/* ── HEADER ── */
+.site-header {
+  padding: 18px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(8px);
+  z-index: 50;
+}
+
+.logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--text);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, var(--blue), var(--teal));
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.header-badge {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 5px 14px;
+  letter-spacing: 0.3px;
+}
+
+/* ── HERO ── */
+.hero {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 72px 24px 56px;
+  text-align: center;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(66,99,235,0.07);
+  border: 1px solid rgba(66,99,235,0.18);
+  border-radius: 100px;
+  padding: 5px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--blue);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+
+.hero-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.12;
+  background: linear-gradient(135deg, #1E293B 0%, #4263EB 60%, #0E9DBF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 20px;
+}
+
+.hero-desc {
+  font-size: 1.05rem;
+  color: var(--muted);
+  line-height: 1.75;
+  max-width: 560px;
+  margin: 0 auto 48px;
+}
+
+/* ── STATS ROW ── */
+.stats-row {
+  display: flex;
+  gap: 0;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  max-width: 560px;
+  margin: 0 auto 72px;
+  box-shadow: var(--shadow-sm);
+}
+
+.stat-item {
+  flex: 1;
+  padding: 18px 20px;
+  text-align: center;
+  border-right: 1px solid var(--border);
+}
+
+.stat-item:last-child { border-right: none; }
+
+.stat-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--blue);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+/* ── SECTION ── */
+.section {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+.section-label {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── SUBJECT CARDS ── */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+}
+
+.subject-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.22s ease;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  position: relative;
+}
+
+.subject-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: #CBD5E1;
+}
+
+.subject-card.coming-soon {
+  opacity: 0.72;
+  cursor: default;
+  pointer-events: none;
+}
+
+.card-top {
+  padding: 28px 28px 22px;
+  flex: 1;
+}
+
+.card-icon-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.card-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+}
+
+.card-icon.ipa { background: rgba(14,157,191,0.10); }
+.card-icon.ips { background: rgba(193,117,23,0.10); }
+
+.card-status {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 100px;
+  border: 1px solid;
+}
+
+.card-status.active {
+  color: var(--green);
+  background: rgba(15,157,110,0.08);
+  border-color: rgba(15,157,110,0.2);
+}
+
+.card-status.soon {
+  color: var(--muted);
+  background: var(--bg2);
+  border-color: var(--border);
+}
+
+.card-subject {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.card-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 10px;
+  line-height: 1.25;
+}
+
+.card-desc {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  padding: 0 28px 20px;
+}
+
+.tag {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: var(--bg2);
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+
+.card-footer {
+  padding: 16px 28px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg2);
+}
+
+.card-meta {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.card-cta {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--blue);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: gap 0.2s;
+}
+
+.subject-card:hover .card-cta { gap: 9px; }
+
+/* ── HOW IT WORKS ── */
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.how-item {
+  padding: 22px 20px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg2);
+}
+
+.how-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--blue);
+  opacity: 0.35;
+  margin-bottom: 10px;
+  line-height: 1;
+}
+
+.how-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.how-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ── FOOTER ── */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-text {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.footer-text a {
+  color: var(--blue);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.footer-text a:hover { text-decoration: underline; }
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-links a {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.footer-links a:hover { color: var(--text); }
+
+@media (max-width: 640px) {
+  .site-header { padding: 16px 20px; }
+  .hero { padding: 48px 20px 40px; }
+  .stats-row { max-width: 100%; }
+  .section { padding: 0 20px 60px; }
+  .cards-grid { grid-template-columns: 1fr; }
+  .how-grid { grid-template-columns: 1fr 1fr; }
+  .site-footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 400px) {
+  .how-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header class="site-header">
+  <a href="index.html" class="logo">
+    <div class="logo-icon">🏅</div>
+    Latihan OSN SD
+  </a>
+  <div class="header-badge">Kisi-kisi OSN 2025</div>
+</header>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-eyebrow">⚗️ Olimpiade Sains Nasional · Sekolah Dasar</div>
+  <h1 class="hero-title">Persiapan OSN SD<br>yang Terarah & Terukur</h1>
+  <p class="hero-desc">
+    Soal HOTS berbasis kisi-kisi resmi OSN 2025. Diacak setiap sesi,
+    dilengkapi penjelasan mendalam, dan pantauan capaian per topik
+    untuk remedial yang lebih efektif.
+  </p>
+
+  <div class="stats-row">
+    <div class="stat-item">
+      <div class="stat-num">150+</div>
+      <div class="stat-label">Soal IPA</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">13</div>
+      <div class="stat-label">Topik</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">2</div>
+      <div class="stat-label">Mata Pelajaran</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">HOTS</div>
+      <div class="stat-label">Level Soal</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SUBJECT CARDS ── -->
+<section class="section">
+  <div class="section-label">Pilih Mata Pelajaran</div>
+
+  <div class="cards-grid">
+
+    <!-- IPA Card -->
+    <a href="OSN-IPA-SD-Latihan-Olimpiade.html" class="subject-card">
+      <div class="card-top">
+        <div class="card-icon-row">
+          <div class="card-icon ipa">🔬</div>
+          <div class="card-status active">● Tersedia</div>
+        </div>
+        <div class="card-subject">Ilmu Pengetahuan Alam</div>
+        <div class="card-title">OSN IPA<br>Sekolah Dasar</div>
+        <div class="card-desc">
+          Mencakup Metode Ilmiah, Keanekaragaman Hayati, Proses Makhluk Hidup,
+          Ekologi, Fisika Dasar, Kimia Dasar, Bumi & Antariksa, dan lebih banyak lagi.
+        </div>
+      </div>
+      <div class="card-tags">
+        <span class="tag">Metode Ilmiah</span>
+        <span class="tag">Biologi</span>
+        <span class="tag">Fisika</span>
+        <span class="tag">Kimia</span>
+        <span class="tag">Ekologi</span>
+        <span class="tag">+8 topik</span>
+      </div>
+      <div class="card-footer">
+        <span class="card-meta">150 soal · 13 topik · Acak tiap sesi</span>
+        <span class="card-cta">Mulai Latihan →</span>
+      </div>
+    </a>
+
+    <!-- IPS Card -->
+    <div class="subject-card coming-soon">
+      <div class="card-top">
+        <div class="card-icon-row">
+          <div class="card-icon ips">🌏</div>
+          <div class="card-status soon">○ Segera Hadir</div>
+        </div>
+        <div class="card-subject">Ilmu Pengetahuan Sosial</div>
+        <div class="card-title">OSN IPS<br>Sekolah Dasar</div>
+        <div class="card-desc">
+          Akan mencakup Geografi, Sejarah Indonesia, Ekonomi Dasar,
+          Sosiologi, dan Wawasan Kebangsaan berbasis kisi-kisi OSN 2025.
+        </div>
+      </div>
+      <div class="card-tags">
+        <span class="tag">Geografi</span>
+        <span class="tag">Sejarah</span>
+        <span class="tag">Ekonomi</span>
+        <span class="tag">Sosiologi</span>
+        <span class="tag">Kebangsaan</span>
+      </div>
+      <div class="card-footer">
+        <span class="card-meta">Dalam pengerjaan…</span>
+        <span class="card-cta" style="color:var(--muted)">Segera Hadir</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ── -->
+<section class="section">
+  <div class="section-label">Cara Menggunakan</div>
+
+  <div class="how-grid">
+    <div class="how-item">
+      <div class="how-num">01</div>
+      <div class="how-title">Pilih Mata Pelajaran</div>
+      <div class="how-desc">Pilih IPA atau IPS sesuai persiapan yang dibutuhkan.</div>
+    </div>
+    <div class="how-item">
+      <div class="how-num">02</div>
+      <div class="how-title">Atur Jumlah Soal</div>
+      <div class="how-desc">Pilih 20, 30, atau 40 soal untuk satu sesi latihan.</div>
+    </div>
+    <div class="how-item">
+      <div class="how-num">03</div>
+      <div class="how-title">Kerjakan & Konfirmasi</div>
+      <div class="how-desc">Soal dan pilihan jawaban diacak otomatis setiap sesi.</div>
+    </div>
+    <div class="how-item">
+      <div class="how-num">04</div>
+      <div class="how-title">Pelajari Hasil</div>
+      <div class="how-desc">Pantau skor per topik dan baca penjelasan mendalam tiap soal.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="site-footer">
+  <div class="footer-text">
+    Dibuat untuk membantu siswa SD/MI mempersiapkan diri menghadapi OSN.<br>
+    Soal berbasis kisi-kisi resmi OSN 2025. Open-source di
+    <a href="https://github.com" target="_blank">GitHub</a>.
+  </div>
+  <div class="footer-links">
+    <a href="OSN-IPA-SD-Latihan-Olimpiade.html">Latihan IPA</a>
+    <a href="https://github.com" target="_blank">GitHub</a>
+  </div>
+</footer>
+
+</body>
+</html>
