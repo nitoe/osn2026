@@ -4688,9 +4688,617 @@
                 options: ["Suhu mempengaruhi laju reaksi kimia dalam tubuh — suhu terlalu tinggi atau rendah dapat mengganggu fungsi enzim dan membahayakan makhluk hidup", "Manusia menjaga suhu tubuhnya relatif konstan sekitar 37°C melalui mekanisme termoregulasi seperti berkeringat dan menggigil", "Semua makhluk hidup dapat bertahan hidup di semua rentang suhu tanpa batas", "Tidak ada organisme yang bisa hidup di suhu di atas 60°C"],
                 correct: [0, 1],
                 explanation: "A benar: enzim hanya bekerja optimal dalam rentang suhu tertentu. Di atas suhu optimal enzim terdenaturasi (struktur rusaknya) dan berhenti berfungsi — itulah mengapa demam tinggi sangat berbahaya. B benar: manusia (mamalia) adalah endotermik — menggunakan metabolisme untuk menjaga suhu tubuh stabil. Saat kepanasan, kita berkeringat; saat kedinginan, kita menggigil untuk menghasilkan panas. C salah: setiap organisme punya batas toleransi suhu. D salah: ada bakteri termofil dan hipertermofil yang hidup dan berkembang di suhu 60–121°C, ditemukan di sumber air panas dan ventilasi hidrotermal laut dalam."
-            }
+            },
 
-        ]; // END questionBank
+            {
+                id: 317,
+                topicId: 8,
+                topicName: "Listrik & Magnet",
+                type: "single",
+                question: "Arus listrik pada dasarnya adalah aliran muatan listrik. Pada rangkaian listrik dengan baterai, arah aliran elektron yang sebenarnya adalah...",
+                options: ["Dari kutub positif (+) baterai menuju kutub negatif (−), searah dengan arah arus konvensional", "Dari kutub negatif (−) baterai menuju kutub positif (+), berlawanan dengan arah arus konvensional", "Elektron bergerak bolak-balik tanpa arah tetap di dalam kabel", "Elektron hanya bergerak di dalam baterai, tidak di dalam kabel"],
+                correct: [1],
+                explanation: "Ini adalah salah satu sumber kebingungan paling umum dalam fisika dasar. Secara historis, arus listrik konvensional didefinisikan mengalir dari + ke − (sebelum elektron diketahui). Kenyataannya, elektron bermuatan negatif bergerak dari terminal − (kelebihan elektron) ke terminal + (kekurangan elektron) — arah berlawanan dari arus konvensional. Dalam perhitungan listrik sehari-hari, kita tetap menggunakan arah arus konvensional (+ ke −) karena hasilnya sama."
+            },
+
+            {
+                id: 318,
+                topicId: 8,
+                topicName: "Listrik & Magnet",
+                type: "multiple",
+                question: "Pilih DUA pernyataan yang benar tentang TEGANGAN (voltase) dan ARUS LISTRIK!",
+                options: ["Tegangan adalah 'dorongan' yang menggerakkan elektron — diukur dalam satuan Volt (V)", "Arus listrik adalah banyaknya muatan yang mengalir per satuan waktu — diukur dalam satuan Ampere (A)", "Tegangan dan arus adalah besaran yang sama dan dapat diukur dengan alat yang sama", "Semakin besar hambatan dalam rangkaian, semakin besar arus yang mengalir jika tegangan tetap sama"],
+                correct: [0, 1],
+                explanation: "A benar: tegangan (beda potensial) adalah 'tekanan' yang mendorong muatan bergerak — analoginya seperti tekanan air dalam pipa. Diukur dengan voltmeter, satuannya Volt. B benar: arus listrik (I) = muatan (Q) ÷ waktu (t), satuannya Ampere. 1 Ampere = 1 Coulomb per detik. Diukur dengan amperemeter. C salah: tegangan dan arus adalah besaran berbeda dan diukur dengan alat berbeda. D salah: justru sebaliknya — hambatan lebih besar menghasilkan arus lebih kecil (I = V/R, Hukum Ohm)."
+            },
+
+            {
+                id: 319,
+                topicId: 8,
+                topicName: "Listrik & Magnet",
+                type: "single",
+                question: "Tiga lampu identik dihubungkan secara SERI dengan satu baterai. Jika salah satu lampu dilepas dari rangkaian, yang terjadi pada dua lampu lainnya adalah...",
+                options: ["Kedua lampu lain menjadi lebih terang karena tegangan terbagi lebih sedikit", "Kedua lampu lain tetap menyala dengan kecerahan yang sama", "Kedua lampu lain ikut padam karena rangkaian seri hanya memiliki satu jalur arus", "Hanya satu lampu yang padam, yang lain tetap menyala"],
+                correct: [2],
+                explanation: "Dalam rangkaian seri, semua komponen berada dalam satu jalur arus yang sama. Jika satu komponen dilepas atau putus, jalur arus terputus total — tidak ada arus yang bisa mengalir ke komponen mana pun. Ibarat rantai yang satu mata rantainya dilepas — semua mata rantai terpisah. Inilah kelemahan rangkaian seri: satu putus, semua mati. Contoh terkenal: lampu hias pohon natal model lama yang seluruhnya mati jika satu bola lampu putus."
+            },
+
+            {
+                id: 320,
+                topicId: 8,
+                topicName: "Listrik & Magnet",
+                type: "multiple",
+                question: "Pilih DUA pernyataan yang benar tentang perbedaan RANGKAIAN SERI dan PARALEL!",
+                options: ["Pada rangkaian seri, arus yang mengalir melalui setiap komponen adalah sama", "Pada rangkaian paralel, tegangan pada setiap cabang adalah sama dan sama dengan tegangan sumber", "Pada rangkaian seri, jika satu komponen putus seluruh rangkaian tetap berfungsi", "Pada rangkaian paralel, hambatan total selalu lebih besar dari hambatan terbesar"],
+                correct: [0, 1],
+                explanation: "A benar: dalam rangkaian seri hanya ada satu jalur arus — arus yang masuk dan keluar setiap komponen sama besarnya (I₁ = I₂ = I₃ = I_total). B benar: dalam rangkaian paralel setiap cabang terhubung langsung ke terminal sumber — tegangan di setiap cabang sama dengan tegangan sumber (V₁ = V₂ = V₃ = V_sumber). Ini sebabnya semua peralatan listrik rumah mendapat 220V penuh meski dinyalakan bersamaan. C salah: pada seri, satu putus = semua mati. D salah: hambatan total paralel justru lebih KECIL dari hambatan terkecil."
+            },
+
+            {
+                id: 321,
+                topicId: 8,
+                topicName: "Listrik & Magnet",
+                type: "single",
+                question: "Sekring (fuse) dan MCB (Miniature Circuit Breaker) dipasang pada instalasi listrik rumah. Fungsi utama kedua alat ini adalah...",
+                options: ["Menyimpan cadangan listrik saat PLN padam", "Memutus aliran listrik secara otomatis jika arus melebihi batas aman, sehingga melindungi kabel dan peralatan dari kebakaran akibat arus berlebih", "Mengubah arus AC menjadi arus DC untuk peralatan elektronik", "Mengurangi tegangan listrik dari 220V menjadi lebih rendah agar lebih aman"],
+                correct: [1],
+                explanation: "Arus berlebih (overload) atau hubung singkat (short circuit) menyebabkan kabel panas bahkan terbakar — penyebab utama kebakaran rumah akibat listrik. Sekring bekerja dengan cara meleleh (kawat tipis di dalamnya putus) saat arus melampaui batas. MCB bekerja dengan bimetal atau elektromagnet yang 'trip' (putus otomatis) saat arus berlebih — bisa di-reset kembali tanpa perlu diganti. MCB lebih praktis dan kini menggantikan sekring di banyak instalasi modern."
+            },
+
+            {
+                id: 322,
+                topicId: 8,
+                topicName: "Listrik & Magnet",
+                type: "multiple",
+                question: "Pilih DUA kebiasaan yang AMAN dalam menggunakan listrik di rumah!",
+                options: ["Mencabut colokan listrik dengan memegang kepala steker, bukan menarik kabelnya", "Menggunakan peralatan listrik sesuai batas daya yang tertera dan tidak membebani satu stop kontak dengan terlalu banyak perangkat", "Memperbaiki kabel listrik yang terkelupas menggunakan tangan basah agar lebih mudah", "Menyentuh steker atau kabel listrik yang terkelupas untuk memeriksa apakah masih ada arusnya"],
+                correct: [0, 1],
+                explanation: "A benar: menarik kabel bisa merusak sambungan di dalam steker dan mengakibatkan kabel terkelupas — bahaya konsleting. Memegang kepala steker jauh lebih aman. B benar: setiap stop kontak memiliki batas daya — membebani terlalu banyak menyebabkan overload, kabel panas, dan risiko kebakaran. C salah: tangan basah sangat berbahaya — air adalah konduktor listrik. Perbaikan kabel harus dilakukan oleh ahli dengan tangan kering dan peralatan yang tepat. D salah: menyentuh kabel terkelupas bisa menyebabkan sengatan listrik yang mematikan."
+            },
+
+            {
+                id: 323,
+                topicId: 8,
+                topicName: "Listrik & Magnet",
+                type: "single",
+                question: "Sebuah baterai 1,5 Volt memiliki terminal positif (+) dan negatif (−). Ketika baterai dihubungkan ke lampu senter melalui kabel, lampu menyala. Baterai berfungsi sebagai...",
+                options: ["Penyimpan arus listrik yang dilepaskan ke rangkaian", "Sumber beda potensial (tegangan) yang mendorong arus mengalir melalui rangkaian dengan mengubah energi kimia menjadi energi listrik", "Pengubah energi listrik menjadi energi kimia untuk disimpan", "Penghambat arus agar lampu tidak terlalu terang"],
+                correct: [1],
+                explanation: "Baterai adalah sumber EMF (gaya gerak listrik) — ia menciptakan beda potensial antara terminal + dan − melalui reaksi kimia di dalamnya. Energi kimia (dari reaksi elektroda dengan elektrolit) diubah menjadi energi listrik yang mendorong elektron mengalir melalui rangkaian luar. Baterai tidak 'menyimpan arus' — ia menyimpan energi kimia yang diubah menjadi listrik saat digunakan. Saat reaksi kimia habis, baterai 'mati'."
+            },
+
+            {
+                id: 324,
+                topicId: 8,
+                topicName: "Listrik & Magnet",
+                type: "multiple",
+                question: "Pilih DUA pernyataan yang benar tentang sifat magnet dalam kehidupan sehari-hari!",
+                options: ["Magnet hanya menarik benda-benda yang mengandung besi, nikel, atau kobalt (bahan feromagnetik)", "Magnet yang didekatkan ke magnet lain dengan kutub berbeda (U-S) akan saling tarik-menarik", "Magnet dapat menarik semua jenis logam termasuk aluminium, emas, dan tembaga", "Jika sebuah magnet dipotong menjadi dua bagian, kedua potongan akan kehilangan sifat magnetnya"],
+                correct: [0, 1],
+                explanation: "A benar: magnet hanya berinteraksi dengan bahan feromagnetik — besi, baja, nikel, kobalt, dan beberapa paduan lainnya. Aluminium, tembaga, emas, dan perak tidak tertarik magnet meskipun bersifat logam. B benar: hukum dasar magnet — kutub berbeda (Utara-Selatan) saling tarik-menarik, kutub sama (Utara-Utara atau Selatan-Selatan) saling tolak-menolak. C salah: lihat penjelasan A. D salah: memotong magnet menghasilkan DUA magnet baru yang masing-masing memiliki kutub Utara dan Selatan — tidak ada magnet yang hanya memiliki satu kutub."
+            },
+
+            {
+                id: 325,
+                topicId: 8,
+                topicName: "Listrik & Magnet",
+                type: "single",
+                question: "Sebuah paku besi dapat dibuat menjadi magnet sementara dengan cara menggosoknya searah menggunakan magnet permanen. Mengapa menggosok harus searah, bukan bolak-balik?",
+                options: ["Menggosok searah lebih cepat dan menghasilkan panas yang memagnetkan paku", "Menggosok searah menyebabkan domain magnetik (daerah kecil bermagnet) di dalam paku berangsur-angsur terorientasi ke arah yang sama, membentuk magnet. Menggosok bolak-balik akan mengacak-acak orientasi domain kembali", "Menggosok bolak-balik akan merusak lapisan logam pada permukaan paku", "Arah gosokan tidak berpengaruh — yang penting tekanannya cukup kuat"],
+                correct: [1],
+                explanation: "Di dalam bahan feromagnetik terdapat domain magnetik — daerah-daerah kecil di mana atom-atom sudah berorientasi magnetik sejajar, tetapi antar domain orientasinya acak sehingga efeknya saling menghilangkan. Saat digosok searah dengan magnet, domain-domain di paku berangsur-angsur 'dipaksa' berorientasi ke arah yang sama → efek magnetnya menjadi terakumulasi → paku berperilaku sebagai magnet. Menggosok bolak-balik akan membalik-balik orientasi domain secara bergantian sehingga tidak ada akumulasi yang terjadi."
+            },
+
+            {
+                id: 326,
+                topicId: 8,
+                topicName: "Listrik & Magnet",
+                type: "multiple",
+                question: "Pilih DUA cara yang dapat menghilangkan atau melemahkan sifat kemagnetan sebuah magnet!",
+                options: ["Memanaskan magnet hingga suhu sangat tinggi (di atas suhu Curie-nya)", "Memukul-mukul atau menjatuhkan magnet berulang kali dengan keras", "Mencelupkan magnet ke dalam air dingin selama beberapa menit", "Menyimpan magnet di tempat yang gelap dan kering"],
+                correct: [0, 1],
+                explanation: "A benar: setiap bahan magnetik memiliki suhu Curie — suhu di mana energi termal cukup besar untuk mengacak orientasi domain magnetik. Di atas suhu ini, magnet kehilangan sifat permanennya. Contoh: besi memiliki suhu Curie ~770°C. B benar: benturan keras (getaran mekanik) memberikan energi kepada atom-atom dalam magnet, yang dapat mengacak-acak orientasi domain magnetik yang tadinya tersusun rapi — sifat magnet melemah atau hilang. C dan D salah: air dingin dan tempat gelap tidak mengubah orientasi domain magnetik."
+            },
+
+            {
+                id: 327,
+                topicId: 8,
+                topicName: "Listrik & Magnet",
+                type: "single",
+                question: "Elektromagnet adalah magnet yang dibuat menggunakan arus listrik. Sebuah elektromagnet dibuat dengan melilitkan kawat berinsulasi pada batang besi dan mengalirkan arus listrik. Cara yang PALING tepat untuk memperkuat medan magnet elektromagnet tersebut adalah...",
+                options: ["Mengganti batang besi dengan batang kayu agar hambatannya lebih kecil", "Memperbesar arus listrik yang mengalir dan menambah jumlah lilitan kawat", "Mengurangi lilitan kawat agar hambatan berkurang dan arus lebih besar", "Memotong batang besi menjadi lebih pendek"],
+                correct: [1],
+                explanation: "Kekuatan medan magnet elektromagnet bergantung pada dua faktor utama: (1) Kuat arus (I) — semakin besar arus, semakin kuat medan magnet; (2) Jumlah lilitan (N) — semakin banyak lilitan, semakin kuat medan magnet. Rumusnya: B ∝ N×I (ampere-lilitan). Inti besi di dalam kumparan juga memperkuat medan magnet karena besi termagnetisasi dan menambah fluks total. Kayu tidak bersifat feromagnetik sehingga tidak memperkuat medan magnet."
+            },
+
+            {
+                id: 328,
+                topicId: 8,
+                topicName: "Listrik & Magnet",
+                type: "multiple",
+                question: "Pilih DUA contoh penerapan ELEKTROMAGNET dalam kehidupan sehari-hari!",
+                options: ["Bel listrik — elektromagnet menarik dan melepas pemukul secara berulang sehingga menghasilkan bunyi", "Derek magnet di tempat daur ulang logam yang bisa mengangkat dan melepas besi dengan menghidupkan dan mematikan arus", "Magnet kulkas permanen yang menempelkan kertas atau foto di pintu kulkas", "Kompas yang menunjuk arah utara berdasarkan medan magnet Bumi"],
+                correct: [0, 1],
+                explanation: "A benar: bel listrik adalah aplikasi elektromagnet klasik. Saat tombol ditekan, arus mengalir → elektromagnet aktif → menarik pemukul → pemukul menghantam bel → berbunyi → sirkuit terputus → elektromagnet mati → pegas mengembalikan pemukul → sirkuit tersambung lagi → siklus berulang. B benar: derek elektromagnet industri memanfaatkan kemampuan unik elektromagnet — bisa dihidupkan dan dimatikan. Saat aktif mengangkat besi tua, saat mati melepaskan beban. C dan D adalah aplikasi magnet PERMANEN, bukan elektromagnet."
+            },
+
+            {
+                id: 329,
+                topicId: 8,
+                topicName: "Listrik & Magnet",
+                type: "single",
+                question: "Saat kamu menggosokkan balon ke rambut kering, balon dapat menempel di dinding atau menarik potongan kertas kecil. Fenomena ini disebut listrik statis. Yang terjadi saat balon digosokkan ke rambut adalah...",
+                options: ["Balon menciptakan muatan listrik baru dari udara sekitarnya", "Elektron berpindah dari rambut ke balon — balon mendapat kelebihan elektron (bermuatan negatif) dan rambut kekurangan elektron (bermuatan positif)", "Proton berpindah dari balon ke rambut sehingga balon bermuatan negatif", "Balon dan rambut membentuk baterai kecil karena terbuat dari bahan berbeda"],
+                correct: [1],
+                explanation: "Listrik statis terjadi melalui konduksi atau gesekan (triboelectric effect). Saat balon digosok ke rambut, elektron-elektron dari rambut berpindah ke permukaan balon karena balon (karet) lebih elektronegatif dari rambut. Hasilnya: balon bermuatan negatif (kelebihan elektron), rambut bermuatan positif (kekurangan elektron). Balon yang bermuatan negatif kemudian dapat menarik benda bermuatan positif atau netral (melalui polarisasi) seperti dinding dan kertas. Proton tidak berpindah — mereka terikat kuat di inti atom."
+            },
+
+            {
+                id: 330,
+                topicId: 8,
+                topicName: "Listrik & Magnet",
+                type: "multiple",
+                question: "Pilih DUA pernyataan yang benar tentang KONDUKTOR dan ISOLATOR listrik!",
+                options: ["Konduktor listrik adalah bahan yang memungkinkan arus listrik mengalir dengan mudah karena memiliki elektron bebas yang bisa bergerak", "Isolator listrik adalah bahan yang menghambat aliran arus listrik dan digunakan sebagai pelindung/pembungkus kabel", "Kayu kering, plastik, dan karet adalah contoh konduktor listrik yang baik", "Tembaga adalah isolator listrik yang baik karena digunakan sebagai pembungkus kabel"],
+                correct: [0, 1],
+                explanation: "A benar: logam seperti tembaga, aluminium, dan besi memiliki elektron valensi yang bebas bergerak di antara atom-atomnya — inilah yang memungkinkan arus listrik mengalir dengan mudah. B benar: isolator seperti plastik, karet, dan keramik memiliki elektron yang terikat kuat dan tidak bisa bergerak bebas. Isolator digunakan sebagai pelindung kabel untuk mencegah sengatan listrik dan konsleting. C salah: kayu kering, plastik, dan karet adalah ISOLATOR. D salah: tembaga adalah KONDUKTOR yang sangat baik — digunakan sebagai isi/inti kabel, bukan pembungkusnya."
+            },
+
+            {
+                id: 331,
+                topicId: 8,
+                topicName: "Listrik & Magnet",
+                type: "single",
+                question: "Sebuah lampu bertanda '60 W / 220 V' dipasang pada tegangan 220 V selama 5 jam sehari. Berapa energi listrik yang dikonsumsi lampu tersebut dalam sehari (dalam satuan Wh)?",
+                options: ["12 Wh", "60 Wh", "300 Wh", "1.200 Wh"],
+                correct: [2],
+                explanation: "Energi listrik = Daya × Waktu = 60 W × 5 jam = 300 Wh (Watt-jam). Untuk mengubah ke kWh (satuan tagihan listrik): 300 Wh ÷ 1.000 = 0,3 kWh. Jika tarif listrik Rp1.500/kWh, biaya per hari = 0,3 × Rp1.500 = Rp450. Dalam sebulan: 30 × Rp450 = Rp13.500. Ini adalah cara menghitung tagihan listrik — setiap rumah tangga perlu memahaminya untuk menghemat konsumsi energi."
+            },
+
+            {
+                id: 332,
+                topicId: 8,
+                topicName: "Listrik & Magnet",
+                type: "multiple",
+                question: "Pilih DUA pernyataan yang benar tentang INDUKSI ELEKTROMAGNETIK secara sederhana!",
+                options: ["Induksi elektromagnetik adalah terbentuknya arus listrik dalam kumparan saat ada perubahan medan magnet di sekitarnya", "Prinsip induksi elektromagnetik digunakan pada generator untuk menghasilkan listrik dari energi gerak", "Induksi elektromagnetik hanya bisa terjadi jika kumparan berputar — tidak bisa jika magnet yang bergerak", "Arus yang diinduksi selalu mengalir dalam satu arah saja (searah/DC) terlepas dari bagaimana perubahan magnetnya"],
+                correct: [0, 1],
+                explanation: "A benar: ini adalah inti dari hukum induksi Faraday — arus terinduksi muncul saat fluks magnetik yang menembus kumparan berubah (bisa karena magnet bergerak, kumparan bergerak, atau medan magnet berubah kekuatannya). B benar: generator di PLTA, PLTU, dan pembangkit listrik lainnya semua bekerja berdasarkan prinsip ini — energi mekanik (putaran turbin) menggerakkan kumparan dalam medan magnet → fluks berubah → arus terinduksi → listrik. C salah: arus bisa terinduksi baik dengan kumparan yang bergerak maupun dengan magnet yang bergerak mendekati/menjauhi kumparan yang diam. D salah: generator menghasilkan arus bolak-balik (AC) karena arah perubahan fluks berganti-ganti saat kumparan berputar."
+            },
+
+            {
+                id: 333,
+                topicId: 8,
+                topicName: "Listrik & Magnet",
+                type: "single",
+                question: "Motor listrik dan generator listrik sama-sama menggunakan prinsip interaksi antara arus listrik dan medan magnet. Perbedaan mendasar fungsi keduanya adalah...",
+                options: ["Motor listrik menggunakan magnet lebih kuat dari generator", "Generator menghasilkan tegangan lebih tinggi dari motor", "Motor mengubah energi listrik menjadi energi gerak (mekanik), sedangkan generator mengubah energi gerak (mekanik) menjadi energi listrik", "Motor dan generator identik — perbedaannya hanya pada ukuran dan kecepatan putarannya"],
+                correct: [2],
+                explanation: "Motor dan generator pada dasarnya memiliki konstruksi yang serupa (kumparan dalam medan magnet), tetapi cara kerjanya berlawanan: Motor listrik: arus listrik dialirkan ke kumparan dalam medan magnet → gaya Lorentz pada kabel berarus → kumparan berputar (energi listrik → mekanik). Contoh: kipas angin, pompa air, mesin cuci. Generator: kumparan diputar secara mekanis dalam medan magnet → perubahan fluks → arus terinduksi (energi mekanik → listrik). Contoh: dinamo sepeda, turbin pembangkit listrik. Keduanya adalah penerapan prinsip elektromagnetisme Faraday dan Ampere."
+            },
+
+            {
+                id: 334,
+                topicId: 9,
+                topicName: "Gelombang & Optik",
+                type: "single",
+                question: "Cahaya memiliki beberapa sifat dasar. Sifat cahaya yang memungkinkan kita melihat benda-benda di sekitar kita adalah...",
+                options: ["Cahaya merambat memerlukan waktu yang sangat lama sehingga kita bisa melihat semua benda sekaligus", "Cahaya merambat lurus dari sumbernya dan dapat dipantulkan oleh permukaan benda sehingga sampai ke mata kita", "Cahaya menarik benda ke arahnya sehingga benda-benda 'datang' ke mata kita", "Cahaya hanya bisa dilihat jika benda tersebut bercahaya sendiri"],
+                correct: [1],
+                explanation: "Kita bisa melihat benda karena dua alasan: (1) benda yang bercahaya sendiri (sumber cahaya) seperti lampu dan Matahari langsung memancarkan cahaya ke mata, dan (2) benda yang tidak bercahaya sendiri memantulkan sebagian cahaya yang mengenainya ke mata kita. Cahaya merambat lurus — inilah mengapa bayangan memiliki tepi yang tajam dan kita tidak bisa melihat di balik sudut tanpa bantuan cermin. Kecepatan cahaya sangat tinggi (~300.000 km/s) sehingga kita merasa melihat benda secara instan."
+            },
+
+            {
+                id: 335,
+                topicId: 9,
+                topicName: "Gelombang & Optik",
+                type: "multiple",
+                question: "Pilih DUA sifat cahaya yang benar!",
+                options: ["Cahaya dapat merambat melalui ruang hampa (vakum) tanpa memerlukan medium", "Cahaya merambat dalam garis lurus selama melewati medium yang seragam", "Cahaya memerlukan udara untuk merambat — di ruang angkasa tidak ada cahaya", "Cahaya merambat lebih cepat di dalam air daripada di udara"],
+                correct: [0, 1],
+                explanation: "A benar: berbeda dari bunyi yang memerlukan medium, cahaya adalah gelombang elektromagnetik yang bisa merambat tanpa medium. Buktinya: cahaya Matahari sampai ke Bumi melewati ruang angkasa yang hampa. B benar: cahaya merambat lurus dalam medium homogen — inilah yang menyebabkan bayangan terbentuk dan kita menggunakan 'sinar cahaya' sebagai model. C salah: di ruang angkasa justru penuh cahaya dari bintang-bintang. D salah: cahaya merambat lebih LAMBAT di air (sekitar 225.000 km/s) dibanding di udara (~300.000 km/s) karena air lebih padat optis."
+            },
+
+            {
+                id: 336,
+                topicId: 9,
+                topicName: "Gelombang & Optik",
+                type: "single",
+                question: "Saat kita berdiri di depan cermin datar, kita melihat bayangan diri sendiri. Sifat bayangan yang dibentuk oleh cermin datar adalah...",
+                options: ["Nyata, terbalik, dan lebih kecil dari benda aslinya", "Maya, tegak, sama besar, dan tampak berada di belakang cermin sejauh benda di depan cermin", "Nyata, tegak, dan diperbesar", "Maya, terbalik, dan diperkecil"],
+                correct: [1],
+                explanation: "Cermin datar membentuk bayangan dengan sifat: (1) Maya — bayangan tampak berada di belakang cermin, tidak bisa ditangkap di layar; (2) Tegak — bayangan tidak terbalik atas-bawah; (3) Sama besar — ukuran bayangan persis sama dengan benda; (4) Jarak bayangan di belakang cermin sama dengan jarak benda di depan cermin. Bayangan di cermin datar tampak seolah berada sejauh kita dari cermin, di sisi lain. Satu hal yang 'terbalik' adalah kiri-kanan (lateral inversion) — tangan kanan tampak sebagai tangan kiri di cermin."
+            },
+
+            {
+                id: 337,
+                topicId: 9,
+                topicName: "Gelombang & Optik",
+                type: "multiple",
+                question: "Pilih DUA pernyataan yang benar tentang PEMANTULAN CAHAYA!",
+                options: ["Sudut datang cahaya pada permukaan pantul selalu sama dengan sudut pantulnya (Hukum Pemantulan)", "Pada permukaan yang halus dan mengkilap seperti cermin, pemantulan terjadi secara teratur sehingga kita bisa melihat bayangan yang jelas", "Pada permukaan yang kasar seperti kertas, cahaya dipantulkan ke satu arah saja sehingga kertas terlihat mengkilap", "Pemantulan hanya terjadi pada benda-benda berwarna putih"],
+                correct: [0, 1],
+                explanation: "A benar: Hukum Pemantulan Snell — sudut datang (θᵢ) = sudut pantul (θᵣ), keduanya diukur dari garis normal (tegak lurus permukaan). Hukum ini berlaku untuk semua jenis pemantulan. B benar: permukaan halus menghasilkan pemantulan teratur (specular reflection) — semua sinar pantul menuju arah yang sama, menghasilkan bayangan yang jelas seperti di cermin. C salah: permukaan kasar menghasilkan pemantulan baur (diffuse reflection) — sinar dipantulkan ke berbagai arah acak, sehingga objek terlihat tidak mengkilap. D salah: semua benda memantulkan sebagian cahaya, tidak peduli warnanya — warna gelap hanya menyerap lebih banyak dan memantulkan lebih sedikit."
+            },
+
+            {
+                id: 338,
+                topicId: 9,
+                topicName: "Gelombang & Optik",
+                type: "single",
+                question: "Pensil yang dicelupkan setengahnya ke dalam gelas berisi air tampak 'patah' atau 'bengkok' di permukaan air. Fenomena optik yang menyebabkan hal ini disebut...",
+                options: ["Pemantulan — cahaya dari pensil dipantulkan oleh air sehingga terlihat bengkok", "Pembiasan (refraksi) — cahaya berubah arah saat berpindah dari air ke udara karena kecepatannya berubah", "Difraksi — cahaya menyebar saat melewati tepi permukaan air", "Polarisasi — air memfilter cahaya yang datang dari pensil"],
+                correct: [1],
+                explanation: "Pembiasan (refraksi) terjadi saat cahaya berpindah dari satu medium ke medium lain yang berbeda kerapatan optisnya. Cahaya dari bagian pensil yang terendam air bergerak dari air (lebih lambat, n=1,33) ke udara (lebih cepat, n=1,00). Perubahan kecepatan ini menyebabkan cahaya berbelok di permukaan air — sehingga bagian pensil dalam air tampak tidak tepat di posisi yang sebenarnya. Fenomena ini juga menyebabkan kolam tampak lebih dangkal dari sebenarnya, dan ikan tampak lebih dekat ke permukaan."
+            },
+
+            {
+                id: 339,
+                topicId: 9,
+                topicName: "Gelombang & Optik",
+                type: "multiple",
+                question: "Pilih DUA pernyataan yang benar tentang PEMBIASAN (REFRAKSI) cahaya!",
+                options: ["Pembiasan terjadi karena cahaya berubah kecepatan saat memasuki medium yang berbeda kerapatan optisnya", "Saat cahaya masuk dari udara ke air atau kaca, cahaya dibelokkan mendekati garis normal (lebih tegak)", "Pembiasan menyebabkan cahaya terpantul balik ke medium asalnya tanpa ada yang diteruskan", "Pembiasan tidak terjadi jika cahaya datang tegak lurus (90°) terhadap permukaan batas medium"],
+                correct: [0, 3],
+                explanation: "A benar: pembiasan adalah akibat langsung dari perubahan kecepatan cahaya. Makin rapat medium, makin lambat cahaya di dalamnya dan makin besar pembelokan yang terjadi. D benar: jika cahaya datang tepat tegak lurus permukaan (sudut datang = 0°), cahaya memasuki medium baru tanpa dibelokkan — tetap lurus, hanya kecepatannya berubah. B salah: pernyataan ini memang benar untuk cahaya udara-ke-air, tetapi C salah total. C salah: pembiasan TIDAK menyebabkan cahaya terpantul balik seluruhnya — itu adalah pemantulan dalam total yang hanya terjadi pada kondisi tertentu. Dalam pembiasan normal, sebagian cahaya diteruskan dan sebagian kecil dipantulkan."
+            },
+
+            {
+                id: 340,
+                topicId: 9,
+                topicName: "Gelombang & Optik",
+                type: "single",
+                question: "Cermin cekung digunakan pada lampu sorot, reflektor lampu senter, dan antena parabola. Sifat utama cermin cekung yang membuatnya berguna dalam aplikasi tersebut adalah...",
+                options: ["Cermin cekung memantulkan semua cahaya ke arah yang sama dengan sudut yang lebih kecil", "Cermin cekung dapat mengumpulkan sinar-sinar yang datang sejajar ke satu titik (titik fokus) dan sebaliknya dapat membuat sinar dari titik fokus menjadi berkas sejajar", "Cermin cekung membuat bayangan selalu lebih besar dari benda aslinya dalam semua kondisi", "Cermin cekung menyerap lebih banyak cahaya sehingga lebih cocok untuk reflektor"],
+                correct: [1],
+                explanation: "Cermin cekung bersifat konvergen — bisa mengumpulkan sinar sejajar ke titik fokus (F). Sifat ini dimanfaatkan secara terbalik pada lampu senter dan lampu sorot: lampu (sumber cahaya) diletakkan di titik fokus cermin cekung → sinar-sinar dari lampu dipantulkan menjadi berkas cahaya sejajar yang kuat dan terarah. Antena parabola bekerja prinsip serupa untuk sinyal radio. Cermin cekung juga bisa membuat bayangan diperbesar (saat benda di dalam fokus) — digunakan pada cermin rias dan kaca pembesar cukur."
+            },
+
+            {
+                id: 341,
+                topicId: 9,
+                topicName: "Gelombang & Optik",
+                type: "multiple",
+                question: "Lensa cembung dan lensa cekung digunakan dalam berbagai alat optik. Pilih DUA pernyataan yang benar tentang lensa cembung!",
+                options: ["Lensa cembung bersifat konvergen — mengumpulkan sinar-sinar cahaya yang melewatinya ke satu titik fokus", "Lensa cembung digunakan pada kacamata untuk memperbaiki rabun dekat (hipermetropi)", "Lensa cembung selalu menghasilkan bayangan yang lebih kecil dari benda aslinya", "Lensa cembung digunakan pada kacamata untuk memperbaiki rabun jauh (miopi)"],
+                correct: [0, 1],
+                explanation: "A benar: lensa cembung (konveks) lebih tebal di tengah dari pada tepinya, dan bersifat konvergen — menyatukan sinar-sinar sejajar ke titik fokus di sisi lain lensa. B benar: rabun dekat (hipermetropi) terjadi saat bayangan jatuh di belakang retina — lensa cembung membantu mengkonvergensikan cahaya lebih awal agar bayangan jatuh tepat di retina. Lensa cembung juga digunakan pada kaca pembesar, kamera, teleskop, dan mikroskop. C salah: lensa cembung bisa membuat bayangan diperbesar (saat benda di dalam fokus, seperti kaca pembesar) atau diperkecil (saat benda jauh). D salah: miopi dikoreksi dengan lensa CEKUNG (divergen), bukan cembung."
+            },
+
+            {
+                id: 342,
+                topicId: 9,
+                topicName: "Gelombang & Optik",
+                type: "single",
+                question: "Bunyi adalah gelombang mekanik yang memerlukan medium untuk merambat. Manakah pernyataan yang PALING tepat tentang bunyi?",
+                options: ["Bunyi dapat merambat di ruang hampa (vakum) dengan kecepatan yang sama seperti di udara", "Bunyi tidak bisa merambat di dalam zat padat seperti besi atau beton", "Bunyi adalah getaran yang merambat melalui medium (padat, cair, atau gas) dalam bentuk perapatan dan perenggangan molekul", "Bunyi merambat lebih lambat di dalam air daripada di udara"],
+                correct: [2],
+                explanation: "Bunyi adalah gelombang longitudinal — terbentuk dari perapatan (compression) dan perenggangan (rarefaction) partikel-partikel medium. Sumber bunyi (misalnya senar gitar, gendang, pita suara) bergetar dan menggetarkan partikel medium di sekitarnya. Getaran ini merambat dari partikel ke partikel berikutnya. Bunyi TIDAK bisa merambat di vakum (tidak ada partikel untuk bergetar). Bunyi justru merambat lebih cepat di zat padat dan cair daripada di gas, karena partikelnya lebih rapat dan lebih elastis."
+            },
+
+            {
+                id: 343,
+                topicId: 9,
+                topicName: "Gelombang & Optik",
+                type: "multiple",
+                question: "Pilih DUA pernyataan yang benar tentang GEMA (echo) bunyi!",
+                options: ["Gema terjadi karena bunyi dipantulkan oleh permukaan keras seperti tebing, tembok besar, atau gedung", "Gema hanya dapat terdengar jika jarak ke permukaan pemantul cukup jauh sehingga bunyi pantul sampai setelah bunyi asli selesai terdengar", "Gema terjadi karena bunyi menembus permukaan keras dan keluar kembali di sisi lain", "Gema tidak mungkin terjadi di dalam ruangan — hanya bisa terjadi di alam terbuka"],
+                correct: [0, 1],
+                explanation: "A benar: gema adalah pemantulan bunyi. Bunyi yang kita ucapkan atau hasilkan merambat ke permukaan keras (tebing, dinding besar, gedung bertingkat), dipantulkan, dan kembali ke telinga kita sebagai salinan bunyi asli yang terdengar kemudian. B benar: telinga manusia membutuhkan jeda minimal sekitar 1/10 detik (0,1 detik) untuk membedakan bunyi asli dan pantulnya. Pada kecepatan bunyi 340 m/s, jarak minimum ke permukaan pantul adalah sekitar 17 meter. Di dalam ruangan kecil, bunyi pantul datang terlalu cepat dan terdengar sebagai gaung (reverberasi), bukan gema yang terpisah. C dan D salah."
+            },
+
+            {
+                id: 344,
+                topicId: 9,
+                topicName: "Gelombang & Optik",
+                type: "single",
+                question: "Frekuensi dan amplitudo adalah dua karakteristik penting gelombang bunyi. Perbedaan antara bunyi yang KERAS dan bunyi yang PELAN berkaitan dengan...",
+                options: ["Frekuensi — bunyi keras memiliki frekuensi lebih tinggi dari bunyi pelan", "Amplitudo — bunyi keras memiliki amplitudo (simpangan maksimum getaran) yang lebih besar dari bunyi pelan", "Panjang gelombang — bunyi keras memiliki panjang gelombang lebih panjang", "Kecepatan — bunyi keras merambat lebih cepat dari bunyi pelan"],
+                correct: [1],
+                explanation: "Amplitudo adalah ukuran 'seberapa jauh' partikel medium bergetar dari posisi keseimbangannya. Semakin besar amplitudo getaran sumber bunyi, semakin besar perapatan dan perenggangan yang dihasilkan, semakin besar energi yang dibawa gelombang — dan semakin keras bunyi yang kita dengar. Kuat lemah bunyi (intensitas) diukur dalam desibel (dB). Sebaliknya, frekuensi menentukan tinggi rendah nada (pitch): frekuensi tinggi = nada tinggi (seperti suara seruling), frekuensi rendah = nada rendah (seperti suara bass gitar)."
+            },
+
+            {
+                id: 345,
+                topicId: 9,
+                topicName: "Gelombang & Optik",
+                type: "multiple",
+                question: "Pilih DUA pernyataan yang benar tentang FREKUENSI bunyi dan pendengaran manusia!",
+                options: ["Manusia umumnya dapat mendengar bunyi dalam rentang frekuensi 20 Hz hingga 20.000 Hz (20 kHz)", "Bunyi dengan frekuensi di bawah 20 Hz disebut infrasonik — tidak terdengar manusia tetapi bisa dirasakan hewan tertentu", "Bunyi dengan frekuensi tinggi terdengar bernada rendah, sedangkan bunyi berfrekuensi rendah terdengar bernada tinggi", "Semua hewan memiliki rentang pendengaran yang sama persis dengan manusia"],
+                correct: [0, 1],
+                explanation: "A benar: rentang pendengaran manusia dewasa adalah 20–20.000 Hz. Seiring bertambah usia, kemampuan mendengar frekuensi tinggi biasanya menurun. B benar: infrasonik (<20 Hz) tidak terdengar manusia tetapi dapat dihasilkan dan dideteksi oleh gajah, paus, dan beberapa hewan lain untuk komunikasi jarak jauh. Ultrasonik (>20.000 Hz) juga tidak terdengar manusia tetapi digunakan oleh kelelawar (ekolokasi), anjing, dan dimanfaatkan dalam sonar serta USG medis. C salah: justru sebaliknya — frekuensi tinggi = nada tinggi (pitch tinggi). D salah: rentang pendengaran berbeda antar spesies — anjing bisa mendengar hingga 65.000 Hz."
+            },
+
+            {
+                id: 346,
+                topicId: 9,
+                topicName: "Gelombang & Optik",
+                type: "single",
+                question: "Kita bisa melihat benda berwarna merah karena benda tersebut memantulkan cahaya merah ke mata kita dan menyerap warna lainnya. Berdasarkan prinsip ini, mengapa daun tampak berwarna HIJAU?",
+                options: ["Daun menghasilkan cahaya hijau sendiri melalui proses fotosintesis", "Daun menyerap cahaya hijau dan memantulkan cahaya merah dan biru", "Daun menyerap sebagian besar cahaya merah dan biru untuk fotosintesis (oleh klorofil), dan memantulkan cahaya hijau ke mata kita", "Mata manusia hanya bisa melihat warna hijau saat melihat tumbuhan"],
+                correct: [2],
+                explanation: "Warna benda ditentukan oleh panjang gelombang cahaya yang DIPANTULKAN, bukan yang diserap. Klorofil dalam daun adalah pigmen yang sangat efisien menyerap cahaya merah (λ ≈ 700 nm) dan biru (λ ≈ 430 nm) untuk energi fotosintesis. Cahaya hijau (λ ≈ 550 nm) justru paling sedikit diserap klorofil dan sebagian besar dipantulkan kembali — itulah yang sampai ke mata kita sehingga daun tampak hijau. Ironisnya, warna yang paling 'terbuang' oleh tumbuhan adalah justru warna yang paling kita identikkan dengan tumbuhan!"
+            },
+
+            {
+                id: 347,
+                topicId: 9,
+                topicName: "Gelombang & Optik",
+                type: "multiple",
+                question: "Pilih DUA pernyataan yang benar tentang BAYANGAN yang terbentuk oleh cahaya!",
+                options: ["Bayangan terbentuk karena cahaya merambat lurus dan tidak bisa menembus benda yang tidak tembus cahaya (opak)", "Umbra adalah bagian bayangan yang paling gelap di mana tidak ada cahaya sama sekali yang sampai", "Bayangan selalu berukuran sama persis dengan benda yang menghasilkannya", "Bayangan hanya bisa terbentuk di tempat yang sangat gelap dan tidak bisa terjadi di siang hari"],
+                correct: [0, 1],
+                explanation: "A benar: bayangan terbentuk karena cahaya merambat lurus dan terblokir oleh benda opak. Di sisi yang tidak terkena cahaya terbentuk daerah gelap — itulah bayangan. B benar: saat sumber cahaya cukup besar, terbentuk dua zona bayangan — umbra (bayangan inti, gelap total) dan penumbra (bayangan parsial, masih mendapat sebagian cahaya). Konsep umbra dan penumbra sangat penting untuk menjelaskan gerhana. C salah: ukuran bayangan bergantung pada posisi benda relatif terhadap sumber cahaya dan layar. D salah: bayangan terbentuk kapan saja ada cahaya dan benda opak — bahkan di siang hari kita memiliki bayangan."
+            },
+
+            {
+                id: 348,
+                topicId: 9,
+                topicName: "Gelombang & Optik",
+                type: "single",
+                question: "Mikroskop cahaya digunakan untuk melihat benda-benda yang terlalu kecil untuk dilihat mata telanjang. Prinsip utama kerja mikroskop cahaya adalah...",
+                options: ["Mikroskop menggunakan sinar laser untuk membakar permukaan sampel sehingga strukturnya terlihat", "Mikroskop menggunakan kombinasi dua lensa cembung (lensa objektif dan lensa okuler) untuk memperbesar bayangan benda yang sangat kecil", "Mikroskop menggunakan cermin cekung untuk memfokuskan cahaya ke sampel dan memperbesar bayangannya", "Mikroskop menggunakan prinsip gema seperti sonar untuk mendeteksi ukuran sel"],
+                correct: [1],
+                explanation: "Mikroskop cahaya (compound microscope) menggunakan dua lensa cembung: (1) Lensa objektif — dekat dengan sampel, membentuk bayangan yang diperbesar (nyata dan terbalik); (2) Lensa okuler — seperti kaca pembesar yang kita intip, memperbesar lagi bayangan dari lensa objektif. Perbesaran total = perbesaran objektif × perbesaran okuler. Misalnya: objektif 40× dan okuler 10× menghasilkan perbesaran 400×. Penemuan mikroskop oleh Antonie van Leeuwenhoek membuka dunia mikroba yang sebelumnya tidak diketahui dan merevolusi biologi."
+            },
+
+            {
+                id: 349,
+                topicId: 9,
+                topicName: "Gelombang & Optik",
+                type: "multiple",
+                question: "Pilih DUA pernyataan yang benar tentang gelombang dan karakteristiknya!",
+                options: ["Panjang gelombang adalah jarak antara dua puncak (atau dua lembah) gelombang yang berdekatan", "Frekuensi gelombang adalah jumlah gelombang yang melewati suatu titik dalam satu detik, diukur dalam satuan Hertz (Hz)", "Semakin tinggi frekuensi gelombang, semakin panjang panjang gelombangnya (jika kecepatan konstan)", "Amplitudo gelombang menentukan seberapa cepat gelombang merambat"],
+                correct: [0, 1],
+                explanation: "A benar: panjang gelombang (λ, lambda) adalah jarak satu siklus penuh gelombang — dari puncak ke puncak berikutnya atau dari lembah ke lembah berikutnya. B benar: frekuensi (f) adalah banyaknya siklus gelombang yang terjadi per detik. 1 Hz = 1 siklus per detik. Hubungan antara ketiganya: v = f × λ (kecepatan = frekuensi × panjang gelombang). C salah: jika kecepatan konstan, frekuensi tinggi berarti panjang gelombang lebih PENDEK (berbanding terbalik: λ = v/f). D salah: amplitudo menentukan energi/intensitas gelombang, bukan kecepatannya."
+            },
+
+            {
+                id: 350,
+                topicId: 9,
+                topicName: "Gelombang & Optik",
+                type: "single",
+                question: "Kamera foto dan mata manusia bekerja berdasarkan prinsip optik yang serupa. Bagian mata yang fungsinya paling mirip dengan FILM atau SENSOR pada kamera adalah...",
+                options: ["Kornea — lapisan bening di depan mata yang membelokkan cahaya", "Lensa mata — yang bisa berubah bentuk untuk memfokuskan bayangan", "Retina — lapisan di belakang bola mata yang mengandung sel peka cahaya (sel batang dan kerucut) yang menangkap bayangan", "Pupil — lubang yang mengatur banyaknya cahaya yang masuk"],
+                correct: [2],
+                explanation: "Analogi kamera vs mata: Lensa kamera ↔ Lensa mata + kornea (fokus cahaya). Aperture/diafragma ↔ Pupil (mengatur intensitas cahaya). Film/sensor ↔ Retina (menangkap bayangan). Retina mengandung dua jenis sel fotoreseptor: sel batang (rod) — sensitif cahaya redup, hanya hitam-putih; dan sel kerucut (cone) — mendeteksi warna (merah, hijau, biru), butuh cahaya terang. Impuls saraf dari retina dikirim melalui saraf optik ke otak yang 'memproses' gambar. Bayangan yang jatuh di retina sebenarnya terbalik — otaklah yang membaliknya agar tampak benar."
+            },
+
+            {
+                id: 351,
+                topicId: 9,
+                topicName: "Gelombang & Optik",
+                type: "multiple",
+                question: "Pilih DUA pernyataan yang benar tentang pemanfaatan gelombang bunyi ULTRASONIK!",
+                options: ["USG (ultrasonografi) medis menggunakan gelombang ultrasonik untuk mencitrakan organ dalam tubuh tanpa radiasi sinar-X", "Kelelawar menggunakan ekolokasi — memancarkan ultrasonik dan mendeteksi pantulannya untuk navigasi dan berburu dalam gelap", "Gelombang ultrasonik dapat didengar dengan jelas oleh telinga manusia yang sehat", "Ultrasonik tidak bisa merambat di dalam air sehingga tidak bisa digunakan untuk mendeteksi benda di bawah air"],
+                correct: [0, 1],
+                explanation: "A benar: USG medis memancarkan gelombang ultrasonik (1–20 MHz) ke dalam tubuh. Gelombang dipantulkan berbeda oleh jaringan yang berbeda kepadatannya. Pantulan ini ditangkap dan diolah komputer menjadi gambar. USG aman karena tidak menggunakan radiasi ionisasi seperti sinar-X — itulah mengapa digunakan untuk memantau janin dalam kandungan. B benar: kelelawar adalah contoh alam yang luar biasa — memancarkan pulsa ultrasonik dari mulut atau hidung, lalu mendeteksi pantulan dari serangga atau dinding gua dengan telinganya yang besar dan sensitif, mampu menghitung jarak dan ukuran objek dari waktu tiba pantulan. C salah: ultrasonik tidak terdengar manusia karena frekuensinya di atas 20.000 Hz. D salah: justru ultrasonik sangat baik merambat di air — sonar kapal selam menggunakan prinsip ini."
+            },
+
+            {
+                id: 352,
+                topicId: 13,
+                topicName: "Atom",
+                type: "single",
+                question: "Atom adalah partikel terkecil dari suatu unsur yang masih memiliki sifat unsur tersebut. Pernyataan yang PALING tepat tentang atom adalah...",
+                options: ["Atom adalah benda yang bisa dilihat dengan mikroskop biasa di laboratorium sekolah", "Atom adalah partikel sangat kecil yang menjadi penyusun dasar semua materi di alam semesta", "Atom hanya ada di dalam laboratorium kimia dan tidak ditemukan di alam bebas", "Atom adalah partikel terbesar dalam ilmu kimia"],
+                correct: [1],
+                explanation: "Atom adalah unit terkecil penyusun materi yang masih memiliki sifat kimia unsur tersebut. Semua benda di sekitar kita — udara, air, batu, tubuh kita — tersusun dari atom-atom. Atom sangat kecil: diameter atom hidrogen hanya sekitar 0,1 nanometer (0,0000001 mm), jauh terlalu kecil untuk dilihat dengan mikroskop cahaya biasa. Dibutuhkan mikroskop elektron khusus (STM/AFM) untuk 'melihat' atom secara tidak langsung. Konsep atom pertama kali dikemukakan oleh Democritus (~460 SM) dan dikembangkan secara ilmiah oleh John Dalton (1803)."
+            },
+
+            {
+                id: 353,
+                topicId: 13,
+                topicName: "Atom",
+                type: "multiple",
+                question: "Pilih DUA pernyataan yang benar tentang perbedaan UNSUR, SENYAWA, dan CAMPURAN!",
+                options: ["Unsur adalah zat murni yang tersusun dari hanya satu jenis atom dan tidak bisa diuraikan menjadi zat yang lebih sederhana dengan reaksi kimia biasa", "Senyawa adalah zat yang terbentuk dari dua atau lebih unsur yang bergabung secara kimia dengan perbandingan tetap", "Campuran adalah hasil penggabungan dua atau lebih zat secara kimia sehingga menghasilkan zat baru", "Air (H₂O) adalah contoh unsur karena hanya mengandung dua jenis atom"],
+                correct: [0, 1],
+                explanation: "A benar: emas (Au), oksigen (O₂), besi (Fe), dan karbon (C) adalah contoh unsur — hanya satu jenis atom. Ada 118 unsur yang dikenal hingga saat ini. B benar: air (H₂O) adalah senyawa — dua atom H dan satu atom O bergabung secara kimia dengan perbandingan tetap 2:1. Senyawa memiliki sifat berbeda dari unsur-unsur penyusunnya (H₂ adalah gas mudah terbakar, O₂ adalah gas untuk pembakaran, tetapi H₂O adalah cairan pemadam api!). C salah: campuran terbentuk secara FISIKA, bukan kimia — komponen masih bisa dipisahkan. D salah: air adalah senyawa, bukan unsur."
+            },
+
+            {
+                id: 354,
+                topicId: 13,
+                topicName: "Atom",
+                type: "single",
+                question: "Molekul adalah gabungan dua atau lebih atom yang berikatan secara kimia. Manakah yang merupakan contoh MOLEKUL yang BENAR?",
+                options: ["Atom emas (Au) — karena atom emas sangat besar", "Gas oksigen (O₂) — dua atom oksigen berikatan membentuk molekul", "Ion natrium (Na⁺) — atom yang kehilangan elektron", "Neutron — partikel di dalam inti atom"],
+                correct: [1],
+                explanation: "Molekul adalah partikel yang terdiri dari dua atau lebih atom yang terikat secara kovalen. Gas oksigen yang kita hirup adalah O₂ — dua atom oksigen berikatan bersama. Contoh molekul lain: H₂O (air — 2H + 1O), CO₂ (karbon dioksida — 1C + 2O), N₂ (nitrogen — 2 atom N), glukosa C₆H₁₂O₆. Atom emas dalam keadaan normalnya adalah atom tunggal (Au), bukan molekul. Ion adalah atom bermuatan, dan neutron adalah partikel subatom — keduanya bukan molekul."
+            },
+
+            {
+                id: 355,
+                topicId: 13,
+                topicName: "Atom",
+                type: "multiple",
+                question: "Pilih DUA pernyataan yang benar tentang MUATAN LISTRIK pada partikel penyusun atom!",
+                options: ["Proton memiliki muatan listrik positif (+1) dan berada di dalam inti atom", "Elektron memiliki muatan listrik negatif (−1) dan bergerak mengelilingi inti atom", "Neutron memiliki muatan positif yang lebih kecil dari proton", "Dalam atom yang netral, jumlah proton dan elektron adalah sama sehingga muatan total = nol"],
+                correct: [0, 3],
+                explanation: "A benar: proton (+1) dan neutron (0) berada di inti atom yang berukuran sangat kecil namun sangat padat. B benar secara ilmiah tentang muatan, tetapi D mengandung informasi yang lebih penting dan spesifik. D benar: atom dalam keadaan netral memiliki jumlah proton = jumlah elektron, sehingga muatan positif dan negatif saling meniadakan → muatan total = 0. Atom menjadi bermuatan (ion) jika kehilangan atau mendapat elektron. C salah: neutron tidak memiliki muatan listrik sama sekali (netral, nol)."
+            },
+
+            {
+                id: 356,
+                topicId: 13,
+                topicName: "Atom",
+                type: "single",
+                question: "Hukum dasar muatan listrik menyatakan bahwa dua benda bermuatan yang didekatkan akan saling berinteraksi. Interaksi yang BENAR antara muatan-muatan listrik adalah...",
+                options: ["Dua muatan positif akan saling tarik-menarik; dua muatan negatif akan saling tolak-menolak", "Muatan yang sama jenisnya (+ dengan + atau − dengan −) akan tolak-menolak; muatan berbeda jenis (+ dengan −) akan tarik-menarik", "Semua muatan selalu tarik-menarik satu sama lain seperti gravitasi", "Hanya muatan positif yang bisa menarik muatan negatif; muatan negatif tidak bisa menarik apapun"],
+                correct: [1],
+                explanation: "Hukum dasar muatan listrik: muatan sejenis TOLAK-MENOLAK, muatan berbeda jenis TARIK-MENARIK. Ini berlaku universal untuk semua muatan listrik. Contoh: dua balon yang digosok ke rambut keduanya bermuatan negatif → saling menolak ketika didekatkan. Elektron (−) di sekitar inti ditarik ke proton (+) di inti — inilah yang menjaga elektron tetap 'mengorbit' inti. Gaya ini disebut gaya Coulomb, dan jauh lebih kuat dari gravitasi pada skala atom."
+            },
+
+            {
+                id: 357,
+                topicId: 13,
+                topicName: "Atom",
+                type: "multiple",
+                question: "Pilih DUA pernyataan yang benar tentang NOMOR ATOM dan NOMOR MASSA unsur!",
+                options: ["Nomor atom (Z) adalah jumlah proton di dalam inti atom, dan menentukan identitas unsur tersebut", "Nomor massa (A) adalah jumlah total proton dan neutron di dalam inti atom", "Nomor atom menentukan jumlah elektron dalam molekul senyawa", "Semua atom dari unsur yang sama selalu memiliki nomor massa yang identik"],
+                correct: [0, 1],
+                explanation: "A benar: nomor atom (Z) = jumlah proton. Ini adalah 'identitas kartu' suatu unsur — karbon SELALU Z=6, oksigen SELALU Z=8. Jika jumlah proton berubah, maka unsurnya berubah. B benar: nomor massa (A) = proton + neutron. Jumlah neutron = A − Z. Contoh: karbon-12 memiliki Z=6, A=12, jadi neutron = 12−6 = 6. C salah: nomor atom menentukan jumlah elektron ATOM NETRAL, bukan molekul. D salah: atom dari unsur yang sama bisa memiliki jumlah neutron berbeda (isotop) sehingga nomor massanya berbeda. Contoh: C-12 dan C-14 keduanya karbon (Z=6) tetapi A berbeda."
+            },
+
+            {
+                id: 358,
+                topicId: 13,
+                topicName: "Atom",
+                type: "single",
+                question: "Perhatikan dua atom berikut: Atom A memiliki 6 proton, 6 neutron, dan 6 elektron. Atom B memiliki 6 proton, 8 neutron, dan 6 elektron. Hubungan antara Atom A dan Atom B adalah...",
+                options: ["Keduanya adalah atom dari unsur yang berbeda karena jumlah neutronnya berbeda", "Keduanya adalah ISOTOP dari unsur yang sama (karbon) karena memiliki jumlah proton yang sama tetapi jumlah neutron berbeda", "Atom B adalah ion dari Atom A karena memiliki lebih banyak neutron", "Atom A dan B tidak mungkin ada karena jumlah neutron harus selalu sama dengan proton"],
+                correct: [1],
+                explanation: "Isotop adalah atom-atom dari UNSUR YANG SAMA (jumlah proton sama) tetapi memiliki jumlah NEUTRON BERBEDA. Atom A: 6 proton, 6 neutron → Karbon-12 (C-12, nomor massa 12). Atom B: 6 proton, 8 neutron → Karbon-14 (C-14, nomor massa 14). Keduanya adalah karbon (Z=6) sehingga memiliki sifat kimia yang hampir identik. C-14 bersifat radioaktif (tidak stabil) sementara C-12 stabil. C-14 digunakan untuk penanggalan karbon dalam arkeologi untuk menentukan usia fosil dan artefak kuno."
+            },
+
+            {
+                id: 359,
+                topicId: 13,
+                topicName: "Atom",
+                type: "multiple",
+                question: "Pilih DUA contoh yang merupakan PERUBAHAN KIMIA (bukan perubahan fisika)!",
+                options: ["Besi berkarat — besi bereaksi dengan oksigen dan air membentuk besi oksida (karat) yang berbeda sifatnya dari besi asli", "Kayu terbakar menjadi abu dan asap — terbentuk zat-zat baru seperti karbon dioksida dan air", "Es yang mencair menjadi air — perubahan wujud tanpa menghasilkan zat baru", "Kertas yang disobek menjadi potongan kecil — bentuk berubah tetapi zat tetap sama"],
+                correct: [0, 1],
+                explanation: "Perubahan kimia ditandai oleh terbentuknya zat BARU dengan sifat berbeda dari zat asal, dan umumnya tidak mudah dibalikkan. A benar: karat (Fe₂O₃·xH₂O) adalah senyawa baru yang berbeda dari besi — warna, tekstur, dan sifatnya berbeda. Proses ini tidak bisa dibalik dengan cara fisika sederhana. B benar: pembakaran kayu menghasilkan CO₂, H₂O, dan abu — semua adalah zat baru yang berbeda dari kayu. Energi dilepaskan sebagai panas dan cahaya. C dan D adalah perubahan FISIKA: zat yang terbentuk sama dengan zat asal (air tetap H₂O, kertas sobek tetap kertas), hanya bentuk atau wujudnya yang berubah."
+            },
+
+            {
+                id: 360,
+                topicId: 13,
+                topicName: "Atom",
+                type: "single",
+                question: "Dalam tabel periodik unsur, unsur-unsur disusun berdasarkan kenaikan nomor atomnya. Unsur karbon (C) memiliki nomor atom 6. Ini berarti setiap atom karbon memiliki...",
+                options: ["6 neutron di dalam intinya", "6 proton di dalam intinya, dan dalam keadaan netral juga memiliki 6 elektron", "6 elektron di kulit terluar (elektron valensi) saja", "Massa atom sebesar 6 gram per mol"],
+                correct: [1],
+                explanation: "Nomor atom (Z) = jumlah PROTON di dalam inti. Untuk karbon: Z = 6, artinya setiap atom karbon memiliki 6 proton di intinya. Dalam keadaan netral (tidak bermuatan), jumlah elektron = jumlah proton = 6. Proton inilah yang menentukan identitas unsur — jika ada 6 proton, itu adalah karbon. Jika 7 proton, itu adalah nitrogen. Nomor atom bukan menunjukkan jumlah neutron (karbon bisa punya 6, 7, atau 8 neutron — isotop berbeda), bukan massa atom (karbon memiliki massa atom relatif 12,011), dan bukan hanya elektron valensi."
+            },
+
+            {
+                id: 361,
+                topicId: 13,
+                topicName: "Atom",
+                type: "multiple",
+                question: "Pilih DUA pernyataan yang benar tentang BENDA BERMUATAN LISTRIK dan interaksinya dengan benda netral!",
+                options: ["Benda bermuatan dapat menarik benda netral melalui proses induksi — muatan di dalam benda netral mengatur ulang posisinya", "Penggaris plastik yang digosok ke rambut dapat menarik potongan kertas kecil meskipun kertas tidak bermuatan", "Benda netral tidak pernah bisa dipengaruhi oleh benda bermuatan dalam kondisi apapun", "Benda bermuatan hanya bisa berinteraksi dengan benda yang memiliki muatan yang berlawanan, tidak dengan benda netral"],
+                correct: [0, 1],
+                explanation: "A benar: induksi listrik statis — saat benda bermuatan didekatkan ke benda netral, ia mendorong muatan sejenis di benda netral menjauh dan menarik muatan berlawanan ke sisi yang dekat. Sisi yang dekat benda bermuatan kini memiliki muatan berlawanan → terjadi gaya tarik. B benar: ini adalah demonstrasi klasik induksi. Penggaris bermuatan negatif (setelah digosok rambut) mendorong elektron di dalam kertas menjauh, membuat sisi kertas yang dekat penggaris bermuatan positif → kertas tertarik. C dan D salah: benda bermuatan BISA menarik benda netral melalui induksi — bukan hanya benda bermuatan berlawanan."
+            },
+
+            {
+                id: 362,
+                topicId: 13,
+                topicName: "Atom",
+                type: "single",
+                question: "Elektron adalah partikel bermuatan negatif yang bergerak di sekitar inti atom. Elektron yang berada di kulit terluar atom disebut elektron valensi. Mengapa elektron valensi sangat penting dalam kimia?",
+                options: ["Karena elektron valensi menentukan massa atom — lebih banyak valensi berarti atom lebih berat", "Karena elektron valensi menentukan sifat kimia atom dan bagaimana atom tersebut berikatan dengan atom lain untuk membentuk molekul atau senyawa", "Karena elektron valensi adalah satu-satunya elektron yang bisa dilihat dengan mikroskop", "Karena elektron valensi selalu berjumlah 8 pada setiap unsur"],
+                correct: [1],
+                explanation: "Elektron valensi adalah 'tangan' yang digunakan atom untuk berinteraksi dengan atom lain. Saat dua atom berikatan, mereka menggunakan elektron valensinya — baik dengan berbagi elektron (ikatan kovalen, seperti di H₂O dan CO₂) atau dengan mentransfer elektron (ikatan ionik, seperti di NaCl). Atom dengan 8 elektron valensi (oktet) sangat stabil dan tidak reaktif — inilah mengapa gas mulia (He, Ne, Ar) hampir tidak bereaksi. Atom-atom lain berusaha mencapai konfigurasi 8 elektron valensi melalui ikatan kimia — ini disebut aturan oktet."
+            },
+
+            {
+                id: 363,
+                topicId: 13,
+                topicName: "Atom",
+                type: "multiple",
+                question: "Garam dapur (NaCl) terbentuk dari ikatan antara natrium (Na) dan klor (Cl). Pilih DUA pernyataan yang benar tentang proses pembentukan NaCl!",
+                options: ["Na melepaskan 1 elektron valensinya, menjadi ion Na⁺ bermuatan positif", "Cl menerima 1 elektron dari Na, menjadi ion Cl⁻ bermuatan negatif", "Na dan Cl berbagi elektron secara sama rata dalam ikatan kovalen non-polar", "Na mendapatkan elektron dari Cl sehingga Na menjadi bermuatan negatif"],
+                correct: [0, 1],
+                explanation: "NaCl adalah contoh ikatan ionik — transfer elektron dari satu atom ke atom lain. Na (Z=11, konfigurasi elektron 2,8,1) memiliki 1 elektron valensi yang 'mudah dilepas' → melepasnya membentuk Na⁺ (konfigurasi stabil 2,8). Cl (Z=17, konfigurasi 2,8,7) membutuhkan 1 elektron lagi untuk mencapai oktet → menerima elektron dari Na membentuk Cl⁻ (konfigurasi stabil 2,8,8). Ion Na⁺ dan Cl⁻ yang berlawanan muatan saling tarik-menarik dengan gaya elektrostatik kuat → membentuk kristal NaCl (garam dapur). Ini adalah ikatan ionik, bukan kovalen."
+            },
+
+            {
+                id: 364,
+                topicId: 13,
+                topicName: "Atom",
+                type: "single",
+                question: "Larutan dibagi menjadi larutan asam, larutan basa, dan larutan netral berdasarkan nilai pH-nya. Larutan dengan pH = 7 bersifat netral. Hubungan antara nilai pH dan sifat larutan yang BENAR adalah...",
+                options: ["pH < 7 bersifat basa; pH > 7 bersifat asam; pH = 7 bersifat netral", "pH < 7 bersifat asam; pH > 7 bersifat basa; pH = 7 bersifat netral", "pH = 7 adalah nilai tertinggi yang mungkin dan menunjukkan larutan paling basa", "Semakin tinggi pH, semakin asam larutan tersebut"],
+                correct: [1],
+                explanation: "Skala pH mengukur keasaman larutan dari 0 hingga 14: pH 0–6,9 = asam (semakin kecil, semakin asam — cuka pH~3, jus lemon pH~2, baterai asam pH~1). pH 7 = netral (air murni). pH 7,1–14 = basa/alkali (semakin besar, semakin basa — sabun pH~9, air kapur pH~12, larutan NaOH pekat pH~14). Asam menghasilkan ion H⁺ dalam larutan; basa menghasilkan ion OH⁻. pH ditentukan oleh konsentrasi H⁺: pH = −log[H⁺]."
+            },
+
+            {
+                id: 365,
+                topicId: 13,
+                topicName: "Atom",
+                type: "multiple",
+                question: "Pilih DUA contoh larutan ASAM yang benar dari kehidupan sehari-hari!",
+                options: ["Cuka makan (asam asetat, CH₃COOH) yang digunakan dalam masakan", "Air jeruk nipis yang mengandung asam sitrat", "Air sabun yang digunakan untuk mencuci", "Larutan soda kue (natrium bikarbonat) yang digunakan dalam memasak"],
+                correct: [0, 1],
+                explanation: "A benar: cuka mengandung asam asetat (5–8%) yang memberikan rasa asam. Nilai pH cuka sekitar 2–3. B benar: jeruk nipis, lemon, dan buah jeruk lainnya mengandung asam sitrat yang memberikan rasa asam segar. pH jus lemon sekitar 2–2,5. C salah: sabun adalah basa (pH 9–10) — dibuat dari reaksi lemak dengan basa kuat (NaOH atau KOH). D salah: soda kue (NaHCO₃) bersifat sedikit basa (pH sekitar 8–9) — sering digunakan untuk menetralisir asam dalam masakan dan obat maag."
+            },
+
+            {
+                id: 366,
+                topicId: 13,
+                topicName: "Atom",
+                type: "single",
+                question: "Atom yang netral dapat kehilangan atau mendapatkan elektron untuk menjadi ION. Jika atom klor (Cl, 17 proton, 17 elektron) mendapatkan 1 elektron, ion yang terbentuk adalah...",
+                options: ["Cl⁺ — ion bermuatan positif dengan 17 proton dan 16 elektron", "Cl⁻ — ion bermuatan negatif dengan 17 proton dan 18 elektron", "Cl²⁻ — ion bermuatan negatif dengan 17 proton dan 19 elektron", "Atom klor tetap netral karena mendapat satu elektron"],
+                correct: [1],
+                explanation: "Saat atom mendapat elektron, jumlah elektron bertambah tetapi proton tetap sama → muatan menjadi negatif. Cl netral: 17 proton, 17 elektron → muatan nol. Cl mendapat 1 elektron: 17 proton, 18 elektron → muatan = 17 − 18 = −1 → ion Cl⁻ (ion klorida). Ion Cl⁻ memiliki konfigurasi elektron yang sama dengan gas mulia argon (Ar, 18 elektron) — sangat stabil. Ion Cl⁻ inilah yang ada di dalam garam dapur (NaCl) bersama ion Na⁺."
+            },
+
+            {
+                id: 367,
+                topicId: 13,
+                topicName: "Atom",
+                type: "multiple",
+                question: "Pilih DUA pernyataan yang benar tentang TABEL PERIODIK UNSUR secara dasar!",
+                options: ["Unsur-unsur dalam tabel periodik disusun berdasarkan kenaikan nomor atom dari kiri ke kanan dan dari atas ke bawah", "Unsur-unsur yang berada dalam satu kolom (golongan) yang sama memiliki sifat kimia yang serupa", "Semua unsur dalam satu baris (periode) memiliki massa atom yang identik", "Tabel periodik hanya berisi unsur-unsur logam dan tidak mencakup non-logam"],
+                correct: [0, 1],
+                explanation: "A benar: tabel periodik disusun berurutan dari Z=1 (hidrogen) hingga Z=118 (oganesson), membentuk periode (baris) berdasarkan jumlah kulit elektron dan golongan (kolom) berdasarkan jumlah elektron valensi. B benar: inilah keistimewaan tabel periodik — unsur segolongan memiliki jumlah elektron valensi sama → sifat kimia serupa. Contoh: Li, Na, K semuanya logam alkali yang bereaksi hebat dengan air karena masing-masing memiliki 1 elektron valensi. C salah: unsur dalam satu periode memiliki jumlah kulit elektron yang sama, bukan massa yang sama. D salah: tabel periodik mencakup semua unsur — logam, non-logam (karbon, oksigen, nitrogen, dll), dan metaloid."
+            },
+
+            {
+                id: 368,
+                topicId: 13,
+                topicName: "Atom",
+                type: "single",
+                question: "Inti atom sangat kecil namun sangat padat dan mengandung hampir seluruh massa atom. Ini pertama kali ditemukan melalui percobaan yang dilakukan oleh Ernest Rutherford. Apa yang dilakukan Rutherford dalam percobaannya?",
+                options: ["Rutherford memanaskan atom hingga sangat panas lalu mengamati cahaya yang dipancarkan untuk menentukan struktur inti", "Rutherford menembakkan partikel alfa ke lembaran emas tipis dan mengamati bahwa sebagian kecil partikel memantul balik — membuktikan atom memiliki inti yang kecil, padat, dan bermuatan positif", "Rutherford membelah atom menggunakan laser berenergi tinggi untuk melihat isinya", "Rutherford menggunakan magnet sangat kuat untuk memisahkan proton, neutron, dan elektron dari atom"],
+                correct: [1],
+                explanation: "Percobaan hamburan Geiger-Marsden (1909), dirancang oleh Rutherford: lembaran emas sangat tipis ditembaki partikel alfa (partikel bermuatan positif). Jika model Thomson ('plum pudding' — muatan positif tersebar merata) benar, semua partikel seharusnya melewati tanpa banyak pembelokan. Namun hasilnya mengejutkan: sebagian besar partikel lewat tanpa hambatan (atom sebagian besar ruang kosong), tetapi sebagian kecil memantul balik (ada sesuatu yang sangat padat dan positif di tengah). Ini membuktikan adanya INTI atom yang kecil, padat, bermuatan positif — merevolusi pemahaman tentang struktur atom."
+            },
+
+            {
+                id: 369,
+                topicId: 13,
+                topicName: "Atom",
+                type: "multiple",
+                question: "Pilih DUA pernyataan yang benar tentang RADIOAKTIVITAS secara sederhana!",
+                options: ["Radioaktivitas adalah kemampuan inti atom yang tidak stabil untuk memancarkan radiasi secara spontan", "Zat radioaktif dapat berbahaya bagi makhluk hidup karena radiasi yang dipancarkan dapat merusak sel dan DNA", "Semua unsur di alam bersifat radioaktif dan memancarkan radiasi berbahaya", "Radioaktivitas hanya ditemukan pada unsur-unsur buatan manusia di laboratorium, tidak di alam"],
+                correct: [0, 1],
+                explanation: "A benar: inti atom yang memiliki rasio proton-neutron yang tidak menguntungkan cenderung tidak stabil dan melepaskan energi berlebih dalam bentuk radiasi (alfa, beta, atau gamma) untuk mencapai konfigurasi yang lebih stabil. B benar: radiasi ionisasi dapat memutus ikatan kimia dalam molekul biologis, termasuk DNA. Kerusakan DNA yang tidak diperbaiki dapat menyebabkan mutasi, kanker, atau kematian sel. Itulah mengapa perlu perlindungan khusus saat bekerja dengan bahan radioaktif. C salah: hanya unsur-unsur tertentu dengan inti tidak stabil yang bersifat radioaktif. Banyak unsur seperti karbon-12, oksigen-16, dan nitrogen-14 sangat stabil. D salah: banyak unsur radioaktif ada di alam — uranium, thorium, radium, radon, dan bahkan karbon-14 (yang digunakan untuk penanggalan)."
+            },
+
+            {
+                id: 370,
+                topicId: 13,
+                topicName: "Atom",
+                type: "single",
+                question: "Gas mulia (Helium, Neon, Argon, dan lainnya) sangat sulit bereaksi dengan unsur lain — hampir tidak ada reaksi kimianya. Alasan utama gas mulia sangat stabil dan tidak reaktif adalah...",
+                options: ["Gas mulia terlalu berat sehingga tidak bisa bergerak untuk bereaksi dengan unsur lain", "Gas mulia memiliki 8 elektron valensi (atau 2 untuk helium) — kulit terluar sudah penuh dan sangat stabil, sehingga tidak perlu melepas atau menerima elektron", "Gas mulia berada dalam wujud gas sehingga tidak bisa bereaksi dengan zat padat atau cair", "Gas mulia hanya bereaksi pada suhu yang sangat tinggi dan tidak ada suhu cukup tinggi di Bumi"],
+                correct: [1],
+                explanation: "Stabilitas kimia suatu atom bergantung pada konfigurasi elektronnya — khususnya elektron di kulit terluar (valensi). Gas mulia memiliki kulit terluar yang PENUH: He memiliki 2 elektron (kulit K penuh), sedangkan Ne, Ar, Kr, Xe memiliki 8 elektron valensi (oktet). Konfigurasi ini sangat stabil dan membutuhkan energi sangat besar untuk diubah. Karena tidak perlu melepas atau menerima elektron, gas mulia hampir tidak membentuk ikatan kimia. Inilah mengapa helium digunakan untuk balon (tidak mudah terbakar seperti hidrogen) dan argon untuk pengelasan (tidak bereaksi dengan logam panas)."
+            },
+
+            {
+                id: 371,
+                topicId: 13,
+                topicName: "Atom",
+                type: "multiple",
+                question: "Pilih DUA pernyataan yang benar tentang perbedaan antara atom, molekul, dan ion!",
+                options: ["Atom adalah partikel terkecil dari unsur; molekul adalah gabungan dua atau lebih atom yang berikatan; ion adalah atom atau kelompok atom yang bermuatan listrik", "Air (H₂O) adalah molekul karena terdiri dari dua jenis atom yang berikatan (dua atom H dan satu atom O)", "Ion selalu bermuatan positif karena kehilangan elektron yang bermuatan negatif", "Atom oksigen (O) dan molekul oksigen (O₂) adalah hal yang persis sama dan tidak ada perbedaannya"],
+                correct: [0, 1],
+                explanation: "A benar: ini adalah tiga tingkat organisasi materi yang berbeda. Atom adalah unit paling dasar unsur. Molekul terbentuk saat atom-atom berikatan secara kovalen. Ion terbentuk saat atom kehilangan (→ kation, +) atau mendapatkan (→ anion, −) elektron. B benar: H₂O memiliki dua atom hidrogen dan satu atom oksigen yang terikat kovalen — ini adalah molekul. C salah: ion bisa bermuatan positif (kation, kehilangan elektron) ATAU negatif (anion, mendapatkan elektron). D salah: atom oksigen (O) sangat reaktif dan jarang ada sendiri di alam; molekul oksigen (O₂) adalah bentuk stabil oksigen yang kita hirup — keduanya sangat berbeda dalam sifat dan kereaktifan.",
+
+            }
+            
+            ] 
+            
+            // END questionBank
 
         // ═══════════════════════════════════════════════════════════════════
         // APP STATE
