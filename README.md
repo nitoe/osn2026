@@ -2,7 +2,7 @@
 
 Platform latihan soal **HOTS** berbasis kisi-kisi resmi OSN 2025 untuk siswa Sekolah Dasar. Tersedia sepenuhnya di browser tanpa perlu instalasi — cukup buka dan mulai berlatih.
 
-🔗 **[Buka Platform → (GitHub Pages)](https://your-username.github.io/your-repo-name)**
+🔗 **[Buka Platform → (GitHub Pages)]([https://your-username.github.io/your-repo-name](https://nitoe.github.io/osn2026/))**
 
 ---
 
@@ -10,7 +10,7 @@ Platform latihan soal **HOTS** berbasis kisi-kisi resmi OSN 2025 untuk siswa Sek
 
 | Mata Pelajaran | Status | Jumlah Soal | Topik |
 |---|---|---|---|
-| **IPA** (Ilmu Pengetahuan Alam) | ✅ Tersedia | 150 soal | 13 topik |
+| **IPA** (Ilmu Pengetahuan Alam) | ✅ Tersedia | 390 soal | 13 topik |
 | **IPS** (Ilmu Pengetahuan Sosial) | 🚧 Segera Hadir | — | — |
 
 ---
