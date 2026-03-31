@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OSN IPS SD — Latihan Olimpiade</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #F7F5F2;
+  --surface: #FFFFFF;
+  --surface2: #F2EFE9;
+  --border:  #E5DDD4;
+  --orange:  #D97706;
+  --orange-l:#FFF7ED;
+  --orange-b:#FED7AA;
+  --teal:    #0D9488;
+  --teal-l:  #F0FDFA;
+  --green:   #16A34A;
+  --green-l: #F0FDF4;
+  --red:     #DC2626;
+  --red-l:   #FEF2F2;
+  --blue:    #2563EB;
+  --blue-l:  #EFF6FF;
+  --text:    #1C1917;
+  --text2:   #57534E;
+  --text3:   #A8A29E;
+  --radius:  12px;
+  --shadow:  0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.05);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.screen { display: none; min-height: 100vh; }
+.screen.active { display: block; }
+
+/* ── HOME ── */
+#homeScreen { padding: 40px 20px 60px; }
+
+.home-inner {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.home-pill {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: var(--orange-l); border: 1px solid var(--orange-b);
+  color: var(--orange); border-radius: 100px;
+  padding: 5px 14px; font-size: 13px; font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.home-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 700; line-height: 1.2;
+  color: var(--text); margin-bottom: 10px;
+}
+.home-title span { color: var(--orange); }
+
+.home-sub {
+  color: var(--text2); font-size: 1rem;
+  line-height: 1.7; margin-bottom: 32px;
+  max-width: 520px;
+}
+
+.topic-list {
+  display: grid; gap: 8px; margin-bottom: 32px;
+}
+.topic-row {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px 16px;
+  display: flex; align-items: center; gap: 12px;
+  font-size: 14px; color: var(--text2);
+}
+.topic-dot {
+  width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;
+  background: var(--orange-l); color: var(--orange);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 12px;
+}
+.topic-name { flex: 1; font-weight: 500; color: var(--text); }
+.topic-count { font-size: 12px; color: var(--text3); font-weight: 600; }
+
+.settings-box {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 22px 24px; margin-bottom: 20px;
+}
+.settings-box h3 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px; font-weight: 700;
+  color: var(--text2); margin-bottom: 12px;
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.n-row { display: flex; gap: 8px; }
+.n-btn {
+  flex: 1; padding: 9px 0; background: var(--surface2);
+  border: 1.5px solid var(--border); border-radius: 8px;
+  font-family: 'DM Sans', sans-serif; font-size: 14px;
+  font-weight: 600; color: var(--text2); cursor: pointer; transition: all 0.15s;
+}
+.n-btn:hover { border-color: var(--orange); color: var(--orange); }
+.n-btn.sel { background: var(--orange-l); border-color: var(--orange); color: var(--orange); }
+
+.btn-start {
+  width: 100%; padding: 15px;
+  background: var(--orange); color: white;
+  border: none; border-radius: var(--radius);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 16px; font-weight: 700;
+  cursor: pointer; transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(217,119,6,0.3);
+}
+.btn-start:hover { background: #B45309; transform: translateY(-1px); box-shadow: 0 4px 14px rgba(217,119,6,0.4); }
+
+/* ── QUIZ ── */
+#quizScreen { padding: 0; }
+
+.quiz-topbar {
+  background: var(--surface); border-bottom: 1px solid var(--border);
+  padding: 12px 20px; display: flex; align-items: center; gap: 14px;
+  position: sticky; top: 0; z-index: 50;
+}
+.q-num { font-weight: 700; font-size: 14px; white-space: nowrap; color: var(--text2); }
+.q-num b { color: var(--text); }
+.prog-wrap { flex: 1; height: 6px; background: var(--surface2); border-radius: 100px; overflow: hidden; }
+.prog-fill { height: 100%; background: var(--orange); border-radius: 100px; transition: width 0.35s ease; }
+.topic-badge {
+  background: var(--orange-l); color: var(--orange); border: 1px solid var(--orange-b);
+  padding: 3px 10px; border-radius: 100px; font-size: 11px;
+  font-weight: 600; white-space: nowrap;
+}
+
+.quiz-body { max-width: 680px; margin: 0 auto; padding: 28px 20px; }
+
+.type-tag {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 100px;
+  margin-bottom: 14px; letter-spacing: 0.2px;
+}
+.type-tag.single { background: var(--blue-l); color: var(--blue); }
+.type-tag.multiple { background: var(--teal-l); color: var(--teal); }
+
+.q-text {
+  font-size: 1.05rem; line-height: 1.75; color: var(--text);
+  font-weight: 500; margin-bottom: 22px;
+}
+
+.opts { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+.opt {
+  background: var(--surface); border: 1.5px solid var(--border);
+  border-radius: 10px; padding: 13px 16px;
+  display: flex; align-items: flex-start; gap: 12px;
+  cursor: pointer; transition: all 0.15s; user-select: none;
+}
+.opt:hover { border-color: #D4C5B0; background: var(--surface2); }
+.opt.sel { background: var(--orange-l); border-color: var(--orange); }
+.opt.ok  { background: var(--green-l); border-color: var(--green); }
+.opt.no  { background: var(--red-l);   border-color: var(--red); }
+.opt.mis { background: var(--green-l); border-color: #86EFAC; opacity: 0.8; }
+
+.opt-key {
+  min-width: 26px; height: 26px; border-radius: 7px;
+  background: var(--surface2); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; color: var(--text2); flex-shrink: 0; margin-top: 1px;
+  transition: all 0.15s;
+}
+.opt.sel .opt-key { background: var(--orange); border-color: var(--orange); color: white; }
+.opt.ok  .opt-key { background: var(--green); border-color: var(--green); color: white; }
+.opt.no  .opt-key { background: var(--red); border-color: var(--red); color: white; }
+.opt-txt { font-size: 15px; line-height: 1.55; color: var(--text); flex: 1; }
+
+.quiz-foot {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.btn-prev {
+  padding: 10px 20px; border-radius: 8px; border: 1.5px solid var(--border);
+  background: var(--surface); color: var(--text2); font-family: 'DM Sans', sans-serif;
+  font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.15s;
+}
+.btn-prev:hover { border-color: #D4C5B0; color: var(--text); }
+.terjawab { font-size: 13px; color: var(--text3); font-weight: 500; }
+.btn-next {
+  padding: 11px 24px; border-radius: 8px; border: none;
+  background: var(--orange); color: white;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px;
+  font-weight: 700; cursor: pointer; transition: all 0.2s;
+}
+.btn-next:hover { background: #B45309; }
+.btn-next:disabled { opacity: 0.35; cursor: not-allowed; }
+
+/* ── RESULTS ── */
+#resultsScreen { padding: 40px 20px 60px; }
+.results-inner { max-width: 580px; margin: 0 auto; }
+
+.score-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px; padding: 32px 24px; text-align: center; margin-bottom: 20px;
+  box-shadow: var(--shadow);
+}
+.score-emoji { font-size: 2.4rem; margin-bottom: 10px; }
+.score-pct {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 3.2rem; font-weight: 700; color: var(--orange); line-height: 1;
+  margin-bottom: 6px;
+}
+.score-label { font-size: 14px; color: var(--text2); margin-bottom: 16px; }
+.score-ring-wrap { position: relative; width: 140px; height: 14px; background: var(--surface2); border-radius: 100px; margin: 0 auto 20px; overflow: hidden; }
+.score-ring-fill { height: 100%; background: linear-gradient(90deg, var(--orange), #F59E0B); border-radius: 100px; transition: width 1.2s ease; }
+
+.stat-row { display: flex; gap: 10px; margin-bottom: 20px; }
+.stat-box {
+  flex: 1; background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px 10px; text-align: center;
+}
+.stat-n { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.7rem; font-weight: 700; }
+.stat-n.g { color: var(--green); }
+.stat-n.r { color: var(--red); }
+.stat-n.b { color: var(--blue); }
+.stat-lbl { font-size: 11px; color: var(--text3); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+.topic-perf h3 {
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 700;
+  color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+.tp-item {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 13px 16px; margin-bottom: 8px;
+}
+.tp-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 7px; }
+.tp-name { font-size: 13px; font-weight: 600; color: var(--text); }
+.tp-score { font-size: 13px; font-weight: 700; }
+.tp-bar { height: 5px; background: var(--surface2); border-radius: 100px; }
+.tp-fill { height: 100%; border-radius: 100px; transition: width 0.9s ease 0.2s; }
+
+.res-actions { display: flex; gap: 10px; margin-top: 24px; }
+.btn-review {
+  flex: 1; padding: 13px; border-radius: 10px;
+  background: var(--surface); border: 1.5px solid var(--border);
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px;
+  font-weight: 700; color: var(--text2); cursor: pointer; transition: all 0.15s;
+}
+.btn-review:hover { border-color: var(--teal); color: var(--teal); background: var(--teal-l); }
+.btn-restart {
+  flex: 1; padding: 13px; border-radius: 10px; border: none;
+  background: var(--orange); color: white;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px;
+  font-weight: 700; cursor: pointer; transition: all 0.2s;
+}
+.btn-restart:hover { background: #B45309; }
+
+/* ── REVIEW ── */
+#reviewScreen { padding: 0; }
+.rev-topbar {
+  background: var(--surface); border-bottom: 1px solid var(--border);
+  padding: 12px 20px; display: flex; align-items: center; gap: 14px;
+  position: sticky; top: 0; z-index: 50;
+}
+.rev-topbar h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; font-weight: 700; flex: 1; }
+.btn-back {
+  padding: 8px 16px; border-radius: 8px; border: 1.5px solid var(--border);
+  background: var(--surface); font-family: 'DM Sans', sans-serif;
+  font-size: 13px; font-weight: 600; color: var(--text2); cursor: pointer; transition: all 0.15s;
+}
+.btn-back:hover { border-color: #D4C5B0; }
+.rev-body { max-width: 680px; margin: 0 auto; padding: 20px 20px 40px; }
+
+.rev-item {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; margin-bottom: 10px; overflow: hidden;
+}
+.rev-head {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 15px 16px; cursor: pointer; transition: background 0.15s;
+}
+.rev-head:hover { background: var(--surface2); }
+.rev-icon {
+  width: 28px; height: 28px; border-radius: 7px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700;
+}
+.rev-icon.ok { background: var(--green-l); color: var(--green); }
+.rev-icon.no { background: var(--red-l); color: var(--red); }
+.rev-meta { flex: 1; min-width: 0; }
+.rev-qn { font-size: 11px; color: var(--text3); font-weight: 600; letter-spacing: 0.4px; margin-bottom: 3px; }
+.rev-qt { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.5; }
+.rev-chev { color: var(--text3); transition: transform 0.2s; font-size: 16px; padding-top: 2px; }
+.rev-item.open .rev-chev { transform: rotate(180deg); }
+
+.rev-detail { display: none; padding: 0 16px 16px; }
+.rev-item.open .rev-detail { display: block; }
+.rev-opts { margin-bottom: 12px; }
+.rev-opt {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: 7px 10px; border-radius: 7px; margin-bottom: 5px;
+  font-size: 13px; line-height: 1.5;
+}
+.rev-opt.ok  { background: var(--green-l); color: #166534; }
+.rev-opt.no  { background: var(--red-l);   color: #991B1B; }
+.rev-opt.dim { color: var(--text3); }
+.rev-opt-lbl { font-weight: 700; flex-shrink: 0; width: 20px; }
+.rev-expl {
+  background: #FFFBEB; border: 1px solid #FDE68A;
+  border-radius: 9px; padding: 13px 15px;
+  font-size: 13px; line-height: 1.7; color: #78350F;
+}
+.rev-expl strong { color: #92400E; }
+
+/* ── TRANSITIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.screen.active { animation: fadeUp 0.35s ease; }
+
+@media (max-width: 520px) {
+  .quiz-topbar { gap: 10px; }
+  .topic-badge { display: none; }
+  .quiz-body { padding: 20px 14px; }
+  .rev-body { padding: 16px 12px 40px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HOME -->
+<div id="homeScreen" class="screen active">
+  <div class="home-inner">
+    <div class="home-pill">🗺️ Olimpiade Sains Nasional · IPS SD/MI</div>
+    <h1 class="home-title">Latihan OSN <span>IPS</span> Sekolah Dasar</h1>
+    <p class="home-sub">Pool 60 soal berbasis kisi-kisi OSN IPS 2025 — mencakup geografi, sosial, ekonomi, dan sejarah Indonesia. Soal dan pilihan jawaban diacak setiap sesi.</p>
+
+    <div class="topic-list" id="topicList"></div>
+
+    <div class="settings-box">
+      <h3>Jumlah soal per sesi</h3>
+      <div class="n-row" id="nRow">
+        <button class="n-btn" data-n="15">15 soal</button>
+        <button class="n-btn sel" data-n="20">20 soal</button>
+        <button class="n-btn" data-n="30">30 soal</button>
+        <button class="n-btn" data-n="60">Semua (60)</button>
+      </div>
+    </div>
+
+    <button class="btn-start" onclick="startQuiz()">Mulai Latihan →</button>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div id="quizScreen" class="screen">
+  <div class="quiz-topbar">
+    <div class="q-num">Soal <b id="qCur">1</b> / <b id="qTot">20</b></div>
+    <div class="prog-wrap"><div class="prog-fill" id="progFill"></div></div>
+    <div class="topic-badge" id="topicBadge"></div>
+  </div>
+  <div class="quiz-body">
+    <div class="type-tag" id="typeTag"></div>
+    <div class="q-text" id="qText"></div>
+    <div class="opts" id="optsList"></div>
+    <div class="quiz-foot">
+      <button class="btn-prev" id="btnPrev" onclick="navQ(-1)">← Sebelumnya</button>
+      <span class="terjawab" id="terjawab"></span>
+      <button class="btn-next" id="btnNext">Konfirmasi →</button>
+    </div>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div id="resultsScreen" class="screen">
+  <div class="results-inner">
+    <div class="score-card">
+      <div class="score-emoji" id="scoreEmoji">🎉</div>
+      <div class="score-pct" id="scorePct">—</div>
+      <div class="score-label" id="scoreLabel">—</div>
+      <div class="score-ring-wrap"><div class="score-ring-fill" id="scoreBar" style="width:0%"></div></div>
+    </div>
+    <div class="stat-row" id="statRow"></div>
+    <div class="topic-perf">
+      <h3>Capaian per Materi</h3>
+      <div id="topicPerf"></div>
+    </div>
+    <div class="res-actions">
+      <button class="btn-review" onclick="goReview()">📖 Lihat Penjelasan</button>
+      <button class="btn-restart" onclick="goHome()">🔄 Sesi Baru</button>
+    </div>
+  </div>
+</div>
+
+<!-- REVIEW -->
+<div id="reviewScreen" class="screen">
+  <div class="rev-topbar">
+    <button class="btn-back" onclick="goResults()">← Kembali</button>
+    <h2>Penjelasan Soal</h2>
+  </div>
+  <div class="rev-body" id="revBody"></div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════
+// BANK SOAL — 60 Soal OSN IPS SD (HOTS C4–C6)
+// ═══════════════════════════════════════════════════
+const QB = [
+
+// ── TOPIK 1: KETERAMPILAN & METODE ILMIAH (8 soal) ──
+{id:1,tid:1,topic:"Keterampilan & Metode Ilmiah",type:"single",
+q:"Seorang siswa ingin mengetahui dampak pembangunan pabrik terhadap kesejahteraan warga di desanya. Metode pengumpulan data yang PALING lengkap dan tepat adalah...",
+opts:["Membaca koran lokal satu minggu dan mencatat beritanya","Mengamati kondisi lingkungan, mewawancarai warga dan pekerja pabrik, serta menelaah data statistik ekonomi setempat","Bertanya kepada kepala desa saja karena ia paling tahu","Menyebarkan angket ke seluruh penduduk Indonesia"],
+ans:[1],
+expl:"Metode ilmiah sosial yang komprehensif menggabungkan berbagai teknik: observasi (pengamatan langsung), wawancara (mendapat perspektif berbeda dari warga dan pekerja), serta analisis data sekunder (statistik ekonomi). Menggunakan satu sumber saja akan menghasilkan gambaran yang tidak lengkap dan bias. Inilah prinsip triangulasi data dalam penelitian sosial."},
+
+{id:2,tid:1,topic:"Keterampilan & Metode Ilmiah",type:"multiple",
+q:"Sebuah laporan penelitian menyatakan: 'Desa A yang dekat dengan jalan raya memiliki pendapatan rata-rata 3× lebih tinggi dari Desa B yang terpencil.' Pilih SEMUA kesimpulan yang TIDAK dapat langsung ditarik dari data ini!",
+opts:["Jalan raya pasti menjadi satu-satunya penyebab perbedaan pendapatan","Desa B pasti lebih bahagia karena suasananya lebih tenang","Semua warga Desa A lebih kaya dari semua warga Desa B","Data menunjukkan korelasi antara aksesibilitas dan pendapatan"],
+ans:[0,1,2],
+expl:"D adalah satu-satunya simpulan yang BISA ditarik — data memang menunjukkan korelasi. Namun A salah: mungkin ada faktor lain (SDA, pendidikan, modal). B salah: kebahagiaan tidak terukur dari data pendapatan. C salah: data rata-rata tidak berarti setiap individu di Desa A lebih kaya dari setiap individu Desa B (distribusi pendapatan mungkin tidak merata). Ini melatih kemampuan membedakan korelasi dari kausalitas dan menghindari generalisasi berlebih."},
+
+{id:3,tid:1,topic:"Keterampilan & Metode Ilmiah",type:"single",
+q:"Seorang peneliti ingin membuktikan bahwa kenaikan harga beras di kota disebabkan oleh kekeringan di daerah pertanian. Hipotesis yang paling tepat untuk penelitian ini adalah...",
+opts:["Harga beras di kota selalu mahal","Kekeringan di daerah pertanian berdampak pada penurunan produksi beras yang menyebabkan kenaikan harga beras di kota","Petani tidak mau menjual beras mereka dengan harga murah","Kota membutuhkan lebih banyak beras daripada desa"],
+ans:[1],
+expl:"Hipotesis ilmiah yang baik menyatakan hubungan sebab-akibat yang dapat diuji antara dua variabel: variabel independen (kekeringan → produksi turun) dan variabel dependen (harga beras naik). Hipotesis ini dapat diuji dengan membandingkan data curah hujan, data produksi beras, dan data harga beras di periode yang sama. Opsi lain bukan hipotesis melainkan pernyataan umum yang tidak operasional."},
+
+{id:4,tid:1,topic:"Keterampilan & Metode Ilmiah",type:"multiple",
+q:"Pilih SEMUA yang termasuk data PRIMER dalam penelitian sosial!",
+opts:["Hasil wawancara langsung dengan petani setempat","Hasil observasi/pengamatan pasar tradisional yang dilakukan sendiri","Data sensus penduduk tahun lalu dari BPS","Angket yang disebarkan dan diisi oleh responden"],
+ans:[0,1,3],
+expl:"Data primer adalah data yang dikumpulkan langsung oleh peneliti dari sumbernya: wawancara (A), observasi langsung (B), dan angket/kuesioner (D). Data sekunder (C) adalah data yang sudah dikumpulkan dan dipublikasikan oleh pihak lain — seperti data BPS, buku, laporan resmi. Keduanya penting dalam penelitian sosial, namun memiliki kekuatan dan kelemahan berbeda."},
+
+{id:5,tid:1,topic:"Keterampilan & Metode Ilmiah",type:"single",
+q:"Peta choropleth menampilkan warna lebih gelap pada provinsi dengan kepadatan penduduk lebih tinggi. Apa yang dapat disimpulkan jika Jawa memiliki warna paling gelap di peta tersebut?",
+opts:["Pulau Jawa adalah pulau terluas di Indonesia","Pulau Jawa memiliki kepadatan penduduk tertinggi di Indonesia dibanding pulau-pulau lain","Kehidupan di Jawa paling makmur","Sumber daya alam Jawa paling melimpah"],
+ans:[1],
+expl:"Peta choropleth menggunakan gradasi warna untuk menampilkan perbedaan nilai suatu variabel per wilayah. Warna paling gelap berarti nilai tertinggi sesuai variabel yang dipetakan — yaitu kepadatan penduduk. Peta tidak memberikan informasi tentang luas, kemakmuran, atau SDA kecuali variabel tersebut yang dipetakan. Membaca peta dengan benar termasuk memahami legenda dan keterbatasan informasi yang ditampilkan."},
+
+{id:6,tid:1,topic:"Keterampilan & Metode Ilmiah",type:"multiple",
+q:"Peneliti sosial menggunakan wawancara mendalam (in-depth interview). Pilih SEMUA kelebihan metode ini!",
+opts:["Dapat menggali informasi lebih dalam dan alasan di balik jawaban responden","Fleksibel — peneliti dapat mengajukan pertanyaan lanjutan sesuai jawaban","Sangat efisien untuk mengumpulkan data dari ribuan responden sekaligus","Memungkinkan memahami perspektif dan pengalaman subjektif narasumber"],
+ans:[0,1,3],
+expl:"Wawancara mendalam unggul dalam kedalaman data: memungkinkan peneliti memahami 'mengapa' dan 'bagaimana' di balik perilaku sosial (A, D), serta memberi fleksibilitas mengikuti alur percakapan (B). Namun C adalah kelemahan, bukan kelebihan — wawancara mendalam sangat memakan waktu, sehingga hanya efektif untuk jumlah responden terbatas. Untuk data massal, survei/kuesioner lebih efisien."},
+
+{id:7,tid:1,topic:"Keterampilan & Metode Ilmiah",type:"single",
+q:"Setelah mengumpulkan data dan menganalisisnya, seorang peneliti mendapati hasilnya bertentangan dengan hipotesis awal. Sikap ilmiah yang PALING tepat adalah...",
+opts:["Mengubah data agar sesuai dengan hipotesis","Menyembunyikan hasil penelitian agar reputasinya terjaga","Menerima hasil data sebagai temuan ilmiah dan merevisi hipotesis atau teori yang ada","Mengulangi penelitian sampai hasilnya sesuai hipotesis"],
+ans:[2],
+expl:"Integritas ilmiah mengharuskan peneliti mengikuti data, bukan memaksakan data mengikuti harapan. Temuan yang bertentangan dengan hipotesis justru sangat berharga — ini yang mendorong kemajuan ilmu pengetahuan. Manipulasi data (A) adalah pelanggaran etika serius. Menyembunyikan hasil (B) bertentangan dengan prinsip transparansi sains. Ulangi penelitian (D) sah jika ada dugaan kesalahan prosedur, bukan karena hasil tidak sesuai harapan."},
+
+{id:8,tid:1,topic:"Keterampilan & Metode Ilmiah",type:"multiple",
+q:"Tabel menunjukkan pertumbuhan ekonomi Indonesia dari 2018–2023: 5.17%, 5.02%, -2.07%, 3.69%, 5.31%, 5.05%. Pilih SEMUA pernyataan yang didukung oleh data ini!",
+opts:["Pertumbuhan ekonomi Indonesia sempat negatif pada tahun 2020","Tren pertumbuhan ekonomi menunjukkan pemulihan setelah 2020","Indonesia mengalami krisis ekonomi permanen sejak 2020","Rata-rata pertumbuhan 2018–2023 masih positif"],
+ans:[0,1,3],
+expl:"A benar: -2.07% pada 2020 adalah pertumbuhan negatif (akibat pandemi COVID-19). B benar: 2021–2023 menunjukkan pemulihan bertahap. D benar: rata-rata = (5.17+5.02-2.07+3.69+5.31+5.05)/6 ≈ 22.17/6 ≈ 3.70% — positif. C salah: data justru menunjukkan pemulihan kuat, bukan krisis permanen. Kemampuan membaca dan menginterpretasikan data kuantitatif adalah keterampilan IPS penting di era modern."},
+
+// ── TOPIK 2: KENAMPAKAN ALAM, SOSIAL & BUDAYA (13 soal) ──
+{id:9,tid:2,topic:"Kenampakan Alam, Sosial & Budaya",type:"single",
+q:"Indonesia terletak di antara dua samudra (Hindia dan Pasifik) dan dua benua (Asia dan Australia). Posisi geografis ini memberikan keuntungan strategis berupa...",
+opts:["Indonesia menjadi negara dengan luas wilayah terbesar di Asia","Indonesia menjadi jalur perdagangan internasional yang sangat penting dan memiliki keanekaragaman hayati tinggi karena berada di persimpangan ekosistem","Indonesia memiliki cadangan minyak bumi terbesar di dunia","Indonesia tidak pernah mengalami bencana alam karena terlindungi dua benua"],
+ans:[1],
+expl:"Letak di persimpangan dua samudra menjadikan Indonesia jalur pelayaran internasional yang vital sejak berabad-abad lalu (Selat Malaka, Selat Sunda). Secara biologis, posisi antara Asia dan Australia menciptakan zona transisi (Garis Wallace dan Weber) yang menghasilkan keanekaragaman hayati luar biasa — fauna Asia (orangutan, gajah) bertemu fauna Australasia (kanguru, kasuari). Indonesia memiliki luas wilayah yang besar, tapi bukan yang terbesar, dan justru rawan bencana karena berada di Ring of Fire."},
+
+{id:10,tid:2,topic:"Kenampakan Alam, Sosial & Budaya",type:"multiple",
+q:"Pilih SEMUA komponen yang WAJIB ada dalam sebuah peta yang baik dan lengkap!",
+opts:["Judul peta","Skala peta","Legenda (keterangan simbol)","Tanda arah/mata angin"],
+ans:[0,1,2,3],
+expl:"Peta yang baik dan lengkap harus memiliki: (A) Judul — menjelaskan isi peta; (B) Skala — perbandingan jarak di peta dengan jarak sesungguhnya di lapangan; (C) Legenda — menjelaskan makna setiap simbol, warna, dan gambar; (D) Tanda arah — menunjukkan orientasi peta (biasanya utara). Komponen lain yang idealnya ada: koordinat geografis, tahun pembuatan, dan sumber data. Semua komponen ini memastikan pembaca dapat membaca peta dengan benar dan akurat."},
+
+{id:11,tid:2,topic:"Kenampakan Alam, Sosial & Budaya",type:"single",
+q:"Skala peta 1:500.000. Jarak antara kota A dan kota B di peta adalah 4 cm. Berapa jarak sebenarnya di lapangan?",
+opts:["4 km","20 km","200 km","2.000 km"],
+ans:[1],
+expl:"Jarak sebenarnya = jarak di peta × penyebut skala = 4 cm × 500.000 = 2.000.000 cm = 20.000 m = 20 km. Skala 1:500.000 berarti 1 cm di peta mewakili 500.000 cm (5 km) di lapangan. Kemampuan menghitung skala peta adalah keterampilan dasar yang dibutuhkan dalam membaca peta topografi, perencanaan perjalanan, dan berbagai profesi seperti survei tanah dan perencanaan wilayah."},
+
+{id:12,tid:2,topic:"Kenampakan Alam, Sosial & Budaya",type:"multiple",
+q:"Indonesia sering mengalami gempa bumi, tsunami, dan letusan gunung berapi. Pilih SEMUA penyebab tingginya frekuensi bencana geologi ini!",
+opts:["Indonesia berada di Cincin Api Pasifik (Ring of Fire) — pertemuan beberapa lempeng tektonik aktif","Wilayah Indonesia sebagian besar berupa kepulauan yang mudah terkena bencana","Indonesia terletak di zona subduksi — lempeng samudra menunjam di bawah lempeng benua menghasilkan energi besar","Indonesia memiliki banyak gunung api aktif akibat proses subduksi yang menghasilkan magma"],
+ans:[0,2,3],
+expl:"A benar: Ring of Fire adalah sabuk gempa dan gunung api yang mengelilingi Samudra Pasifik. C benar: proses subduksi (lempeng menunjam) menghasilkan gesekan, tekanan, dan energi yang dilepaskan sebagai gempa. D benar: subduksi menghasilkan magma yang naik membentuk gunung api. B tidak tepat — kepulauan bukan penyebab, melainkan fakta geografis. Justru letak di batas lempeng tektonik aktif yang menjadi penyebab utama."},
+
+{id:13,tid:2,topic:"Kenampakan Alam, Sosial & Budaya",type:"single",
+q:"Perhatikan kondisi berikut: daerah pegunungan, tanah subur, curah hujan tinggi, suhu sejuk. Profesi masyarakat yang PALING sesuai dengan kondisi ini adalah...",
+opts:["Nelayan dan pembudidaya ikan laut","Petani sayuran, pekebun teh/kopi, dan wisata alam","Penambang minyak bumi dan gas","Pelaut dan pedagang antar pulau"],
+ans:[1],
+expl:"Bentang alam sangat mempengaruhi profesi masyarakat. Daerah pegunungan dengan tanah subur dan curah hujan tinggi sangat cocok untuk pertanian tanaman hortikultura (sayuran, buah), perkebunan seperti teh dan kopi yang memang tumbuh optimal di ketinggian dan suhu sejuk, serta pariwisata alam. Nelayan (A) sesuai dengan kondisi pesisir laut. Tambang minyak (C) sesuai dengan daerah yang memiliki cadangan hidrokarbon, bukan dipengaruhi topografi seperti ini."},
+
+{id:14,tid:2,topic:"Kenampakan Alam, Sosial & Budaya",type:"multiple",
+q:"Pilih SEMUA pernyataan yang BENAR tentang dampak urbanisasi bagi daerah asal (desa)!",
+opts:["Berkurangnya tenaga kerja produktif di sektor pertanian desa","Terjadi pengiriman uang (remitansi) dari kota ke keluarga di desa yang membantu ekonomi lokal","Meningkatnya jumlah penduduk desa secara signifikan","Berpotensi terjadi penuaan penduduk desa karena generasi muda banyak yang pergi ke kota"],
+ans:[0,1,3],
+expl:"Urbanisasi menyebabkan: berkurangnya tenaga kerja muda di pertanian (A) karena mereka pindah ke kota; kiriman uang dari perantau (B) yang menjadi sumber pendapatan penting bagi keluarga di desa; dan penuaan demografis desa (D) karena yang pergi umumnya usia produktif 15–35 tahun. C salah — urbanisasi justru mengurangi populasi desa, bukan meningkatkannya. Ini adalah fenomena penting dalam dinamika kependudukan Indonesia."},
+
+{id:15,tid:2,topic:"Kenampakan Alam, Sosial & Budaya",type:"single",
+q:"Indonesia memiliki dua musim utama — kemarau dan hujan — yang dipengaruhi angin muson. Pada bulan Oktober–April, angin muson yang bertiup membawa uap air dari Samudra Hindia, menyebabkan musim hujan di sebagian besar Indonesia. Angin tersebut adalah...",
+opts:["Angin muson barat daya","Angin muson barat laut","Angin muson tenggara","Angin muson timur laut"],
+ans:[1],
+expl:"Angin muson barat laut bertiup dari Benua Asia (yang sedang musim dingin, bertekanan tinggi) menuju Benua Australia (musim panas, bertekanan rendah), melewati Samudra Hindia dan membawa banyak uap air. Saat menyeberangi lautan, angin ini mengumpulkan kelembaban dan turun sebagai hujan di Indonesia (Oktober–April = musim hujan). Sebaliknya, Juni–September angin muson tenggara dari Australia yang kering menyebabkan musim kemarau."},
+
+{id:16,tid:2,topic:"Kenampakan Alam, Sosial & Budaya",type:"multiple",
+q:"Garis Wallace (antara Kalimantan-Sulawesi dan Bali-Lombok) membagi fauna Indonesia menjadi dua zona. Pilih SEMUA pernyataan yang BENAR tentang zona fauna ini!",
+opts:["Di barat Garis Wallace, fauna bercorak Asia (harimau, orangutan, badak, gajah)","Di timur Garis Wallace, fauna bercorak Australasia (kanguru pohon, kasuari, cendrawasih)","Komodo ditemukan di zona tengah (Wallacea) yang memiliki fauna campuran unik","Semua spesies di Indonesia dapat ditemukan di seluruh wilayah tanpa pembatas geografis"],
+ans:[0,1,2],
+expl:"A benar: zona Asia meliputi Sumatera, Jawa, Kalimantan, Bali. B benar: zona Australasia meliputi Papua dan Maluku. C benar: Wallacea (Sulawesi, Lombok, Sumbawa, Flores, Komodo) adalah zona transisi dengan fauna unik seperti anoa, babirusa, dan komodo yang tidak termasuk murni Asia maupun Australasia. D salah: Garis Wallace dan Weber adalah pembatas riil distribusi fauna berdasarkan sejarah evolusi dan penghalang geografis lautan dalam."},
+
+{id:17,tid:2,topic:"Kenampakan Alam, Sosial & Budaya",type:"single",
+q:"Reklamasi pantai (penimbunan laut untuk menjadi daratan) sering dilakukan di kota-kota besar pesisir Indonesia. Dampak negatif yang PALING signifikan dari reklamasi bagi lingkungan laut adalah...",
+opts:["Meningkatnya produksi ikan karena luasan laut bertambah","Rusaknya ekosistem terumbu karang dan padang lamun yang menjadi habitat dan tempat pemijahan ikan","Memudahkan nelayan untuk berlabuh","Meningkatnya keanekaragaman hayati laut di sekitar reklamasi"],
+ans:[1],
+expl:"Reklamasi menimbun dasar laut dengan material padat → menghancurkan terumbu karang dan padang lamun yang terbentuk selama ratusan tahun. Terumbu karang adalah 'rumah' bagi sekitar 25% spesies laut dunia dan tempat pemijahan ikan. Penimbunan juga mengubah arus laut, meningkatkan kekeruhan air, dan mencemari ekosistem sekitarnya. Dampak sosialnya: nelayan justru kehilangan area tangkap ikan, bertentangan dengan klaim A dan C."},
+
+{id:18,tid:2,topic:"Kenampakan Alam, Sosial & Budaya",type:"multiple",
+q:"Indonesia kaya akan sumber daya alam. Pilih SEMUA pasangan wilayah dan SDA unggulannya yang BENAR!",
+opts:["Kalimantan Timur — batu bara dan minyak bumi","Papua — emas dan tembaga (Tambang Grasberg Freeport)","Sumatera Selatan — kelapa sawit dan karet","Sulawesi Utara — tambang nikel terbesar di dunia"],
+ans:[0,1,2],
+expl:"A benar: Kalimantan Timur dan Selatan adalah penghasil batu bara terbesar Indonesia; juga memiliki cadangan minyak dan gas. B benar: Tambang Grasberg di Papua (dikelola PT Freeport Indonesia) adalah salah satu tambang emas dan tembaga terbesar di dunia. C benar: Sumatera (terutama Sumatera Selatan, Jambi, Riau) adalah produsen karet alam dan kelapa sawit terbesar. D salah: nikel terbesar di Indonesia ada di Sulawesi TENGAH dan TENGGARA (Morowali, Kolaka) — bukan Sulawesi Utara."},
+
+{id:19,tid:2,topic:"Kenampakan Alam, Sosial & Budaya",type:"single",
+q:"Suatu wilayah mengalami alih fungsi lahan besar-besaran dari hutan menjadi perkebunan sawit. Dampak jangka panjang yang PALING signifikan bagi kondisi sosial masyarakat sekitar adalah...",
+opts:["Meningkatnya keanekaragaman hayati di wilayah tersebut","Terjadinya konflik lahan antara perusahaan perkebunan dan masyarakat adat yang kehilangan akses ke hutan, serta perubahan mata pencaharian tradisional","Meningkatnya curah hujan karena pohon sawit banyak menguapkan air","Berkurangnya pencemaran udara karena sawit bukan pabrik"],
+ans:[1],
+expl:"Alih fungsi hutan ke perkebunan skala besar sering menyebabkan: konflik lahan dengan masyarakat adat (yang secara tradisional bergantung pada hutan untuk berburu, meramu, dan ritual adat); hilangnya mata pencaharian tradisional; serta perubahan struktur sosial komunitas lokal. Secara lingkungan, perkebunan monokultur justru mengurangi keanekaragaman hayati dan kemampuan penyimpanan air. Isu ini sangat relevan di Kalimantan dan Sumatera."},
+
+{id:20,tid:2,topic:"Kenampakan Alam, Sosial & Budaya",type:"multiple",
+q:"Perubahan iklim (climate change) berdampak pada kondisi alam dan sosial Indonesia. Pilih SEMUA dampak yang PALING mungkin terjadi di Indonesia!",
+opts:["Kenaikan permukaan air laut mengancam pulau-pulau kecil dan kota pesisir rendah","Perubahan pola curah hujan mempengaruhi musim tanam pertanian","Indonesia berada di garis khatulistiwa sehingga sepenuhnya kebal dari perubahan iklim","Meningkatnya frekuensi dan intensitas bencana hidrometeorologi (banjir, kekeringan, badai)"],
+ans:[0,1,3],
+expl:"A benar: Indonesia memiliki 17.000+ pulau, banyak yang elevasi rendah — kenaikan laut mengancam Jakarta, Semarang, Makassar, dan pulau-pulau kecil. B benar: petani tradisional yang mengandalkan pola musim untuk menanam sudah merasakan ketidakpastian musim hujan. D benar: perubahan iklim meningkatkan energi atmosfer → cuaca ekstrem lebih sering. C salah: negara khatulistiwa JUSTRU lebih rentan — suhu yang sudah tinggi akan semakin ekstrem, mempengaruhi pertanian dan kesehatan."},
+
+{id:21,tid:2,topic:"Kenampakan Alam, Sosial & Budaya",type:"single",
+q:"Wilayah pantai utara Jawa (Pantura) mengalami penurunan tanah (land subsidence) yang signifikan, beberapa wilayah turun hingga 25 cm per tahun. Salah satu penyebab utama fenomena ini adalah...",
+opts:["Gelombang pasang dari Laut Jawa yang mengikis tanah","Pengambilan air tanah berlebihan (over-extraction) untuk kebutuhan industri dan rumah tangga yang menyebabkan tanah di atasnya amblas","Gempa bumi yang berulang menyebabkan tanah terkompresi","Pengaruh gravitasi bulan yang menarik tanah Jawa ke bawah"],
+ans:[1],
+expl:"Land subsidence di Pantura Jawa disebabkan terutama oleh pengambilan air tanah berlebihan — ketika air tanah dipompa, ruang pori di dalam lapisan sedimen mengosong dan tanah di atasnya amblas karena tidak ada penyangga. Jakarta dan Semarang adalah contoh paling parah — beberapa kawasan Jakarta sudah berada di bawah permukaan laut. Masalah ini diperparah oleh beban bangunan dan pembangunan di atas lahan gambut. Solusi jangka panjang: penyediaan air perpipaan yang memadai dan regulasi pompa air tanah."},
+
+// ── TOPIK 3: KERAGAMAN, INTERAKSI & PERUBAHAN SOSIAL (13 soal) ──
+{id:22,tid:3,topic:"Keragaman, Interaksi & Perubahan Sosial",type:"single",
+q:"Seorang anak baru di lingkungan sekolah mulai menyesuaikan diri dengan tata cara, nilai, dan kebiasaan di sekolah barunya. Proses sosial yang sedang berlangsung adalah...",
+opts:["Asimilasi — dua budaya yang melebur menjadi satu","Sosialisasi — proses mempelajari nilai, norma, dan aturan dalam kelompok baru","Akulturasi — perpaduan dua kebudayaan berbeda","Disintegrasi — perpecahan kelompok sosial"],
+ans:[1],
+expl:"Sosialisasi adalah proses di mana individu mempelajari dan menginternalisasi nilai, norma, aturan, dan perilaku yang diperlukan untuk menjadi anggota masyarakat/kelompok tertentu. Sosialisasi tidak hanya terjadi di masa kecil — ia berlangsung seumur hidup setiap kali kita memasuki lingkungan baru (sekolah baru, kerja baru, pindah daerah). Asimilasi terjadi saat dua kelompok budaya berbeda menyatu; akulturasi ketika dua budaya berinteraksi tetapi masing-masing mempertahankan identitasnya."},
+
+{id:23,tid:3,topic:"Keragaman, Interaksi & Perubahan Sosial",type:"multiple",
+q:"Keberagaman suku, agama, bahasa, dan budaya di Indonesia berpotensi menjadi kekuatan sekaligus tantangan. Pilih SEMUA yang merupakan KEKUATAN dari keberagaman Indonesia!",
+opts:["Kekayaan budaya yang menjadi aset pariwisata dan identitas nasional yang unik","Keberagaman mendorong inovasi karena perspektif yang berbeda menghasilkan ide-ide baru","Keberagaman otomatis mencegah terjadinya konflik sosial","Kearifan lokal yang berbeda-beda menjadi solusi lokal untuk masalah lingkungan dan sosial"],
+ans:[0,1,3],
+expl:"A benar: budaya Indonesia — batik, tari, musik, kuliner, arsitektur — adalah daya tarik wisata global dan kebanggaan nasional. B benar: penelitian menunjukkan tim yang beragam cenderung lebih kreatif dan inovatif. D benar: kearifan lokal (sasi di Maluku untuk konservasi, subak di Bali untuk irigasi) adalah contoh solusi berbasis budaya yang efektif. C salah: keberagaman tanpa pengelolaan yang baik justru BISA menjadi sumber konflik — dibutuhkan toleransi, dialog, dan institusi yang adil untuk menjaga kerukunan."},
+
+{id:24,tid:3,topic:"Keragaman, Interaksi & Perubahan Sosial",type:"single",
+q:"Norma hukum berbeda dari norma sosial lainnya dalam satu hal yang sangat penting, yaitu...",
+opts:["Norma hukum hanya berlaku untuk orang dewasa","Norma hukum memiliki sanksi yang tegas, tertulis, dan dipaksakan oleh negara melalui aparat hukum","Norma hukum selalu sejalan dengan nilai agama","Norma hukum lebih tua dari norma adat dan norma susila"],
+ans:[1],
+expl:"Perbedaan utama norma hukum dari norma sosial lain (adat, susila, agama): (1) tertulis dan dikodifikasikan secara formal; (2) sanksinya tegas dan ditentukan (penjara, denda, dll.); (3) pelaksanaannya dijamin oleh kekuatan negara (polisi, pengadilan). Norma adat memiliki sanksi sosial (dikucilkan, dipermalukan); norma agama memiliki sanksi spiritual. Norma hukum berlaku untuk semua warga negara tanpa memandang usia, agama, atau status sosial."},
+
+{id:25,tid:3,topic:"Keragaman, Interaksi & Perubahan Sosial",type:"multiple",
+q:"Globalisasi membawa berbagai perubahan ke masyarakat Indonesia. Pilih SEMUA dampak NEGATIF globalisasi yang perlu diwaspadai!",
+opts:["Masuknya budaya asing yang dapat menggeser budaya lokal jika tidak disaring dengan kritis","Meningkatnya konsumerisme — pola hidup boros dan tidak produktif akibat pengaruh iklan global","Memudahkan akses informasi dan ilmu pengetahuan dari seluruh dunia","Munculnya hoaks dan disinformasi yang menyebar sangat cepat melalui media sosial"],
+ans:[0,1,3],
+expl:"A benar: budaya pop global (K-pop, gaya hidup barat) dapat menggeser minat pada seni dan tradisi lokal jika tidak ada penguatan identitas budaya. B benar: iklan global mendorong konsumsi produk impor berlebihan. D benar: kecepatan penyebaran informasi yang tinggi membuat hoaks dan ujaran kebencian menyebar lebih luas dan cepat dari sebelumnya. C adalah dampak POSITIF — kemudahan akses informasi dan pengetahuan adalah manfaat nyata globalisasi yang perlu dimanfaatkan."},
+
+{id:26,tid:3,topic:"Keragaman, Interaksi & Perubahan Sosial",type:"single",
+q:"Di sebuah pasar, pedagang dan pembeli tawar-menawar harga. Bentuk interaksi sosial yang sedang terjadi adalah...",
+opts:["Kooperasi (kerja sama) — keduanya bekerja sama membangun pasar","Kompetisi (persaingan) — pedagang bersaing satu sama lain","Akomodasi — proses mencapai kesepakatan melalui negosiasi dan kompromi","Konflik — dua pihak berusaha mengalahkan satu sama lain"],
+ans:[2],
+expl:"Tawar-menawar adalah contoh klasik akomodasi dalam bentuk negosiasi/kompromi. Akomodasi adalah proses sosial di mana dua pihak yang memiliki kepentingan berbeda (penjual ingin harga tinggi; pembeli ingin harga rendah) mencapai kesepakatan yang dapat diterima keduanya. Bentuk akomodasi lain: mediasi, arbitrasi, toleransi, konsiliasi. Ini berbeda dari konflik (tidak ada kesepakatan) atau kompetisi (tanpa berinteraksi langsung satu sama lain)."},
+
+{id:27,tid:3,topic:"Keragaman, Interaksi & Perubahan Sosial",type:"multiple",
+q:"Pilih SEMUA contoh lembaga sosial yang memiliki fungsi UTAMA dalam bidang pendidikan!",
+opts:["Sekolah formal dari SD hingga perguruan tinggi","Pesantren dan madrasah sebagai lembaga pendidikan berbasis agama","Rumah sakit dan puskesmas","Keluarga sebagai lembaga pendidikan pertama dan utama bagi anak"],
+ans:[0,1,3],
+expl:"Pendidikan tidak hanya terjadi di sekolah formal. Keluarga (D) adalah lembaga pendidikan pertama — nilai, bahasa, norma dasar dipelajari dari keluarga. Sekolah formal (A) dan pesantren/madrasah (B) adalah lembaga pendidikan formal berbeda yang keduanya berfungsi mendidik. Rumah sakit (C) adalah lembaga kesehatan — fungsi utamanya bukan pendidikan meski ada aspek edukasi kesehatan di dalamnya. Lembaga sosial memiliki fungsi yang berbeda-beda dan saling melengkapi."},
+
+{id:28,tid:3,topic:"Keragaman, Interaksi & Perubahan Sosial",type:"single",
+q:"Seorang anak yang tumbuh di lingkungan dengan nilai-nilai gotong royong cenderung tumbuh menjadi orang yang kooperatif dan peduli lingkungan. Agen sosialisasi yang paling berperan dalam proses ini adalah...",
+opts:["Media massa dan internet","Lingkungan tempat tinggal dan komunitas lokal (peer group, tetangga, adat setempat)","Pemerintah pusat melalui kebijakan nasional","Perusahaan multinasional yang beroperasi di daerah tersebut"],
+ans:[1],
+expl:"Agen sosialisasi adalah pihak-pihak yang berperan dalam menanamkan nilai dan norma kepada individu. Untuk internalisasi nilai seperti gotong royong, komunitas lokal (tetangga, RT, adat) adalah agen yang paling efektif karena interaksi yang intens, berulang, dan konsisten sejak kecil. Agen sosialisasi utama lainnya: keluarga, sekolah, kelompok bermain, media massa. Setiap agen memberikan pengaruh berbeda pada tahap perkembangan individu yang berbeda."},
+
+{id:29,tid:3,topic:"Keragaman, Interaksi & Perubahan Sosial",type:"multiple",
+q:"Mobilitas sosial adalah perpindahan posisi seseorang dalam struktur sosial. Pilih SEMUA contoh mobilitas sosial VERTIKAL ke ATAS!",
+opts:["Seorang petani anaknya berhasil menjadi dokter setelah kuliah dengan beasiswa","Seorang karyawan biasa dipromosikan menjadi manajer karena prestasinya","Seorang pedagang kaki lima pindah berjualan ke kota lain","Anak buruh pabrik mendapat beasiswa dan menjadi pengusaha sukses"],
+ans:[0,1,3],
+expl:"Mobilitas sosial vertikal ke atas terjadi ketika seseorang naik ke strata sosial yang lebih tinggi (status, pendidikan, ekonomi, kekuasaan). A, B, D semuanya menunjukkan peningkatan status sosial yang signifikan. C adalah mobilitas HORIZONTAL (geografis) — pindah lokasi tanpa perubahan status sosial yang signifikan (tetap pedagang kaki lima, hanya beda kota). Faktor pendorong mobilitas ke atas di Indonesia: pendidikan, kerja keras, jaringan sosial, dan kesempatan ekonomi."},
+
+{id:30,tid:3,topic:"Keragaman, Interaksi & Perubahan Sosial",type:"single",
+q:"Pemilu dan pilkada langsung di Indonesia merupakan contoh partisipasi politik masyarakat. Dampak positif sistem ini bagi kehidupan demokrasi adalah...",
+opts:["Memastikan pemenang pemilu selalu pilihan terbaik secara objektif","Memberi rakyat hak untuk memilih pemimpin secara langsung, sehingga pemimpin harus bertanggung jawab kepada rakyat yang memilihnya","Menghapuskan perbedaan pendapat dalam masyarakat","Menjamin semua kebijakan pemerintah pasti menguntungkan seluruh rakyat"],
+ans:[1],
+expl:"Demokrasi langsung memberi kedaulatan politik kepada rakyat — pemimpin dipilih bukan ditunjuk dari atas. Akuntabilitas meningkat karena pemimpin tahu harus mempertanggungjawabkan kinerjanya kepada pemilih di periode berikutnya. Ini tidak menjamin pemimpin 'terbaik' secara objektif (A) — pemilu bisa dipengaruhi popularitas, modal, atau kampanye. Perbedaan pendapat (C) adalah sehat dalam demokrasi dan tidak hilang. Tidak ada sistem yang menjamin kebijakan selalu menguntungkan semua pihak (D)."},
+
+{id:31,tid:3,topic:"Keragaman, Interaksi & Perubahan Sosial",type:"multiple",
+q:"Toleransi adalah nilai penting dalam masyarakat Indonesia yang majemuk. Pilih SEMUA contoh perilaku TOLERAN yang NYATA!",
+opts:["Menghormati teman yang sedang berpuasa dengan tidak makan di depannya","Membantu tetangga yang merayakan hari raya agama lain dalam menyiapkan acara","Menganggap semua agama dan keyakinan itu sama saja sehingga tidak perlu dihargai perbedaannya","Ikut serta dalam kegiatan kerja bakti bersama warga dari berbagai latar belakang"],
+ans:[0,1,3],
+expl:"Toleransi bukan berarti menganggap semua hal sama (C salah) — itu adalah relativisme berlebihan. Toleransi sejati berarti: menghormati hak orang lain untuk berbeda (A), bersedia membantu orang lain menjalankan keyakinannya meskipun berbeda (B), dan berpartisipasi bersama dalam kehidupan bermasyarakat tanpa memandang perbedaan (D). Ketiganya adalah manifestasi toleransi aktif yang membangun kohesi sosial."},
+
+{id:32,tid:3,topic:"Keragaman, Interaksi & Perubahan Sosial",type:"single",
+q:"Sebuah keluarga pindah dari pedesaan ke kota besar dan mulai mengadopsi gaya hidup perkotaan — berpakaian berbeda, berbicara bahasa yang berbeda, dan merayakan tradisi dengan cara yang berbeda dari sebelumnya. Proses sosial yang terjadi adalah...",
+opts:["Difusi — penyebaran unsur budaya dari satu tempat ke tempat lain","Akulturasi — dua budaya berbeda berinteraksi dan saling mempengaruhi","Revolusi sosial — perubahan drastis dan mendadak dalam masyarakat","Disintegrasi — runtuhnya tatanan sosial"],
+ans:[1],
+expl:"Akulturasi terjadi ketika dua budaya berbeda berinteraksi dan saling mempengaruhi, sementara masing-masing masih mempertahankan sebagian identitasnya. Keluarga ini menerima budaya kota sambil (kemungkinan) masih mempertahankan sebagian tradisi desa. Ini berbeda dari asimilasi (di mana budaya asli sepenuhnya diserap) dan difusi (penyebaran unsur budaya saja tanpa interaksi langsung individu). Akulturasi adalah hal wajar yang terjadi pada jutaan keluarga yang berpindah dalam dinamika Indonesia modern."},
+
+{id:33,tid:3,topic:"Keragaman, Interaksi & Perubahan Sosial",type:"multiple",
+q:"Konflik sosial dapat diselesaikan dengan berbagai cara. Pilih SEMUA metode penyelesaian konflik yang KONSTRUKTIF!",
+opts:["Mediasi — menghadirkan pihak ketiga yang netral untuk membantu kedua pihak mencapai kesepakatan","Negosiasi — kedua pihak berdialog langsung untuk menemukan solusi yang dapat diterima bersama","Arbitrasi — pihak ketiga yang berwenang memberikan keputusan yang mengikat","Aksi kekerasan untuk memaksa pihak lain menyerah"],
+ans:[0,1,2],
+expl:"A, B, C adalah metode penyelesaian konflik yang konstruktif dan diakui secara hukum maupun sosial. Mediasi melibatkan mediator netral yang memfasilitasi dialog. Negosiasi mengandalkan komunikasi langsung. Arbitrasi menggunakan arbiter yang keputusannya mengikat (seperti sidang pengadilan arbitrase). D adalah cara destruktif yang melanggar hukum, memperparah konflik, dan mengancam keselamatan — sama sekali bukan solusi yang konstruktif."},
+
+{id:34,tid:3,topic:"Keragaman, Interaksi & Perubahan Sosial",type:"single",
+q:"Subak di Bali adalah sistem irigasi sawah tradisional yang dikelola bersama berdasarkan prinsip Tri Hita Karana. Subak merupakan contoh kearifan lokal yang menggabungkan aspek...",
+opts:["Ekonomi murni tanpa unsur budaya atau agama","Pertanian, agama Hindu, dan tata kelola komunitas yang harmonis","Teknologi modern dengan tradisi setempat","Kebijakan pemerintah dengan praktik pertanian konvensional"],
+ans:[1],
+expl:"Subak adalah warisan budaya dunia UNESCO yang luar biasa: memadukan sistem irigasi teknis yang efisien dengan nilai-nilai keagamaan Hindu (pura subak, ritual pertanian) dan manajemen kolektif komunitas petani. Tri Hita Karana mengajarkan keselarasan antara manusia dengan Tuhan, sesama manusia, dan alam. Subak membuktikan bahwa kearifan lokal dapat mengelola sumber daya alam secara berkelanjutan selama ratusan tahun tanpa teknologi modern."},
+
+// ── TOPIK 4: KEGIATAN EKONOMI (13 soal) ──
+{id:35,tid:4,topic:"Kegiatan Ekonomi & Posisi Indonesia",type:"single",
+q:"Setiap masyarakat menghadapi masalah ekonomi dasar yang sama. Tiga masalah ekonomi fundamental yang dihadapi oleh setiap sistem ekonomi adalah...",
+opts:["Inflasi, deflasi, dan stagflasi","Apa yang diproduksi, bagaimana cara memproduksinya, dan untuk siapa produksi ditujukan","Kemiskinan, pengangguran, dan ketimpangan","Produksi, distribusi, dan ekspor"],
+ans:[1],
+expl:"Tiga pertanyaan ekonomi fundamental (Paul Samuelson): (1) What? — barang/jasa apa yang perlu diproduksi dan berapa banyak; (2) How? — bagaimana teknologi dan metode produksi yang digunakan; (3) For Whom? — siapa yang mendapat hasil produksi (distribusi). Setiap sistem ekonomi (kapitalisme, sosialisme, ekonomi campuran) menjawab ketiga pertanyaan ini dengan cara berbeda. Kemiskinan dan inflasi adalah masalah ekonomi, tapi bukan tiga masalah dasar yang dimaksud."},
+
+{id:36,tid:4,topic:"Kegiatan Ekonomi & Posisi Indonesia",type:"multiple",
+q:"Pilih SEMUA keunggulan ASEAN sebagai kawasan ekonomi yang penting di dunia!",
+opts:["Memiliki populasi gabungan lebih dari 680 juta jiwa yang menjadi pasar konsumen besar","Kaya sumber daya alam — dari minyak bumi, gas, batu bara, hingga hasil pertanian tropis","Pertumbuhan ekonomi rata-rata tertinggi di antara semua kawasan di dunia sepanjang sejarah","Posisi geografis strategis di persimpangan jalur perdagangan Asia Timur dan Asia Selatan"],
+ans:[0,1,3],
+expl:"A benar: pasar 680 juta jiwa sangat menarik bagi investasi asing dan perdagangan intraregional. B benar: ASEAN adalah penghasil utama minyak sawit, karet, timah, gas alam (LNG), batu bara, dan berbagai komoditas pertanian. D benar: ASEAN berada di jalur laut antara Samudra Hindia dan Pasifik — Selat Malaka dilalui 25% perdagangan maritim dunia. C terlalu berlebihan — beberapa periode sejarah ekonomi ASEAN ada yang lambat (krisis 1997), bukan selalu tertinggi."},
+
+{id:37,tid:4,topic:"Kegiatan Ekonomi & Posisi Indonesia",type:"single",
+q:"Fungsi uang dalam ekonomi modern sangat beragam. Seorang pedagang menyimpan uangnya di bank untuk digunakan bulan depan. Fungsi uang yang sedang dijalankan dalam situasi ini adalah...",
+opts:["Alat tukar — memudahkan pertukaran barang dan jasa","Alat penyimpan nilai (store of value) — uang dapat menyimpan daya beli untuk digunakan di masa mendatang","Satuan hitung — mengukur nilai relatif barang dan jasa","Alat pembayaran yang sah — diakui oleh hukum"],
+ans:[1],
+expl:"Fungsi uang ada empat utama: (1) Medium of Exchange — memudahkan transaksi; (2) Store of Value — menyimpan kekayaan untuk digunakan nanti; (3) Unit of Account — mengukur nilai; (4) Standard of Deferred Payment — alat bayar cicilan/hutang. Menyimpan uang di bank untuk bulan depan = Store of Value. Fungsi ini memungkinkan orang menunda konsumsi dan merencanakan masa depan — dasar dari tabungan dan investasi."},
+
+{id:38,tid:4,topic:"Kegiatan Ekonomi & Posisi Indonesia",type:"multiple",
+q:"Indonesia memiliki potensi ekonomi maritim yang sangat besar. Pilih SEMUA sektor ekonomi maritim yang BENAR!",
+opts:["Perikanan tangkap dan budidaya perikanan laut","Pariwisata bahari — selam, snorkeling, wisata pantai","Transportasi laut dan jasa pelabuhan","Pertambangan di darat yang berlokasi dekat pantai"],
+ans:[0,1,2],
+expl:"Ekonomi maritim mencakup semua kegiatan yang berkaitan dengan laut dan sumber dayanya: perikanan (A), pariwisata bahari (B), transportasi/logistik laut (C), energi laut (gelombang, pasang surut, angin lepas pantai), industri galangan kapal, dan pertambangan bawah laut. D (pertambangan darat dekat pantai) bukan termasuk sektor maritim meskipun lokasinya dekat pantai. Indonesia dengan 5,8 juta km² wilayah laut memiliki potensi ekonomi maritim yang belum sepenuhnya dimanfaatkan."},
+
+{id:39,tid:4,topic:"Kegiatan Ekonomi & Posisi Indonesia",type:"single",
+q:"Indonesia mengekspor kopi ke Eropa dan mengimpor mesin industri dari Jerman. Prinsip ekonomi yang mendasari perdagangan internasional ini adalah...",
+opts:["Setiap negara harus memproduksi semua yang dibutuhkan sendiri agar mandiri","Keunggulan komparatif — setiap negara spesialisasi pada produksi barang yang dapat diproduksinya dengan biaya relatif lebih rendah, lalu saling berdagang","Negara kaya selalu diuntungkan dan negara berkembang selalu dirugikan dalam perdagangan","Harga barang impor selalu lebih mahal dari produksi dalam negeri"],
+ans:[1],
+expl:"Teori Keunggulan Komparatif (David Ricardo, 1817): perdagangan saling menguntungkan ketika setiap pihak spesialisasi pada produksi yang untuknya ia memiliki biaya oportunitas relatif lebih rendah. Indonesia memiliki keunggulan komparatif dalam kopi (iklim tropis, tenaga kerja murah, tradisi pertanian); Jerman dalam mesin presisi (teknologi tinggi, modal berlimpah). Dengan berspesialisasi dan berdagang, keduanya dapat mengonsumsi lebih banyak dari jika masing-masing memproduksi semuanya sendiri."},
+
+{id:40,tid:4,topic:"Kegiatan Ekonomi & Posisi Indonesia",type:"multiple",
+q:"Pembangunan ekonomi berkelanjutan (sustainable development) berarti pembangunan yang memenuhi kebutuhan sekarang tanpa mengorbankan kemampuan generasi mendatang. Pilih SEMUA praktik yang SESUAI dengan prinsip ini!",
+opts:["Penangkapan ikan dengan kuota yang tidak melebihi kemampuan regenerasi populasi ikan","Penggunaan energi terbarukan (surya, angin, air) untuk menggantikan bahan bakar fosil","Menebang seluruh hutan secepat mungkin untuk memaksimalkan keuntungan ekonomi saat ini","Pengelolaan limbah industri yang tidak mencemari air tanah dan sungai"],
+ans:[0,1,3],
+expl:"A benar: kuota penangkapan ikan yang berkelanjutan menjaga stok ikan untuk generasi mendatang. B benar: energi terbarukan tidak menguras sumber daya tak terbarukan dan minim emisi GRK. D benar: pengelolaan limbah yang baik menjaga kualitas lingkungan jangka panjang. C salah: penebangan hutan habis-habisan adalah contoh eksploitasi tidak berkelanjutan — merusak ekosistem, mengurangi keanekaragaman hayati, dan menghancurkan potensi ekonomi jangka panjang (kayu, obat-obatan, ekowisata)."},
+
+{id:41,tid:4,topic:"Kegiatan Ekonomi & Posisi Indonesia",type:"single",
+q:"Koperasi adalah badan usaha yang berbasis anggota dan menerapkan prinsip demokrasi ekonomi. Yang membedakan koperasi dari PT (Perseroan Terbatas) adalah...",
+opts:["Koperasi hanya boleh bergerak di bidang pertanian","Modal koperasi berasal dari pemerintah seluruhnya","Koperasi dimiliki dan dikendalikan oleh anggota dengan prinsip satu anggota satu suara, bukan berdasarkan jumlah saham","Koperasi tidak boleh menghasilkan keuntungan (profit)"],
+ans:[2],
+expl:"Prinsip dasar koperasi: one member, one vote — setiap anggota memiliki hak suara yang sama dalam rapat anggota, tidak bergantung pada berapa banyak simpanannya. Ini berbeda dari PT di mana kekuasaan berbanding lurus dengan jumlah saham. Koperasi boleh bergerak di berbagai bidang (simpan pinjam, konsumsi, produksi), tidak harus pertanian. Modal berasal dari simpanan anggota. Koperasi BISA menghasilkan laba (SHU — Sisa Hasil Usaha) yang dibagikan kepada anggota secara proporsional."},
+
+{id:42,tid:4,topic:"Kegiatan Ekonomi & Posisi Indonesia",type:"multiple",
+q:"Indonesia menghadapi tantangan dalam meningkatkan kualitas sumber daya manusia (SDM) untuk ekonomi. Pilih SEMUA investasi yang EFEKTIF untuk meningkatkan kualitas SDM!",
+opts:["Meningkatkan akses dan kualitas pendidikan dari tingkat dasar hingga perguruan tinggi","Program pelatihan vokasional dan keterampilan kerja yang sesuai kebutuhan industri","Membangun lebih banyak pusat perbelanjaan","Perbaikan layanan kesehatan agar tenaga kerja produktif dan tidak mudah sakit"],
+ans:[0,1,3],
+expl:"SDM berkualitas memerlukan: (A) pendidikan yang baik untuk pengetahuan dan kemampuan berpikir kritis; (B) pelatihan vokasional yang menjembatani dunia pendidikan dengan kebutuhan industri nyata; (D) kesehatan yang baik — pekerja yang sehat lebih produktif, absensi lebih rendah, dan harapan hidup produktif lebih panjang. C (mall) adalah konsumsi, bukan investasi SDM. Indonesia dalam bonus demografi 2020–2035 memiliki peluang emas — kualitas SDM menentukan apakah bonus ini menjadi berkah atau beban."},
+
+{id:43,tid:4,topic:"Kegiatan Ekonomi & Posisi Indonesia",type:"single",
+q:"Indonesia adalah penghasil kelapa sawit terbesar di dunia, namun sebagian besar diekspor dalam bentuk CPO (minyak mentah) yang harga jualnya rendah. Strategi ekonomi yang PALING tepat untuk meningkatkan nilai tambah adalah...",
+opts:["Mengurangi produksi kelapa sawit agar harga CPO global naik","Mengolah CPO menjadi produk jadi bernilai tinggi (minyak goreng kemasan, kosmetik, biodiesel, oleokimia) di dalam negeri sebelum diekspor","Menjual hak kelola seluruh perkebunan sawit kepada perusahaan asing","Menggantikan kelapa sawit dengan komoditas lain yang lebih mudah dijual"],
+ans:[1],
+expl:"Strategi hilirisasi (nilai tambah/industrialisasi): mengolah bahan mentah menjadi produk jadi di dalam negeri sebelum diekspor. CPO harganya sekitar USD 900/ton; minyak goreng kemasan premium bisa USD 3.000+/ton; kosmetik berbasis sawit jauh lebih tinggi. Hilirisasi menciptakan nilai tambah, lapangan kerja, dan transfer teknologi. Pemerintah Indonesia sedang mendorong kebijakan ini untuk berbagai komoditas: sawit, nikel, bauksit, timah — melarang ekspor bahan mentah dan mewajibkan pengolahan di dalam negeri."},
+
+{id:44,tid:4,topic:"Kegiatan Ekonomi & Posisi Indonesia",type:"multiple",
+q:"Faktor-faktor apa saja yang menyebabkan Indonesia belum dapat memaksimalkan potensi ekonomi maritimnya? Pilih SEMUA yang BENAR!",
+opts:["Infrastruktur pelabuhan dan konektivitas antar pulau yang masih terbatas di banyak daerah","Kurangnya armada kapal penangkap ikan modern dan teknologi pengolahan ikan","Tidak adanya wilayah laut Indonesia yang kaya sumber daya ikan","Masih banyak terjadi illegal fishing (pencurian ikan) oleh kapal asing di perairan Indonesia"],
+ans:[0,1,3],
+expl:"A benar: biaya logistik tinggi karena infrastruktur pelabuhan dan tol laut yang belum merata — menjadi hambatan daya saing. B benar: nelayan tradisional Indonesia masih banyak menggunakan perahu kecil tanpa pendingin yang memadai, membatasi jangkauan dan kualitas hasil tangkap. D benar: illegal fishing merugikan Indonesia miliaran dolar per tahun. C salah: Indonesia justru memiliki perairan yang sangat kaya — laut Indonesia mengandung sekitar 37% spesies ikan di dunia karena berada di Segitiga Terumbu Karang."},
+
+{id:45,tid:4,topic:"Kegiatan Ekonomi & Posisi Indonesia",type:"single",
+q:"Pemerintah membangun jalan tol baru dari kota A ke kota B di wilayah terpencil. Dampak ekonomi jangka panjang yang PALING signifikan dari pembangunan infrastruktur ini adalah...",
+opts:["Harga tanah di sekitar jalan tol langsung turun karena ada kebisingan","Memperlancar distribusi barang, menurunkan biaya logistik, membuka akses pasar bagi petani, dan menarik investasi ke wilayah tersebut","Memaksa semua penduduk setempat untuk berpindah pekerjaan menjadi tukang tol","Tidak ada dampak signifikan karena jalan tol hanya digunakan oleh kendaraan bermotor"],
+ans:[1],
+expl:"Infrastruktur transportasi adalah 'multiplier economy' — satu investasi jalan berdampak berganda: memperlancar distribusi produk pertanian ke pasar → petani mendapat harga lebih baik; biaya logistik turun → harga barang konsumsi di daerah turun; akses modal dan investasi lebih mudah masuk → pertumbuhan ekonomi lokal; lapangan kerja baru terbuka. Itulah mengapa pemerintah memprioritaskan pembangunan infrastruktur — kuncinya adalah konektivitas sebagai prasyarat pembangunan ekonomi wilayah."},
+
+{id:46,tid:4,topic:"Kegiatan Ekonomi & Posisi Indonesia",type:"multiple",
+q:"Nilai guna (utility) barang dan jasa dapat dilihat dari berbagai aspek. Pilih SEMUA contoh nilai guna yang TEPAT!",
+opts:["Nilai guna bentuk (form utility): kayu gelondongan diolah menjadi meja dan kursi bernilai lebih tinggi","Nilai guna tempat (place utility): ikan laut lebih mahal dijual di kota pedalaman daripada di tepi pantai","Nilai guna waktu (time utility): payung lebih bernilai saat musim hujan daripada kemarau","Nilai guna kepemilikan (possession utility): barang lebih bernilai bagi orang yang membutuhkannya"],
+ans:[0,1,2,3],
+expl:"Semua benar: A) Form utility — perubahan bentuk bahan baku meningkatkan nilai (kayu → furnitur; biji kopi → kopi kemasan). B) Place utility — barang yang sama bernilai lebih tinggi di tempat yang lebih sulit dijangkau (ikan di pedalaman > ikan di pantai). C) Time utility — barang bernilai lebih tinggi pada waktu dibutuhkan (payung saat hujan; AC saat kemarau; jas hujan musim penghujan). D) Possession utility — barang bernilai lebih bagi yang tepat membutuhkan (obat lebih bernilai bagi yang sakit). Konsep ini penting dalam logistik, pemasaran, dan distribusi."},
+
+{id:47,tid:4,topic:"Kegiatan Ekonomi & Posisi Indonesia",type:"single",
+q:"Indonesia termasuk negara berkembang yang masih memerlukan berbagai investasi asing. Dampak POSITIF masuknya investasi asing langsung (FDI) bagi Indonesia adalah...",
+opts:["Semua keuntungan investasi langsung dinikmati rakyat Indonesia","Terciptanya lapangan kerja baru, transfer teknologi, dan peningkatan kapasitas produksi nasional","Investasi asing otomatis menggantikan seluruh industri dalam negeri","Semua produk investasi asing wajib diekspor dan tidak boleh dijual di Indonesia"],
+ans:[1],
+expl:"FDI (Foreign Direct Investment) memberikan manfaat: penciptaan lapangan kerja lokal; transfer teknologi dan manajemen modern; peningkatan kapasitas produksi dan ekspor; penerimaan pajak negara. Namun FDI juga memiliki risiko: keuntungan sebagian besar dibawa pulang ke negara asal investor; ketergantungan teknologi; persaingan dengan UMKM lokal. Oleh karena itu, pemerintah perlu menetapkan regulasi yang memastikan FDI benar-benar memberikan manfaat bagi Indonesia, bukan sekadar mengeksploitasi sumber daya."},
+
+// ── TOPIK 5: PERKEMBANGAN SEJARAH INDONESIA (13 soal) ──
+{id:48,tid:5,topic:"Perkembangan Sejarah Indonesia",type:"single",
+q:"Kerajaan Majapahit dianggap sebagai salah satu kerajaan terbesar dalam sejarah Nusantara. Bukti kejayaan Majapahit yang paling kuat adalah...",
+opts:["Majapahit berhasil menaklukkan seluruh Asia Tenggara dan mendirikan koloni di sana","Kitab Negarakertagama karya Mpu Prapanca yang menyebutkan wilayah kekuasaan Majapahit meliputi sebagian besar Nusantara di bawah kepemimpinan Hayam Wuruk dan Gajah Mada","Majapahit adalah kerajaan pertama yang mengenal tulisan di Nusantara","Majapahit memiliki armada laut yang lebih besar dari Tiongkok dan Eropa"],
+ans:[1],
+expl:"Sumber sejarah primer paling penting: Kakawin Negarakertagama (1365 M) karya Mpu Prapanca menyebut wilayah Majapahit mencakup Jawa, Bali, Kalimantan, Sulawesi, Maluku, Semenanjung Malaya, dan sebagian Filipina. Gajah Mada (Mahapatih) terkenal dengan Sumpah Palapa — bersumpah tidak menikmati kenikmatan sebelum menyatukan Nusantara. Ini mencatat visi integrasi yang kemudian menjadi inspirasi bagi Indonesia modern. Majapahit bukan koloni dan bukan kerajaan pertama yang mengenal tulisan."},
+
+{id:49,tid:5,topic:"Perkembangan Sejarah Indonesia",type:"multiple",
+q:"Islam masuk dan berkembang di Indonesia melalui berbagai jalur. Pilih SEMUA jalur penyebaran Islam di Indonesia yang BENAR!",
+opts:["Perdagangan — pedagang Muslim dari Arab, Gujarat (India), dan Tiongkok menyebarkan Islam melalui interaksi dagang","Pernikahan — pedagang Muslim menikahi perempuan lokal, anak-anak mereka dibesarkan dalam Islam","Pendidikan — pesantren dan surau menjadi pusat penyebaran ilmu Islam","Penaklukan militer besar-besaran dari Timur Tengah yang memaksa penduduk memeluk Islam"],
+ans:[0,1,2],
+expl:"Keunikan Islamisasi di Nusantara: berlangsung damai melalui perdagangan (A), pernikahan lintas budaya (B), dan pendidikan agama (C). Para Wali Songo di Jawa terkenal menggunakan pendekatan kultural — wayang, gamelan, arsitektur syncretic — untuk memperkenalkan Islam. D salah: berbeda dari sejarah Islam di beberapa wilayah lain, Islam di Nusantara TIDAK disebarkan melalui penaklukan militer dari Timur Tengah — ini yang membuat Islam Indonesia memiliki corak toleran dan akulturatif yang khas."},
+
+{id:50,tid:5,topic:"Perkembangan Sejarah Indonesia",type:"single",
+q:"Sistem tanam paksa (Cultuurstelsel) yang diterapkan Belanda (1830–1870) memiliki dampak yang sangat besar bagi rakyat Indonesia. Dampak yang PALING tepat adalah...",
+opts:["Meningkatkan kesejahteraan petani Jawa karena mereka mendapat upah yang adil","Menyengsarakan petani — diwajibkan menyerahkan 1/5 lahan atau 66 hari kerja per tahun untuk tanaman ekspor, menyebabkan gagal panen pangan dan kelaparan massal","Mempercepat industrialisasi Indonesia karena banyak pabrik didirikan","Menguntungkan semua pihak karena tanaman ekspor berharga tinggi di pasar dunia"],
+ans:[1],
+expl:"Cultuurstelsel (Gubernur Jenderal Van den Bosch) mewajibkan petani menyerahkan 1/5 tanahnya untuk tanaman ekspor (kopi, tebu, nila) atau bekerja paksa 66 hari/tahun. Akibatnya: lahan pangan berkurang → kegagalan panen → kelaparan massal di Jawa (1840an, puluhan ribu jiwa meninggal). Keuntungan besar mengalir ke Belanda — membantu membangun infrastruktur dan membayar utang perang Belanda. Kekejaman ini menginspirasi Eduard Douwes Dekker menulis 'Max Havelaar' (1860) yang mengecam tanam paksa."},
+
+{id:51,tid:5,topic:"Perkembangan Sejarah Indonesia",type:"multiple",
+q:"Kebangkitan Nasional Indonesia ditandai berdirinya Budi Utomo (1908). Pilih SEMUA faktor yang mendorong munculnya kesadaran nasional ini!",
+opts:["Pengaruh Politik Etis yang membuka akses pendidikan bagi pribumi terpilih dan melahirkan golongan terpelajar","Rasa frustasi rakyat terhadap diskriminasi dan ketidakadilan sistem kolonial Belanda","Pengaruh kebangkitan negara-negara Asia lain (Jepang mengalahkan Rusia 1905, pergerakan India)","Adanya televisi yang menyebarkan gagasan kemerdekaan ke seluruh Indonesia"],
+ans:[0,1,2],
+expl:"A benar: Kebijakan Etis (irigasi, transmigrasi, edukasi) membuka sekolah bagi beberapa pribumi → lahirlah kaum terpelajar yang kemudian memimpin pergerakan (dr. Wahidin, Soetomo). B benar: diskriminasi rasial, kerja paksa, dan eksploitasi ekonomi memupuk kebencian terhadap penjajahan. C benar: kemenangan Jepang (Asia) atas Rusia (Eropa) 1905 menghancurkan mitos superioritas Barat dan menginspirasi pergerakan anti-kolonial Asia. D salah: televisi belum ada di Indonesia sampai 1962 (TVRI) — jauh setelah pergerakan nasional dimulai."},
+
+{id:52,tid:5,topic:"Perkembangan Sejarah Indonesia",type:"single",
+q:"Sumpah Pemuda 28 Oktober 1928 menyatakan 'Kami putra dan putri Indonesia mengaku bertumpah darah yang satu, Tanah Air Indonesia; berbangsa yang satu, Bangsa Indonesia; menjunjung bahasa persatuan, Bahasa Indonesia.' Pentingnya Sumpah Pemuda bagi pergerakan kemerdekaan adalah...",
+opts:["Sumpah Pemuda langsung menyebabkan Belanda mundur dari Indonesia","Menyatukan pemuda dari berbagai suku, daerah, dan organisasi berbeda dalam satu identitas nasional Indonesia yang melampaui perbedaan kedaerahan","Sumpah Pemuda hanya berlaku untuk pemuda Jawa dan Sumatra","Menetapkan tanggal kemerdekaan Indonesia"],
+ans:[1],
+expl:"Sebelum 1928, pergerakan nasional bersifat kedaerahan — Jong Java, Jong Sumatra, Jong Ambon, dll. Sumpah Pemuda adalah lompatan besar: pertama kalinya pemuda dari seluruh Nusantara menyatakan identitas bersama yang melampaui suku dan daerah. Bahasa Indonesia (berbasis Melayu) dipilih sebagai bahasa persatuan — bukan bahasa Jawa meskipun mayoritas populasi — sebagai sikap inklusif. Ini membangun fondasi psikologis nasionalisme Indonesia yang kemudian mendorong proklamasi kemerdekaan."},
+
+{id:53,tid:5,topic:"Perkembangan Sejarah Indonesia",type:"multiple",
+q:"Proklamasi Kemerdekaan Indonesia 17 Agustus 1945 terjadi dalam konteks yang kompleks. Pilih SEMUA peristiwa yang langsung berhubungan dengan proses proklamasi!",
+opts:["Jepang menyerah kepada Sekutu setelah bom atom Hiroshima dan Nagasaki (6 dan 9 Agustus 1945)","Peristiwa Rengasdengklok — kelompok pemuda membawa Soekarno-Hatta ke Rengasdengklok untuk mendesak proklamasi segera","Teks proklamasi dirumuskan oleh Soekarno, Hatta, dan Ahmad Soebardjo di rumah Laksamana Maeda","Indonesia kalah dalam Pertempuran Surabaya sebelum proklamasi"],
+ans:[0,1,2],
+expl:"A benar: kekalahan Jepang menciptakan kekosongan kekuasaan (vacuum of power) yang dimanfaatkan untuk proklamasi. B benar: golongan muda (Chaerul Saleh, Sukarni, dll.) khawatir Soekarno-Hatta menunggu izin Jepang — mereka dibawa ke Rengasdengklok 16 Agustus untuk mendesak proklamasi tanpa syarat. C benar: teks proklamasi final dirumuskan di rumah Laksamana Maeda (perwira Jepang yang bersimpati). D salah: Pertempuran Surabaya (10 November 1945) terjadi SETELAH proklamasi — bukan sebelumnya."},
+
+{id:54,tid:5,topic:"Perkembangan Sejarah Indonesia",type:"single",
+q:"Ki Hajar Dewantara mendirikan Taman Siswa (1922) sebagai respons terhadap kebijakan pendidikan kolonial Belanda. Semboyan pendidikannya yang terkenal dan masih digunakan hingga kini adalah...",
+opts:["Bhinneka Tunggal Ika — berbeda-beda tetapi tetap satu","Ing ngarso sung tulodho, ing madyo mangun karso, tut wuri handayani","Gemah ripah loh jinawi — tanah subur rakyat makmur","Rawe-rawe rantas malang-malang putung — pantang menyerah"],
+ans:[1],
+expl:"Semboyan Ki Hajar Dewantara (Bahasa Jawa): 'Ing ngarso sung tulodho' (di depan memberi teladan), 'ing madyo mangun karso' (di tengah membangun semangat), 'tut wuri handayani' (di belakang memberikan dorongan). Filosofi ini mendefinisikan peran ideal seorang pendidik/pemimpin. 'Tut Wuri Handayani' menjadi moto Kementerian Pendidikan RI hingga hari ini. Ki Hajar Dewantara juga dikenal sebagai Bapak Pendidikan Nasional; tanggal lahirnya, 2 Mei, diperingati sebagai Hari Pendidikan Nasional."},
+
+{id:55,tid:5,topic:"Perkembangan Sejarah Indonesia",type:"multiple",
+q:"Kerajaan-kerajaan Hindu-Buddha meninggalkan warisan yang masih terasa hingga kini. Pilih SEMUA warisan Hindu-Buddha yang MASIH ADA dalam kehidupan Indonesia modern!",
+opts:["Bahasa Jawa, Bali, dan Melayu banyak menyerap kosakata dari bahasa Sanskerta","Seni pertunjukan seperti wayang dan tari yang masih mengambil cerita dari Mahabharata dan Ramayana","Arsitektur candi yang menjadi dasar semua bangunan modern Indonesia","Sistem penanggalan Saka yang dipadukan dengan kalender Islam dalam tradisi Jawa (Kalender Aboge/Asapon)"],
+ans:[0,1,3],
+expl:"A benar: ribuan kata Indonesia berasal dari Sanskerta — raja, bahasa, desa, pura, karma, surga, neraka, dll. B benar: wayang kulit dengan lakon Pandawa, Mahabharata; tari Ramayana di Prambanan masih hidup sebagai seni pertunjukan nasional. D benar: Kalender Saka Hindu disesuaikan dengan kalender Hijriah Islam dalam tradisi Jawa — bukti akulturasi budaya. C salah: arsitektur candi tidak menjadi dasar semua bangunan modern; hanya beberapa bangunan modern yang terinspirasi motif candi (seperti Museum Nasional, beberapa gedung pemerintah)."},
+
+{id:56,tid:5,topic:"Perkembangan Sejarah Indonesia",type:"single",
+q:"VOC (Vereenigde Oost-Indische Compagnie) didirikan Belanda tahun 1602 dan menjadi salah satu perusahaan paling berkuasa dalam sejarah. Mengapa VOC akhirnya bangkrut dan dibubarkan pada tahun 1799?",
+opts:["VOC diserang dan dikalahkan oleh angkatan laut Inggris dalam perang besar","Korupsi yang merajalela di kalangan pejabat VOC, biaya perang yang besar untuk mempertahankan monopoli, dan persaingan dari perusahaan dagang Inggris dan Prancis","VOC dengan sukarela membubarkan diri karena ingin memberikan kemerdekaan kepada wilayah jajahannya","Seluruh kapal VOC tenggelam dalam badai besar di Samudra Hindia"],
+ans:[1],
+expl:"Keruntuhan VOC adalah kombinasi faktor internal dan eksternal: korupsi internal yang sangat parah (pejabat memperkaya diri sendiri), biaya militer yang sangat tinggi untuk mempertahankan monopoli perdagangan dan menaklukkan kerajaan-kerajaan lokal, meningkatnya persaingan dari Inggris (East India Company) dan Prancis, serta melemahnya monopoli rempah akibat penyebaran tanaman. Utang VOC yang menumpuk akhirnya memaksa pemerintah Belanda mengambil alih aset dan wilayahnya."},
+
+{id:57,tid:5,topic:"Perkembangan Sejarah Indonesia",type:"multiple",
+q:"Pendudukan Jepang (1942–1945) membawa dampak yang kompleks bagi Indonesia. Pilih SEMUA dampak POSITIF tidak langsung dari pendudukan Jepang!",
+opts:["Jepang melatih dan mempersenjatai pemuda Indonesia (PETA, Heiho) yang kemudian menjadi inti tentara kemerdekaan","Jepang melemahkan dan akhirnya mengusir Belanda sehingga tercipta kekosongan kekuasaan yang dimanfaatkan untuk proklamasi","Jepang memperkenalkan sistem demokrasi liberal yang adil di Indonesia","Bahasa Indonesia diperkuat karena Jepang melarang penggunaan bahasa Belanda dan menggunakan bahasa Indonesia sebagai bahasa pengantar"],
+ans:[0,1,3],
+expl:"A benar: PETA (Pembela Tanah Air) dan Heiho melatih puluhan ribu tentara pribumi yang kemudian menjadi tulang punggung TNI. B benar: kekalahan Jepang dari Sekutu menciptakan vacuum of power yang memungkinkan proklamasi tanpa persetujuan Belanda maupun Jepang. D benar: larangan bahasa Belanda memaksa penggunaan bahasa Indonesia → memperkuat posisi bahasa nasional. C salah: Jepang menerapkan sistem militer yang sangat otoriter, bukan demokrasi liberal."},
+
+{id:58,tid:5,topic:"Perkembangan Sejarah Indonesia",type:"single",
+q:"Perlawanan Pangeran Diponegoro (1825–1830) terhadap Belanda dikenal sebagai Perang Jawa. Faktor yang membuat perlawanan ini akhirnya dapat dipadamkan Belanda adalah...",
+opts:["Pangeran Diponegoro kehabisan senjata dan menyerah sukarela","Belanda menggunakan taktik benteng stelsel (benteng berjaringan) untuk mempersempit ruang gerak pasukan Diponegoro, dan menangkap Diponegoro lewat perundingan yang dikhianati (1830)","Rakyat Jawa berpihak kepada Belanda karena lebih menyukai pemerintahan kolonial","Pangeran Diponegoro meninggal di medan perang sebelum perang berakhir"],
+ans:[1],
+expl:"Perang Jawa berlangsung 5 tahun dan sangat menguras Belanda (15.000+ tentara Belanda tewas, biaya sangat besar). Kunci keberhasilan Belanda: (1) Benteng Stelsel — membangun jaringan benteng di wilayah gerilya untuk memotong jalur logistik dan mempersempit ruang gerak pasukan Diponegoro; (2) Pengkhianatan — Diponegoro diundang berunding di Magelang (1830) tetapi kemudian ditangkap dan diasingkan ke Makassar hingga wafat 1855. Ini adalah contoh penggunaan kelicikan diplomatik sebagai senjata perang."},
+
+{id:59,tid:5,topic:"Perkembangan Sejarah Indonesia",type:"multiple",
+q:"Pilih SEMUA tokoh nasional yang BENAR perannya dalam sejarah kemerdekaan Indonesia!",
+opts:["Soekarno — proklamator dan presiden pertama RI, dikenal sebagai orator ulung dan pemimpin pergerakan nasional","Mohammad Hatta — proklamator dan wakil presiden pertama, dikenal sebagai 'Bapak Koperasi Indonesia'","R.A. Kartini — pahlawan emansipasi wanita yang memperjuangkan pendidikan perempuan di era kolonial","Tuanku Imam Bonjol — memimpin perang melawan Belanda dalam Perang Padri di Minangkabau (1821–1837)"],
+ans:[0,1,2,3],
+expl:"Semua benar: A) Soekarno — tokoh sentral pergerakan, proklamator, presiden 1945–1967. B) Hatta — negarawan, ekonom, proklamator, wakil presiden, memprakarsai gerakan koperasi. C) R.A. Kartini (1879–1904) — tulisannya 'Habis Gelap Terbitlah Terang' memperjuangkan emansipasi wanita dan pendidikan; Hari Kartini diperingati 21 April. D) Imam Bonjol — pemimpin kaum Padri melawan Belanda yang bersekutu dengan kaum Adat di Sumatera Barat. Semua adalah pahlawan nasional Indonesia."},
+
+{id:60,tid:5,topic:"Perkembangan Sejarah Indonesia",type:"single",
+q:"Kerajaan Sriwijaya (abad 7–13) adalah kerajaan maritim besar yang berpusat di Sumatera. Faktor utama kejayaan Sriwijaya adalah...",
+opts:["Kekuatan militer darat yang mampu menaklukkan kerajaan-kerajaan di Asia","Posisi strategis di Selat Malaka — jalur perdagangan internasional yang menghubungkan India, Tiongkok, dan dunia Arab — sehingga Sriwijaya menguasai perdagangan dan pelayaran","Sriwijaya menemukan teknologi kapal yang paling canggih di dunia pada masanya","Kekayaan emas dan perak yang melimpah di wilayah Sumatera"],
+ans:[1],
+expl:"Kejayaan Sriwijaya dibangun di atas kendali maritim dan perdagangan. Selat Malaka adalah 'leher botol' perdagangan dunia — semua kapal dari India ke Tiongkok harus melewatinya. Sriwijaya memungut pajak perdagangan dan menyediakan pelabuhan/logistik bagi pedagang internasional. Sriwijaya juga menjadi pusat pendidikan agama Buddha — para pendeta dari Tiongkok singgah belajar di Palembang. Ini adalah model 'kerajaan dagang' yang mengandalkan posisi geografis, diplomasi, dan angkatan laut, bukan pertanian."}
+
+]; // END QB
+
+// ═══════════════════════════════════════════
+// APP
+// ═══════════════════════════════════════════
+const TOPICS = [
+  {id:1, name:"Keterampilan & Metode Ilmiah"},
+  {id:2, name:"Kenampakan Alam, Sosial & Budaya"},
+  {id:3, name:"Keragaman, Interaksi & Perubahan Sosial"},
+  {id:4, name:"Kegiatan Ekonomi & Posisi Indonesia"},
+  {id:5, name:"Perkembangan Sejarah Indonesia"}
+];
+
+let S = { qs:[], cur:0, ans:{}, done:{}, n:20 };
+
+function shuffle(a){ const b=[...a]; for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];} return b; }
+
+function initHome(){
+  const list = document.getElementById('topicList');
+  list.innerHTML = TOPICS.map(t=>{
+    const c = QB.filter(q=>q.tid===t.id).length;
+    return `<div class="topic-row">
+      <div class="topic-dot">${t.id}</div>
+      <div class="topic-name">${t.name}</div>
+      <div class="topic-count">${c} soal</div>
+    </div>`;
+  }).join('');
+
+  document.querySelectorAll('.n-btn').forEach(b=>{
+    b.addEventListener('click',()=>{
+      document.querySelectorAll('.n-btn').forEach(x=>x.classList.remove('sel'));
+      b.classList.add('sel');
+      S.n = parseInt(b.dataset.n);
+    });
+  });
+}
+
+function startQuiz(){
+  // Stratified sampling
+  const byTopic = {};
+  QB.forEach(q=>{ if(!byTopic[q.tid]) byTopic[q.tid]=[]; byTopic[q.tid].push(q); });
+  const base = Math.floor(S.n/TOPICS.length);
+  let sel = [];
+  TOPICS.forEach(t=>{ sel.push(...shuffle(byTopic[t.id]||[]).slice(0,base)); });
+  const rem = S.n - sel.length;
+  const extra = shuffle(QB.filter(q=>!sel.includes(q)));
+  sel.push(...extra.slice(0,rem));
+  sel = shuffle(sel);
+
+  S.qs = sel.map(q=>{
+    const idxMap = shuffle(q.opts.map((_,i)=>i));
+    return { ...q,
+      opts: idxMap.map(i=>q.opts[i]),
+      ans: q.ans.map(a=>idxMap.indexOf(a))
+    };
+  });
+  S.cur=0; S.ans={}; S.done={};
+  show('quizScreen'); renderQ();
+}
+
+function renderQ(){
+  const i=S.cur, q=S.qs[i], n=S.qs.length;
+  document.getElementById('qCur').textContent=i+1;
+  document.getElementById('qTot').textContent=n;
+  document.getElementById('progFill').style.width=`${((i+1)/n)*100}%`;
+  document.getElementById('topicBadge').textContent=q.topic;
+
+  const tag=document.getElementById('typeTag');
+  if(q.type==='multiple'){
+    tag.className='type-tag multiple';
+    tag.innerHTML='☑ Pilih SEMUA jawaban yang benar';
+  } else {
+    tag.className='type-tag single';
+    tag.innerHTML='○ Pilih satu jawaban terbaik';
+  }
+  document.getElementById('qText').textContent=q.q;
+
+  const sel=S.ans[i]||[], done=S.done[i]||false;
+  const LETTERS=['A','B','C','D','E'];
+
+  document.getElementById('optsList').innerHTML=q.opts.map((o,oi)=>{
+    let cls='opt';
+    if(done){
+      const isCor=q.ans.includes(oi), isSel=sel.includes(oi);
+      if(isCor&&isSel) cls+=' ok';
+      else if(!isCor&&isSel) cls+=' no';
+      else if(isCor&&!isSel) cls+=' mis';
+    } else if(sel.includes(oi)) cls+=' sel';
+    return `<div class="${cls}" onclick="pick(${oi})">
+      <div class="opt-key">${LETTERS[oi]}</div>
+      <div class="opt-txt">${o}</div>
+    </div>`;
+  }).join('');
+
+  // prev
+  const prev=document.getElementById('btnPrev');
+  prev.style.visibility=i===0?'hidden':'visible';
+
+  // next
+  const btn=document.getElementById('btnNext');
+  const isLast=i===n-1;
+  const hasSel=sel.length>0;
+  if(!done){
+    btn.textContent='Konfirmasi →';
+    btn.disabled=!hasSel;
+    btn.onclick=confirm;
+  } else if(isLast){
+    btn.textContent='Lihat Hasil →';
+    btn.disabled=false;
+    btn.onclick=showResults;
+  } else {
+    btn.textContent='Berikutnya →';
+    btn.disabled=false;
+    btn.onclick=()=>navQ(1);
+  }
+
+  const doneCount=Object.keys(S.done).length;
+  document.getElementById('terjawab').textContent=`${doneCount}/${n} dijawab`;
+}
+
+function pick(oi){
+  const i=S.cur, q=S.qs[i];
+  if(S.done[i]) return;
+  let sel=[...(S.ans[i]||[])];
+  if(q.type==='single'){ sel=[oi]; }
+  else { const p=sel.indexOf(oi); p>=0?sel.splice(p,1):sel.push(oi); }
+  S.ans[i]=sel; renderQ();
+}
+
+function confirm(){
+  const i=S.cur;
+  if(!S.ans[i]||S.ans[i].length===0) return;
+  S.done[i]=true; renderQ();
+}
+
+function navQ(d){ S.cur=Math.max(0,Math.min(S.qs.length-1,S.cur+d)); renderQ(); }
+
+function calcRes(){
+  let correct=0;
+  const ts={};
+  TOPICS.forEach(t=>{ ts[t.id]={name:t.name,c:0,t:0}; });
+  S.qs.forEach((q,i)=>{
+    const sel=S.ans[i]||[];
+    const ok=q.ans.length===sel.length && q.ans.every(a=>sel.includes(a));
+    if(ok) correct++;
+    ts[q.tid].t++;
+    if(ok) ts[q.tid].c++;
+  });
+  const total=S.qs.length;
+  return {total,correct,wrong:total-correct,pct:Math.round(correct/total*100),ts};
+}
+
+function showResults(){
+  show('resultsScreen');
+  const r=calcRes();
+  const emoji=r.pct>=90?'🏆':r.pct>=75?'🌟':r.pct>=60?'👍':'📚';
+  const msg=r.pct>=90?'Luar biasa! Siap olimpiade.':r.pct>=75?'Sangat bagus! Terus tingkatkan.':r.pct>=60?'Cukup baik — pelajari materi yang masih lemah.':'Tetap semangat! Ulangi dan coba lagi.';
+  document.getElementById('scoreEmoji').textContent=emoji;
+  document.getElementById('scorePct').textContent=r.pct+'%';
+  document.getElementById('scoreLabel').textContent=msg;
+  setTimeout(()=>{ document.getElementById('scoreBar').style.width=r.pct+'%'; },100);
+
+  document.getElementById('statRow').innerHTML=`
+    <div class="stat-box"><div class="stat-n g">${r.correct}</div><div class="stat-lbl">Benar</div></div>
+    <div class="stat-box"><div class="stat-n r">${r.wrong}</div><div class="stat-lbl">Salah</div></div>
+    <div class="stat-box"><div class="stat-n b">${r.total}</div><div class="stat-lbl">Soal</div></div>`;
+
+  const active=Object.values(r.ts).filter(t=>t.t>0);
+  document.getElementById('topicPerf').innerHTML=active.map(t=>{
+    const p=Math.round(t.c/t.t*100);
+    const col=p>=80?'var(--green)':p>=60?'#D97706':'var(--red)';
+    return `<div class="tp-item">
+      <div class="tp-head">
+        <div class="tp-name">${t.name}</div>
+        <div class="tp-score" style="color:${col}">${t.c}/${t.t} (${p}%)</div>
+      </div>
+      <div class="tp-bar"><div class="tp-fill" style="width:${p}%;background:${col}"></div></div>
+    </div>`;
+  }).join('');
+}
+
+function goReview(){
+  show('reviewScreen');
+  const LETTERS=['A','B','C','D','E'];
+  document.getElementById('revBody').innerHTML=S.qs.map((q,i)=>{
+    const sel=S.ans[i]||[];
+    const ok=q.ans.length===sel.length&&q.ans.every(a=>sel.includes(a));
+    const opts=q.opts.map((o,oi)=>{
+      const isCor=q.ans.includes(oi),isSel=sel.includes(oi);
+      let cls='dim',mark='';
+      if(isCor&&isSel){cls='ok';mark='✓';}
+      else if(!isCor&&isSel){cls='no';mark='✗';}
+      else if(isCor){cls='ok';mark='→';}
+      return `<div class="rev-opt ${cls}"><span class="rev-opt-lbl">${mark||LETTERS[oi]}.</span><span>${o}</span></div>`;
+    }).join('');
+    return `<div class="rev-item" id="rv${i}">
+      <div class="rev-head" onclick="toggleRev(${i})">
+        <div class="rev-icon ${ok?'ok':'no'}">${ok?'✓':'✗'}</div>
+        <div class="rev-meta">
+          <div class="rev-qn">Soal ${i+1} · ${q.topic}</div>
+          <div class="rev-qt">${q.q.length>90?q.q.slice(0,90)+'…':q.q}</div>
+        </div>
+        <div class="rev-chev">⌄</div>
+      </div>
+      <div class="rev-detail">
+        <div class="rev-opts">${opts}</div>
+        <div class="rev-expl"><strong>💡 Penjelasan:</strong> ${q.expl}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleRev(i){ document.getElementById('rv'+i).classList.toggle('open'); }
+function goResults(){ show('resultsScreen'); }
+function goHome(){ show('homeScreen'); }
+
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+document.addEventListener('DOMContentLoaded', initHome);
+</script>
+</body>
+</html>
