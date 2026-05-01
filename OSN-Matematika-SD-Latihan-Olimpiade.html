@@ -536,7 +536,7 @@ const SVG = {
 };
 
 // ═══════════════════════════════════════════════════════════════
-// TOPICS
+// TOPICS  ── dipindahkan ke atas supaya bisa dipakai di initHome
 // ═══════════════════════════════════════════════════════════════
 const TOPICS = [
     { id: 1, name: "Bilangan" },
@@ -1369,8 +1369,7 @@ const questionBank = [
     options:["Suku ke-7 barisan ini adalah 50","Perbedaan antara suku berurutan membentuk barisan aritmatika","Suku ke-10 barisan ini adalah 101","Barisan ini bukan barisan aritmatika"],
     correct:[0,1,2,3],
     explanation:"$a_n=n^2+1$. A: $a_7=7^2+1=50$ ✓. B: Beda antar suku: 3,5,7,9,... membentuk barisan aritmatika (beda kedua=2) ✓. C: $a_{10}=10^2+1=101$ ✓. D: Barisan bukan aritmatika karena beda suku berurutan tidak konstan ✓."
-}
-
+},
 
 // ──────────────────────────────────────────────────────────────
 // BATCH 2 · BILANGAN (ID 101–120)
@@ -2190,8 +2189,7 @@ const questionBank = [
     options:["Rasio deret adalah 2","Suku ke-10 adalah 2.048","Jumlah 8 suku pertama adalah 1.020","Suku ke-7 adalah 256"],
     correct:[0,1,2,3],
     explanation:"Rasio $r=2$ ✓. Suku ke-10 $=4\\times2^9=4\\times512=2.048$ ✓. Jumlah $S_8=\\frac{4(2^8-1)}{2-1}=4\\times255=1.020$ ✓. Suku ke-7 $=4\\times2^6=4\\times64=256$ ✓."
-}
-
+},
 
 // ──────────────────────────────────────────────────────────────
 // BATCH 3 · BILANGAN (ID 201–220)
@@ -3027,7 +3025,9 @@ let state = {
 };
 
 // ─── INIT HOME ───
+// Dipanggil SEKALI saat boot. Tidak boleh dipanggil ulang (addEventListener menumpuk).
 function initHome() {
+    // Render topic chips
     const grid = document.getElementById('topicGrid');
     grid.innerHTML = TOPICS.map(t => {
         const count = questionBank.filter(q => q.topicId === t.id).length;
@@ -3035,12 +3035,24 @@ function initHome() {
         return `<div class="topic-chip"><span class="num">${t.id}</span>${icons[t.id-1]} ${t.name} <span style="margin-left:auto;color:var(--muted);font-size:11px;font-weight:700">${count} soal</span></div>`;
     }).join('');
 
+    // Wire n-btn clicks SEKALI — gunakan onclick agar tidak menumpuk
     document.querySelectorAll('.n-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.onclick = function() {
             document.querySelectorAll('.n-btn').forEach(b => b.classList.remove('selected'));
-            btn.classList.add('selected');
-            state.nQuestions = parseInt(btn.dataset.n);
-        });
+            this.classList.add('selected');
+            state.nQuestions = parseInt(this.dataset.n);
+            console.log('[OSN] nQuestions set to', state.nQuestions);
+        };
+    });
+}
+
+// ─── SYNC HOME SCREEN ───
+// Dipanggil setiap kali layar Home ditampilkan ulang (setelah kuis selesai).
+// Hanya menyinkronkan tampilan tombol terpilih, TIDAK menambah event listener baru.
+function syncHomeScreen() {
+    document.querySelectorAll('.n-btn').forEach(btn => {
+        const n = parseInt(btn.dataset.n);
+        btn.classList.toggle('selected', n === state.nQuestions);
     });
 }
 
@@ -3060,6 +3072,8 @@ function startQuiz() {
     state.current = 0;
 
     const n = state.nQuestions;
+    console.log('[OSN] startQuiz — nQuestions:', n, '| pool size:', questionBank.length);
+
     const perTopic = Math.floor(n / TOPICS.length);
     let selected = [];
 
@@ -3072,6 +3086,7 @@ function startQuiz() {
     while (selected.length < n && extras.length) selected.push(extras.shift());
     state.sessionQuestions = shuffle(selected.slice(0, n));
 
+    console.log('[OSN] Session built — actual questions:', state.sessionQuestions.length);
     showScreen('quizScreen');
     renderQuestion();
 }
@@ -3314,12 +3329,14 @@ function showScreen(id) {
 
 function restartQuiz() {
     showScreen('homeScreen');
-    initHome();
+    syncHomeScreen(); // hanya sync tombol, TIDAK tambah listener baru
 }
 
 // ─── BOOT ───
-// window.onload memastikan semua skrip defer (KaTeX) sudah selesai dimuat
+// initHome() dipanggil SEKALI saja — wire event n-btn hanya di sini.
+// restartQuiz() memanggil syncHomeScreen(), bukan initHome().
 window.addEventListener('load', () => {
+    console.log('[OSN] Boot — questionBank size:', questionBank.length);
     initHome();
 });
 </script>

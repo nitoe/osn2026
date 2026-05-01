@@ -4,7 +4,33 @@
 
 ---
 
-## [3.0.0] — 2025-05-01
+## [3.0.1] — 2025-05-01 · Hotfix: Pengaturan Sesi & Tombol Mulai
+> File yang diubah: `OSN-Matematika-SD-Latihan-Olimpiade.html` saja
+
+### Penyebab Masalah
+Ditemukan **3 bug berlapis** yang menyebabkan pengaturan jumlah soal dan tombol "Mulai Latihan" tidak berfungsi:
+
+| # | Bug | Lokasi | Dampak |
+|---|-----|--------|--------|
+| 1 | **Syntax error JS** — dua koma hilang di batas antar-batch soal (antara id:100→101 dan id:200→201) | `questionBank` array | Seluruh JavaScript gagal di-parse browser → semua tombol mati |
+| 2 | **Event listener menumpuk** — `initHome()` menggunakan `addEventListener` lalu dipanggil ulang oleh `restartQuiz()` setiap sesi selesai | `function initHome()` | Setelah restart, setiap klik tombol memicu handler berganda; state `nQuestions` bisa di-set berkali-kali tak tentu |
+| 3 | **Visual tombol tidak sinkron** — tidak ada mekanisme untuk memperbarui tampilan tombol terpilih setelah restart | `function restartQuiz()` | Tombol yang tampak "terpilih" tidak mencerminkan nilai `state.nQuestions` yang sebenarnya |
+
+### Diperbaiki
+- **Koma hilang** di dua titik batas batch: setelah soal id:100 dan id:200 di array `questionBank` — inilah penyebab utama seluruh JS tidak berjalan
+- **`initHome()`** direfaktor: logika wiring tombol n-btn dipindahkan ke fungsi terpisah, menggunakan properti `.onclick` (menggantikan, bukan menambah) sebagai ganti `addEventListener`
+- **`syncHomeScreen()`** dibuat sebagai fungsi baru — hanya menyinkronkan tampilan visual tombol terpilih berdasarkan `state.nQuestions`, tanpa menyentuh event listener
+- **`restartQuiz()`** kini memanggil `syncHomeScreen()` bukan `initHome()` — event listener hanya terpasang sekali seumur hidup halaman
+- **Boot sequence** dipertegas: `initHome()` dipanggil **sekali** via `window.addEventListener('load')` saja
+- **Console logging** ditambahkan di titik-titik kritis untuk memudahkan debugging di browser DevTools:
+  - `[OSN] Boot — questionBank size: 300` saat halaman dimuat
+  - `[OSN] nQuestions set to X` saat tombol pilihan soal diklik
+  - `[OSN] startQuiz — nQuestions: X | pool size: 300` saat kuis dimulai
+  - `[OSN] Session built — actual questions: X` setelah soal dipilih
+
+---
+
+
 ### Ditambahkan
 - **OSN Matematika SD** — kuis baru dengan arsitektur yang dirancang khusus untuk mata pelajaran matematika
 - **KaTeX** (v0.16.9) via CDN untuk rendering persamaan matematika (`$...$` dan `$$...$$`) — menggantikan teks biasa yang tidak terbaca untuk pecahan, akar, pangkat, sigma, dll.
