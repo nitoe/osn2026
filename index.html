@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Latihan OSN SD — Olimpiade Sains Nasional</title>
-<meta name="description" content="Platform latihan soal HOTS untuk Olimpiade Sains Nasional (OSN) tingkat Sekolah Dasar. Tersedia materi IPA dan IPS berbasis kisi-kisi resmi OSN 2025.">
+<meta name="description" content="Platform latihan soal HOTS untuk Olimpiade Sains Nasional (OSN) tingkat Sekolah Dasar. Tersedia materi IPA, IPS, dan Matematika berbasis kisi-kisi resmi OSN 2025.">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -18,6 +18,7 @@
   --bg2: #F8FAFC;
   --shadow-sm: 0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.06);
   --shadow-md: 0 4px 8px rgba(0,0,0,0.06), 0 12px 32px rgba(0,0,0,0.08);
+  --purple: #7C3AED;
   --radius: 16px;
 }
 
@@ -243,6 +244,7 @@ body {
 
 .card-icon.ipa { background: rgba(14,157,191,0.10); }
 .card-icon.ips { background: rgba(193,117,23,0.10); }
+.card-icon.mat { background: rgba(124,58,237,0.10); }
 
 .card-status {
   font-size: 11px;
@@ -334,6 +336,7 @@ body {
 }
 
 .subject-card:hover .card-cta { gap: 9px; }
+.subject-card:hover .card-cta[style] { gap: 9px; }
 
 /* ── HOW IT WORKS ── */
 .how-grid {
@@ -470,15 +473,15 @@ body {
 
   <div class="stats-row">
     <div class="stat-item">
-      <div class="stat-num">210</div>
+      <div class="stat-num">750</div>
       <div class="stat-label">Total Soal</div>
     </div>
     <div class="stat-item">
-      <div class="stat-num">18</div>
+      <div class="stat-num">23</div>
       <div class="stat-label">Topik</div>
     </div>
     <div class="stat-item">
-      <div class="stat-num">2</div>
+      <div class="stat-num">3</div>
       <div class="stat-label">Mata Pelajaran</div>
     </div>
     <div class="stat-item">
@@ -549,6 +552,35 @@ body {
       </div>
     </a>
 
+
+    <!-- Matematika Card -->
+    <a href="OSN-Matematika-SD-Latihan-Olimpiade.html" class="subject-card">
+      <div class="card-top">
+        <div class="card-icon-row">
+          <div class="card-icon mat">📐</div>
+          <div class="card-status active">● Tersedia</div>
+        </div>
+        <div class="card-subject">Matematika</div>
+        <div class="card-title">OSN Matematika<br>Sekolah Dasar</div>
+        <div class="card-desc">
+          Mencakup Bilangan, Aritmatika, Geometri, Statistika &amp; Pengukuran,
+          dan Kombinatorik. Dilengkapi ilustrasi SVG interaktif dan persamaan KaTeX
+          untuk membantu siswa memahami soal secara visual dan konkret.
+        </div>
+      </div>
+      <div class="card-tags">
+        <span class="tag">Bilangan</span>
+        <span class="tag">Geometri</span>
+        <span class="tag">Statistika</span>
+        <span class="tag">Kombinatorik</span>
+        <span class="tag">+1 topik</span>
+      </div>
+      <div class="card-footer">
+        <span class="card-meta">300 soal · 5 topik · KaTeX + SVG</span>
+        <span class="card-cta" style="color:#7C3AED">Mulai Latihan →</span>
+      </div>
+    </a>
+
   </div>
 </section>
 
@@ -565,7 +597,7 @@ body {
     <div class="how-item">
       <div class="how-num">02</div>
       <div class="how-title">Atur Jumlah Soal</div>
-      <div class="how-desc">Pilih 20, 30, atau 40 soal untuk satu sesi latihan.</div>
+      <div class="how-desc">Pilih 20, 30, 40, atau 50 soal untuk satu sesi latihan.</div>
     </div>
     <div class="how-item">
       <div class="how-num">03</div>
@@ -598,6 +630,7 @@ body {
   <div class="footer-links">
     <a href="OSN-IPA-SD-Latihan-Olimpiade.html">Latihan IPA</a>
     <a href="OSN-IPS-SD-Latihan-Olimpiade.html">Latihan IPS</a>
+    <a href="OSN-Matematika-SD-Latihan-Olimpiade.html">Latihan Matematika</a>
     <a href="https://github.com" target="_blank">GitHub</a>
   </div>
 </footer>
