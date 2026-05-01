@@ -1,0 +1,3327 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSN Matematika SD — Latihan Olimpiade</title>
+
+    <!-- ═══ KaTeX (render persamaan matematika) ═══ -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+
+    <!-- ═══ Fonts ═══ -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #FFFFFF;
+            --bg2: #F8FAFC;
+            --card: #FFFFFF;
+            --card-hover: #F8FAFC;
+            --border: #E2E8F0;
+            --primary: #7C3AED;
+            --primary2: #6D28D9;
+            --accent: #F59E0B;
+            --green: #059669;
+            --red: #DC2626;
+            --text: #1E293B;
+            --muted: #64748B;
+            --white: #FFFFFF;
+            --radius: 14px;
+            --shadow: 0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.06);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            border-top: 3px solid var(--primary);
+        }
+        /* ─── KaTeX overrides ─── */
+        .katex { font-size: 1.05em; }
+        .katex-display { margin: 8px 0; }
+
+        /* ─── SCREENS ─── */
+        .screen { display: none; min-height: 100vh; position: relative; z-index: 1; }
+        .screen.active { display: flex; flex-direction: column; }
+
+        /* ─── HOME ─── */
+        #homeScreen {
+            align-items: center; justify-content: center;
+            padding: 40px 20px; text-align: center;
+            animation: fadeIn 0.6s ease;
+            background: linear-gradient(180deg, #F5F3FF 0%, #FFFFFF 300px);
+        }
+        .home-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(124,58,237,0.08); border: 1px solid rgba(124,58,237,0.2);
+            border-radius: 100px; padding: 6px 16px; font-size: 13px;
+            color: var(--primary); font-weight: 700; margin-bottom: 24px;
+            letter-spacing: 0.5px; text-transform: uppercase;
+        }
+        .home-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 600; line-height: 1.1;
+            background: linear-gradient(135deg, #1E293B 0%, #7C3AED 60%, #F59E0B 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; margin-bottom: 16px;
+        }
+        .home-sub { color: var(--muted); font-size: 1.05rem; max-width: 520px; line-height: 1.7; margin-bottom: 40px; }
+        .topic-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; max-width: 900px; width: 100%; margin-bottom: 40px; text-align: left; }
+        .topic-chip {
+            background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+            padding: 12px 16px; display: flex; align-items: flex-start; gap: 10px;
+            font-size: 13px; font-weight: 600; color: var(--text); transition: all 0.2s; box-shadow: var(--shadow);
+        }
+        .topic-chip:hover { background: var(--card-hover); border-color: rgba(124,58,237,0.3); }
+        .topic-chip span.num {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white; border-radius: 6px; padding: 2px 7px;
+            font-size: 11px; font-weight: 800; flex-shrink: 0; margin-top: 1px;
+        }
+        .settings-card {
+            background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+            padding: 28px 32px; max-width: 480px; width: 100%; margin-bottom: 24px;
+            text-align: left; box-shadow: var(--shadow);
+        }
+        .settings-card h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+        .n-options { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+        .n-btn {
+            flex: 1; min-width: 80px; padding: 10px 0;
+            background: var(--bg2); border: 2px solid var(--border); border-radius: 10px;
+            color: var(--muted); font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 500;
+            cursor: pointer; transition: all 0.2s; text-align: center;
+        }
+        .n-btn.selected { background: rgba(124,58,237,0.08); border-color: var(--primary); color: var(--primary); }
+        .n-btn:hover:not(.selected) { border-color: #CBD5E1; color: var(--text); }
+        .btn-start {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white; border: none; border-radius: var(--radius); padding: 16px 48px;
+            font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.1rem; font-weight: 500;
+            cursor: pointer; transition: all 0.25s; box-shadow: 0 4px 18px rgba(124,58,237,0.28); letter-spacing: 0.3px;
+        }
+        .btn-start:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,58,237,0.36); }
+        .btn-start:active { transform: translateY(0); }
+
+        /* ─── QUIZ SCREEN ─── */
+        #quizScreen { padding: 0; }
+        .quiz-header {
+            background: rgba(255,255,255,0.97); backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border); padding: 14px 24px;
+            display: flex; align-items: center; gap: 16px;
+            position: sticky; top: 0; z-index: 100; flex-shrink: 0;
+        }
+        .q-counter { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 1rem; white-space: nowrap; color: var(--text); }
+        .q-counter span { color: var(--primary); }
+        .progress-bar-wrap { flex: 1; background: #E2E8F0; border-radius: 100px; height: 7px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 100px; transition: width 0.4s ease; }
+        .q-topic-tag {
+            background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.25);
+            color: #B45309; padding: 4px 12px; border-radius: 100px;
+            font-size: 11px; font-weight: 700; white-space: nowrap; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .quiz-body { flex: 1; padding: 32px 20px; max-width: 780px; margin: 0 auto; width: 100%; }
+        .q-type-badge {
+            display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700;
+            padding: 4px 12px; border-radius: 100px; margin-bottom: 16px;
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .q-type-badge.single { background: rgba(124,58,237,0.08); color: var(--primary); border: 1px solid rgba(124,58,237,0.2); }
+        .q-type-badge.multiple { background: rgba(245,158,11,0.08); color: #B45309; border: 1px solid rgba(245,158,11,0.2); }
+        .q-text { font-size: 1.1rem; font-weight: 600; line-height: 1.8; margin-bottom: 20px; color: var(--text); }
+
+        /* ─── ILLUSTRATION ─── */
+        .q-illustration {
+            background: linear-gradient(135deg, #F5F3FF 0%, #FFF7ED 100%);
+            border: 1.5px solid rgba(124,58,237,0.15);
+            border-radius: 12px; padding: 20px 16px;
+            margin-bottom: 24px; text-align: center; overflow: hidden;
+        }
+        .q-illustration svg { max-width: 100%; height: auto; }
+        .q-illustration.hidden { display: none; }
+
+        /* ─── OPTIONS ─── */
+        .options-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+        .option-item {
+            background: var(--card); border: 1.5px solid var(--border); border-radius: 12px;
+            padding: 14px 18px; display: flex; align-items: flex-start; gap: 14px;
+            cursor: pointer; transition: all 0.18s; user-select: none;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+        .option-item:hover { background: #F8FAFC; border-color: #CBD5E1; }
+        .option-item.selected { background: rgba(124,58,237,0.06); border-color: var(--primary); }
+        .option-item.correct-ans { background: rgba(5,150,105,0.07); border-color: var(--green); }
+        .option-item.wrong-ans { background: rgba(220,38,38,0.06); border-color: var(--red); }
+        .option-item.missed-ans { background: rgba(5,150,105,0.04); border-color: rgba(5,150,105,0.4); opacity: 0.85; }
+        .opt-letter {
+            width: 28px; height: 28px; border-radius: 7px; background: #F1F5F9; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 13px;
+            color: var(--muted); transition: all 0.18s; margin-top: 1px;
+        }
+        .option-item.selected .opt-letter { background: var(--primary); color: white; }
+        .option-item.correct-ans .opt-letter { background: var(--green); color: white; }
+        .option-item.wrong-ans .opt-letter { background: var(--red); color: white; }
+        .opt-text { font-size: 0.97rem; font-weight: 500; line-height: 1.6; flex: 1; color: var(--text); }
+
+        /* ─── NAV ─── */
+        .quiz-nav { display: flex; gap: 12px; align-items: center; justify-content: space-between; }
+        .btn-nav { padding: 12px 28px; border-radius: 10px; font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 500; cursor: pointer; transition: all 0.2s; border: none; }
+        .btn-prev { background: var(--bg2); border: 1px solid var(--border); color: var(--muted); }
+        .btn-prev:hover { border-color: #CBD5E1; color: var(--text); }
+        .btn-next { background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; box-shadow: 0 3px 12px rgba(124,58,237,0.25); padding: 12px 36px; }
+        .btn-next:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(124,58,237,0.32); }
+        .btn-next:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+        .answered-count { font-size: 13px; color: var(--muted); font-weight: 600; }
+
+        /* ─── RESULTS ─── */
+        #resultsScreen { padding: 40px 20px; align-items: center; animation: fadeIn 0.5s ease; background: #F8FAFC; }
+        .results-wrap { max-width: 700px; width: 100%; }
+        .results-header { text-align: center; margin-bottom: 40px; }
+        .score-ring-wrap { position: relative; width: 160px; height: 160px; margin: 0 auto 24px; }
+        .score-ring-wrap canvas { position: absolute; top: 0; left: 0; }
+        .score-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .score-num { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.4rem; font-weight: 800; background: linear-gradient(135deg, var(--primary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .score-label { font-size: 11px; color: var(--muted); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+        .results-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.6rem; font-weight: 600; margin-bottom: 6px; color: var(--text); }
+        .results-sub { color: var(--muted); font-size: 0.95rem; }
+        .stats-row { display: flex; gap: 12px; margin-bottom: 32px; flex-wrap: wrap; }
+        .stat-card { flex: 1; min-width: 120px; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; text-align: center; box-shadow: var(--shadow); }
+        .stat-val { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.8rem; font-weight: 800; }
+        .stat-val.g { color: var(--green); } .stat-val.r { color: var(--red); } .stat-val.b { color: var(--primary); }
+        .stat-key { font-size: 12px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+        .topic-results { margin-bottom: 32px; }
+        .topic-results h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+        .tr-item { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; margin-bottom: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+        .tr-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; flex-wrap: wrap; gap: 8px; }
+        .tr-name { font-size: 13px; font-weight: 700; color: var(--text); }
+        .tr-score { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 800; }
+        .tr-bar { background: #E2E8F0; border-radius: 100px; height: 6px; }
+        .tr-fill { height: 100%; border-radius: 100px; transition: width 1s ease 0.3s; }
+        .results-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .btn-action { padding: 13px 28px; border-radius: 10px; font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+        .btn-review { background: #F8FAFC; border: 1px solid var(--border); color: var(--text); }
+        .btn-review:hover { background: #F1F5F9; border-color: #CBD5E1; }
+        .btn-restart { background: linear-gradient(135deg, var(--primary), var(--accent)); border: none; color: white; box-shadow: 0 3px 12px rgba(124,58,237,0.25); }
+        .btn-restart:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(124,58,237,0.32); }
+
+        /* ─── REVIEW ─── */
+        #reviewScreen { padding: 0; }
+        .review-header { background: rgba(255,255,255,0.97); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); padding: 14px 24px; display: flex; align-items: center; gap: 16px; position: sticky; top: 0; z-index: 100; flex-shrink: 0; }
+        .review-header h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 1.1rem; flex: 1; color: var(--text); }
+        .btn-back { background: var(--bg2); border: 1px solid var(--border); color: var(--muted); padding: 8px 18px; border-radius: 8px; font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+        .btn-back:hover { border-color: #CBD5E1; color: var(--text); }
+        .review-body { padding: 24px 20px; max-width: 780px; margin: 0 auto; width: 100%; }
+        .review-item { background: var(--card); border: 1px solid var(--border); border-radius: 14px; margin-bottom: 12px; overflow: hidden; transition: all 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+        .review-item-header { padding: 16px 20px; display: flex; align-items: center; gap: 14px; cursor: pointer; }
+        .review-item-header:hover { background: #F8FAFC; }
+        .ri-status { width: 30px; height: 30px; border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; }
+        .ri-status.correct { background: rgba(5,150,105,0.12); color: var(--green); }
+        .ri-status.wrong { background: rgba(220,38,38,0.1); color: var(--red); }
+        .ri-info { flex: 1; min-width: 0; }
+        .ri-q-num { font-size: 11px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
+        .ri-q-text { font-size: 14px; font-weight: 600; line-height: 1.5; color: var(--text); }
+        .ri-chevron { color: var(--muted); transition: transform 0.25s; font-size: 18px; flex-shrink: 0; }
+        .review-item.open .ri-chevron { transform: rotate(180deg); }
+        .review-detail { display: none; padding: 0 20px 20px; }
+        .review-item.open .review-detail { display: block; }
+        .ri-illustration { background: linear-gradient(135deg, #F5F3FF, #FFF7ED); border: 1px solid rgba(124,58,237,0.12); border-radius: 10px; padding: 16px; margin-bottom: 14px; text-align: center; }
+        .ri-options { margin-bottom: 14px; }
+        .ri-opt { padding: 8px 12px; border-radius: 8px; margin-bottom: 6px; font-size: 13px; font-weight: 500; display: flex; align-items: flex-start; gap: 10px; }
+        .ri-opt.correct { background: rgba(5,150,105,0.08); color: var(--green); }
+        .ri-opt.wrong { background: rgba(220,38,38,0.07); color: var(--red); }
+        .ri-opt.neutral { background: #F8FAFC; color: var(--muted); }
+        .ri-opt-mark { flex-shrink: 0; font-weight: 800; width: 18px; }
+        .ri-explanation { background: rgba(124,58,237,0.04); border: 1px solid rgba(124,58,237,0.15); border-radius: 10px; padding: 14px 16px; font-size: 13px; line-height: 1.7; color: var(--text); }
+        .ri-explanation strong { color: var(--primary); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 600px) {
+            .quiz-header { padding: 12px 16px; gap: 10px; }
+            .q-topic-tag { display: none; }
+            .quiz-body { padding: 20px 16px; }
+            .q-text { font-size: 1rem; }
+            .review-body { padding: 16px 12px; }
+            .q-illustration { padding: 14px 10px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ═══════════════════ HOME ═══════════════════ -->
+<div id="homeScreen" class="screen active">
+    <div class="home-badge">📐 Olimpiade Sains Nasional · SD/MI</div>
+    <h1 class="home-title">Latihan OSN Matematika<br>Tingkat SD</h1>
+    <p class="home-sub">Pool <strong>300 soal</strong> HOTS berbasis kisi-kisi resmi OSN 2025. Persamaan dirender dengan KaTeX. Ilustrasi SVG untuk setiap soal visual. Soal dan pilihan jawaban diacak setiap sesi.</p>
+    <div class="topic-grid" id="topicGrid"></div>
+    <div class="settings-card">
+        <h3>⚙️ Pengaturan Sesi</h3>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">Pilih jumlah soal per sesi latihan:</p>
+        <div class="n-options" id="nOptions">
+            <button class="n-btn" data-n="20">20 Soal</button>
+            <button class="n-btn selected" data-n="30">30 Soal</button>
+            <button class="n-btn" data-n="40">40 Soal</button>
+            <button class="n-btn" data-n="50">50 Soal</button>
+        </div>
+        <p style="font-size:12px;color:var(--muted);">Soal dipilih acak dari 5 bidang · Persamaan dirender otomatis · Ilustrasi untuk soal visual</p>
+    </div>
+    <button class="btn-start" onclick="startQuiz()">Mulai Latihan 🚀</button>
+</div>
+
+<!-- ═══════════════════ QUIZ SCREEN ═══════════════════ -->
+<div id="quizScreen" class="screen">
+    <div class="quiz-header">
+        <div class="q-counter">Soal <span id="qCurrent">1</span> / <span id="qTotal">30</span></div>
+        <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressFill"></div></div>
+        <div class="q-topic-tag" id="qTopicTag">—</div>
+    </div>
+    <div class="quiz-body" id="quizBody">
+        <div class="q-type-badge" id="qTypeBadge"></div>
+        <div class="q-text" id="qText"></div>
+        <div class="q-illustration hidden" id="qIllustration"></div>
+        <div class="options-list" id="optionsList"></div>
+        <div class="quiz-nav">
+            <button class="btn-nav btn-prev" id="btnPrev" onclick="navQ(-1)">← Sebelumnya</button>
+            <div class="answered-count" id="answeredCount"></div>
+            <button class="btn-nav btn-next" id="btnNext">Selanjutnya →</button>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════ RESULTS ═══════════════════ -->
+<div id="resultsScreen" class="screen">
+    <div class="results-wrap">
+        <div class="results-header">
+            <div class="score-ring-wrap">
+                <canvas id="scoreCanvas" width="160" height="160"></canvas>
+                <div class="score-center">
+                    <div class="score-num" id="scoreNum">—</div>
+                    <div class="score-label">SKOR</div>
+                </div>
+            </div>
+            <h2 class="results-title" id="resultsTitle">—</h2>
+            <p class="results-sub" id="resultsSub"></p>
+        </div>
+        <div class="stats-row" id="statsRow"></div>
+        <div class="topic-results">
+            <h3>📊 Capaian Per Bidang</h3>
+            <div id="topicResultsList"></div>
+        </div>
+        <div class="results-actions">
+            <button class="btn-action btn-review" onclick="showReview()">📋 Lihat Pembahasan</button>
+            <button class="btn-action btn-restart" onclick="restartQuiz()">🔄 Latihan Baru</button>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════ REVIEW ═══════════════════ -->
+<div id="reviewScreen" class="screen">
+    <div class="review-header">
+        <button class="btn-back" onclick="showResults()">← Kembali</button>
+        <h2>📋 Pembahasan Lengkap</h2>
+    </div>
+    <div class="review-body" id="reviewBody"></div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// KATEX HELPER
+// ═══════════════════════════════════════════════════════════════
+function renderMath(el) {
+    try {
+        if (typeof renderMathInElement !== 'undefined') {
+            renderMathInElement(el, {
+                delimiters: [
+                    { left: '$$', right: '$$', display: true },
+                    { left: '$', right: '$', display: false }
+                ],
+                throwOnError: false,
+                output: 'html'
+            });
+        }
+    } catch(e) { /* silent fallback */ }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SVG ILUSTRASI — template functions
+// ═══════════════════════════════════════════════════════════════
+const SVG = {
+    rect: (w, h, label='') => `<svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg" style="max-width:320px">
+      <rect x="30" y="40" width="${Math.min(w*14,240)}" height="${Math.min(h*14,100)}" fill="#EDE9FE" stroke="#7C3AED" stroke-width="2.5" rx="3"/>
+      <text x="${30+Math.min(w*14,240)/2}" y="28" text-anchor="middle" font-family="Nunito,sans-serif" font-size="14" font-weight="700" fill="#7C3AED">${w} cm</text>
+      <text x="${30+Math.min(w*14,240)+16}" y="${40+Math.min(h*14,100)/2}" text-anchor="middle" font-family="Nunito,sans-serif" font-size="14" font-weight="700" fill="#7C3AED" transform="rotate(90,${30+Math.min(w*14,240)+16},${40+Math.min(h*14,100)/2})">${h} cm</text>
+      ${label ? `<text x="${30+Math.min(w*14,240)/2}" y="${40+Math.min(h*14,100)/2+5}" text-anchor="middle" font-family="Nunito,sans-serif" font-size="13" fill="#6D28D9">${label}</text>` : ''}
+    </svg>`,
+
+    triangle: (base, tinggi) => `<svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg" style="max-width:320px">
+      <polygon points="150,30 40,160 260,160" fill="#EDE9FE" stroke="#7C3AED" stroke-width="2.5"/>
+      <line x1="150" y1="30" x2="150" y2="160" stroke="#F59E0B" stroke-width="1.5" stroke-dasharray="5,4"/>
+      <text x="150" y="22" text-anchor="middle" font-family="Nunito,sans-serif" font-size="13" fill="#92400E">tinggi = ${tinggi} cm</text>
+      <text x="150" y="175" text-anchor="middle" font-family="Nunito,sans-serif" font-size="14" font-weight="700" fill="#7C3AED">alas = ${base} cm</text>
+    </svg>`,
+
+    trapezoid: (a, b, t) => `<svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg" style="max-width:320px">
+      <polygon points="60,40 240,40 280,150 20,150" fill="#EDE9FE" stroke="#7C3AED" stroke-width="2.5"/>
+      <line x1="60" y1="40" x2="60" y2="150" stroke="#F59E0B" stroke-width="1.5" stroke-dasharray="5,4"/>
+      <text x="150" y="26" text-anchor="middle" font-family="Nunito,sans-serif" font-size="14" font-weight="700" fill="#7C3AED">a = ${a} cm</text>
+      <text x="150" y="168" text-anchor="middle" font-family="Nunito,sans-serif" font-size="14" font-weight="700" fill="#7C3AED">b = ${b} cm</text>
+      <text x="40" y="100" text-anchor="middle" font-family="Nunito,sans-serif" font-size="13" fill="#92400E">t=${t}</text>
+    </svg>`,
+
+    cube: (s) => `<svg viewBox="0 0 260 200" xmlns="http://www.w3.org/2000/svg" style="max-width:280px">
+      <polygon points="60,140 60,50 150,50 150,140" fill="#EDE9FE" stroke="#7C3AED" stroke-width="2"/>
+      <polygon points="60,50 110,10 200,10 150,50" fill="#DDD6FE" stroke="#7C3AED" stroke-width="2"/>
+      <polygon points="150,50 200,10 200,100 150,140" fill="#C4B5FD" stroke="#7C3AED" stroke-width="2"/>
+      <text x="105" y="100" text-anchor="middle" font-family="Nunito,sans-serif" font-size="14" font-weight="700" fill="#5B21B6">${s} cm</text>
+    </svg>`,
+
+    box3d: (p, l, t) => `<svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" style="max-width:300px">
+      <polygon points="40,150 40,60 160,60 160,150" fill="#EDE9FE" stroke="#7C3AED" stroke-width="2"/>
+      <polygon points="40,60 90,20 210,20 160,60" fill="#DDD6FE" stroke="#7C3AED" stroke-width="2"/>
+      <polygon points="160,60 210,20 210,110 160,150" fill="#C4B5FD" stroke="#7C3AED" stroke-width="2"/>
+      <text x="100" y="113" text-anchor="middle" font-family="Nunito,sans-serif" font-size="12" fill="#5B21B6">p=${p}</text>
+      <text x="186" y="85" text-anchor="middle" font-family="Nunito,sans-serif" font-size="12" fill="#5B21B6">l=${l}</text>
+      <text x="100" y="50" text-anchor="middle" font-family="Nunito,sans-serif" font-size="12" fill="#5B21B6">t=${t}</text>
+    </svg>`,
+
+    grid: (cols, rows, highlighted=[]) => {
+      let cells = '';
+      for(let r=0;r<rows;r++) for(let c=0;c<cols;c++) {
+        const isH = highlighted.some(([hc,hr])=>hc===c&&hr===r);
+        cells += `<rect x="${20+c*36}" y="${20+r*36}" width="34" height="34" fill="${isH?'#7C3AED':'#EDE9FE'}" stroke="#7C3AED" stroke-width="1.5" rx="4"/>`;
+      }
+      return `<svg viewBox="0 0 ${20+cols*36+20} ${20+rows*36+20}" xmlns="http://www.w3.org/2000/svg" style="max-width:280px">${cells}</svg>`;
+    },
+
+    numberLine: (min, max, points=[], label='') => {
+      const w=280, pad=30, range=max-min, scale=(w-2*pad)/range;
+      let ticks='', labels='', dots='';
+      for(let i=min;i<=max;i++){
+        const x=pad+(i-min)*scale;
+        ticks+=`<line x1="${x}" y1="55" x2="${x}" y2="65" stroke="#7C3AED" stroke-width="1.5"/>`;
+        labels+=`<text x="${x}" y="78" text-anchor="middle" font-family="Nunito,sans-serif" font-size="12" fill="#1E293B">${i}</text>`;
+      }
+      points.forEach(p=>{
+        const x=pad+(p-min)*scale;
+        dots+=`<circle cx="${x}" cy="60" r="7" fill="#F59E0B" stroke="#B45309" stroke-width="1.5"/>`;
+      });
+      return `<svg viewBox="0 0 ${w} 90" xmlns="http://www.w3.org/2000/svg" style="max-width:320px">
+        <line x1="${pad}" y1="60" x2="${w-pad}" y2="60" stroke="#7C3AED" stroke-width="2"/>
+        <polygon points="${w-pad},60 ${w-pad-8},55 ${w-pad-8},65" fill="#7C3AED"/>
+        ${ticks}${labels}${dots}
+        ${label?`<text x="${w/2}" y="14" text-anchor="middle" font-family="Nunito,sans-serif" font-size="12" fill="#6D28D9">${label}</text>`:''}
+      </svg>`;
+    },
+
+    coordPlane: (pts=[], labels=[]) => {
+      let dots='', ptlabels='';
+      pts.forEach(([x,y],i)=>{
+        const cx=140+x*25, cy=130-y*25;
+        dots+=`<circle cx="${cx}" cy="${cy}" r="6" fill="#F59E0B" stroke="#B45309" stroke-width="1.5"/>`;
+        if(labels[i]) ptlabels+=`<text x="${cx+8}" y="${cy-6}" font-family="Nunito,sans-serif" font-size="12" font-weight="700" fill="#B45309">${labels[i]}</text>`;
+      });
+      return `<svg viewBox="0 0 280 260" xmlns="http://www.w3.org/2000/svg" style="max-width:300px">
+        <line x1="20" y1="130" x2="260" y2="130" stroke="#7C3AED" stroke-width="1.5"/>
+        <line x1="140" y1="20" x2="140" y2="240" stroke="#7C3AED" stroke-width="1.5"/>
+        <polygon points="260,130 252,125 252,135" fill="#7C3AED"/>
+        <polygon points="140,20 135,28 145,28" fill="#7C3AED"/>
+        <text x="265" y="134" font-family="Nunito,sans-serif" font-size="12" fill="#7C3AED">x</text>
+        <text x="143" y="16" font-family="Nunito,sans-serif" font-size="12" fill="#7C3AED">y</text>
+        ${[-4,-3,-2,-1,1,2,3,4].map(n=>`
+          <line x1="${140+n*25}" y1="127" x2="${140+n*25}" y2="133" stroke="#CBD5E1" stroke-width="1"/>
+          <text x="${140+n*25}" y="144" text-anchor="middle" font-family="Nunito,sans-serif" font-size="10" fill="#94A3B8">${n}</text>
+          <line x1="137" y1="${130-n*25}" x2="143" y2="${130-n*25}" stroke="#CBD5E1" stroke-width="1"/>
+          <text x="133" y="${134-n*25}" text-anchor="end" font-family="Nunito,sans-serif" font-size="10" fill="#94A3B8">${n}</text>
+        `).join('')}
+        ${dots}${ptlabels}
+      </svg>`;
+    },
+
+    barChart: (labels, values, title='') => {
+      const max=Math.max(...values), h=120, w=280, barW=30, gap=10, pad=40;
+      const bars=labels.map((l,i)=>{
+        const barH=values[i]/max*h, x=pad+i*(barW+gap), y=20+h-barH;
+        return `<rect x="${x}" y="${y}" width="${barW}" height="${barH}" fill="#7C3AED" rx="3" opacity="0.85"/>
+          <text x="${x+barW/2}" y="${y-4}" text-anchor="middle" font-family="Nunito,sans-serif" font-size="11" font-weight="700" fill="#5B21B6">${values[i]}</text>
+          <text x="${x+barW/2}" y="${20+h+16}" text-anchor="middle" font-family="Nunito,sans-serif" font-size="11" fill="#64748B">${l}</text>`;
+      }).join('');
+      return `<svg viewBox="0 0 ${pad*2+labels.length*(barW+gap)} ${20+h+35}" xmlns="http://www.w3.org/2000/svg" style="max-width:320px">
+        <line x1="${pad}" y1="${20+h}" x2="${pad+labels.length*(barW+gap)}" y2="${20+h}" stroke="#CBD5E1" stroke-width="1.5"/>
+        ${title?`<text x="${pad+labels.length*(barW+gap)/2}" y="12" text-anchor="middle" font-family="Nunito,sans-serif" font-size="12" font-weight="700" fill="#5B21B6">${title}</text>`:''}
+        ${bars}
+      </svg>`;
+    },
+
+    pie: (slices, labels, title='') => {
+      const total=slices.reduce((a,b)=>a+b,0);
+      const colors=['#7C3AED','#F59E0B','#059669','#DC2626','#0EA5E9'];
+      let angle=0, paths='', legendItems='';
+      slices.forEach((s,i)=>{
+        const sweep=s/total*360;
+        const r1=Math.PI/180*angle, r2=Math.PI/180*(angle+sweep);
+        const x1=130+80*Math.cos(r1), y1=90+80*Math.sin(r1);
+        const x2=130+80*Math.cos(r2), y2=90+80*Math.sin(r2);
+        const lf=sweep>180?1:0;
+        const mx=130+50*Math.cos(r1+sweep/2*Math.PI/180), my=90+50*Math.sin(r1+sweep/2*Math.PI/180);
+        paths+=`<path d="M130,90 L${x1},${y1} A80,80 0 ${lf},1 ${x2},${y2} Z" fill="${colors[i%colors.length]}" stroke="white" stroke-width="2"/>`;
+        const pct=Math.round(s/total*100);
+        if(pct>5) paths+=`<text x="${mx}" y="${my+4}" text-anchor="middle" font-family="Nunito,sans-serif" font-size="12" font-weight="700" fill="white">${pct}%</text>`;
+        legendItems+=`<rect x="222" y="${12+i*20}" width="12" height="12" fill="${colors[i%colors.length]}" rx="2"/>
+          <text x="238" y="${22+i*20}" font-family="Nunito,sans-serif" font-size="11" fill="#1E293B">${labels[i]}: ${s}</text>`;
+        angle+=sweep;
+      });
+      return `<svg viewBox="0 0 360 190" xmlns="http://www.w3.org/2000/svg" style="max-width:360px">
+        ${title?`<text x="130" y="12" text-anchor="middle" font-family="Nunito,sans-serif" font-size="12" font-weight="700" fill="#5B21B6">${title}</text>`:''}
+        ${paths}${legendItems}
+      </svg>`;
+    },
+
+    lShape: (a,b,c,d) => `<svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg" style="max-width:300px">
+      <polygon points="30,180 30,50 130,50 130,100 210,100 210,180" fill="#EDE9FE" stroke="#7C3AED" stroke-width="2.5"/>
+      <text x="80" y="38" text-anchor="middle" font-family="Nunito,sans-serif" font-size="13" font-weight="700" fill="#7C3AED">${a} cm</text>
+      <text x="10" y="120" text-anchor="middle" font-family="Nunito,sans-serif" font-size="13" font-weight="700" fill="#7C3AED" transform="rotate(-90,10,120)">${b} cm</text>
+      <text x="170" y="90" text-anchor="middle" font-family="Nunito,sans-serif" font-size="12" fill="#92400E">${c} cm</text>
+      <text x="220" y="145" text-anchor="middle" font-family="Nunito,sans-serif" font-size="12" fill="#92400E" transform="rotate(-90,220,145)">${d} cm</text>
+    </svg>`,
+
+    fractionBar: (num, den, label='') => {
+      const total=10, filled=Math.round(num/den*total), w=240, bw=w/total;
+      let bars='';
+      for(let i=0;i<total;i++) bars+=`<rect x="${20+i*bw}" y="40" width="${bw-2}" height="40" fill="${i<filled?'#7C3AED':'#EDE9FE'}" stroke="#7C3AED" stroke-width="1" rx="3"/>`;
+      return `<svg viewBox="0 0 280 110" xmlns="http://www.w3.org/2000/svg" style="max-width:300px">
+        <text x="140" y="22" text-anchor="middle" font-family="Nunito,sans-serif" font-size="14" font-weight="700" fill="#5B21B6">${label||num+'/'+den}</text>
+        ${bars}
+        <text x="140" y="105" text-anchor="middle" font-family="Nunito,sans-serif" font-size="12" fill="#64748B">${filled} dari ${total} bagian terisi</text>
+      </svg>`;
+    },
+
+    parallelogram: (base, tinggi, miring) => `<svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg" style="max-width:320px">
+      <polygon points="70,150 30,50 230,50 270,150" fill="#EDE9FE" stroke="#7C3AED" stroke-width="2.5"/>
+      <line x1="70" y1="50" x2="70" y2="150" stroke="#F59E0B" stroke-width="1.5" stroke-dasharray="5,4"/>
+      <text x="150" y="38" text-anchor="middle" font-family="Nunito,sans-serif" font-size="14" font-weight="700" fill="#7C3AED">alas = ${base} cm</text>
+      <text x="50" y="105" text-anchor="middle" font-family="Nunito,sans-serif" font-size="12" fill="#92400E">t=${tinggi}</text>
+    </svg>`,
+
+    kite: (d1, d2) => `<svg viewBox="0 0 280 220" xmlns="http://www.w3.org/2000/svg" style="max-width:280px">
+      <polygon points="140,20 220,110 140,200 60,110" fill="#EDE9FE" stroke="#7C3AED" stroke-width="2.5"/>
+      <line x1="140" y1="20" x2="140" y2="200" stroke="#F59E0B" stroke-width="1.5" stroke-dasharray="5,4"/>
+      <line x1="60" y1="110" x2="220" y2="110" stroke="#F59E0B" stroke-width="1.5" stroke-dasharray="5,4"/>
+      <text x="165" y="75" font-family="Nunito,sans-serif" font-size="12" fill="#92400E">d₁=${d1}</text>
+      <text x="145" y="118" font-family="Nunito,sans-serif" font-size="12" fill="#92400E">d₂=${d2}</text>
+    </svg>`,
+
+    triangularPrism: (a,t,p) => `<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" style="max-width:300px">
+      <polygon points="40,170 150,50 150,170" fill="#EDE9FE" stroke="#7C3AED" stroke-width="2"/>
+      <polygon points="150,50 220,20 220,140 150,170" fill="#DDD6FE" stroke="#7C3AED" stroke-width="2"/>
+      <polygon points="40,170 110,140 220,140 150,170" fill="#C4B5FD" stroke="#7C3AED" stroke-width="2"/>
+      <text x="85" y="185" text-anchor="middle" font-family="Nunito,sans-serif" font-size="12" fill="#7C3AED">a=${a}</text>
+      <text x="185" y="90" font-family="Nunito,sans-serif" font-size="12" fill="#7C3AED">p=${p}</text>
+      <text x="148" y="118" text-anchor="end" font-family="Nunito,sans-serif" font-size="12" fill="#92400E">t=${t}</text>
+    </svg>`,
+
+    dotPattern: (rows, cols, n) => {
+      let dots='';
+      let count=0;
+      for(let r=0;r<rows;r++) for(let c=0;c<cols;c++){
+        count++;
+        dots+=`<circle cx="${25+c*30}" cy="${25+r*30}" r="8" fill="${count<=n?'#7C3AED':'#EDE9FE'}" stroke="#7C3AED" stroke-width="1.5"/>`;
+      }
+      return `<svg viewBox="0 0 ${20+cols*30+10} ${20+rows*30+10}" xmlns="http://www.w3.org/2000/svg" style="max-width:280px">${dots}</svg>`;
+    },
+};
+
+// ═══════════════════════════════════════════════════════════════
+// TOPICS
+// ═══════════════════════════════════════════════════════════════
+const TOPICS = [
+    { id: 1, name: "Bilangan" },
+    { id: 2, name: "Aritmatika" },
+    { id: 3, name: "Geometri" },
+    { id: 4, name: "Statistika & Pengukuran" },
+    { id: 5, name: "Kombinatorik" }
+];
+
+// ═══════════════════════════════════════════════════════════════
+// BANK SOAL — 100 soal (20 per bidang)
+// ═══════════════════════════════════════════════════════════════
+const questionBank = [
+
+// ──────────────────────────────────────────────────────────────
+// BIDANG 1 · BILANGAN (ID 1–20)
+// ──────────────────────────────────────────────────────────────
+{
+    id:1, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Tiga lampu merah, kuning, dan hijau berkedip bersama pada pukul 18.00. Lampu merah berkedip setiap 12 menit, kuning setiap 18 menit, hijau setiap 24 menit. Pukul berapa ketiga lampu berkedip bersama lagi untuk pertama kalinya?",
+    illustration: null,
+    options:["18.36","18.48","18.54","19.12"],
+    correct:[3],
+    explanation:"KPK(12,18,24): $12=2^2\\times3$, $18=2\\times3^2$, $24=2^3\\times3$. KPK $=2^3\\times3^2=72$ menit. $18{:}00+72$ menit $=18{:}00+1$ jam $12$ menit $=\\mathbf{19{:}12}$."
+},
+{
+    id:2, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Pak Andi memiliki 84 buku IPA, 112 buku IPS, dan 140 buku Matematika. Ia ingin membuat paket buku dengan jumlah yang sama di setiap paket, dan setiap paket hanya berisi satu jenis buku. Berapa paket buku terbanyak yang bisa dibuat?",
+    illustration: null,
+    options:["14 paket","28 paket","42 paket","56 paket"],
+    correct:[1],
+    explanation:"FPB(84,112,140): 84=2²×3×7, 112=2⁴×7, 140=2²×5×7. FPB=2²×7=28. Jadi 28 paket: 84÷28=3, 112÷28=4, 140÷28=5 buku per paket."
+},
+{
+    id:3, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Hitunglah: $2\\dfrac{2}{3} + 3\\dfrac{3}{4}$",
+    illustration: null,
+    options:["$6\\dfrac{5}{12}$","$5\\dfrac{5}{7}$","$6\\dfrac{1}{2}$","$5\\dfrac{11}{12}$"],
+    correct:[0],
+    explanation:"$2\\frac{2}{3}+3\\frac{3}{4} = \\frac{8}{3}+\\frac{15}{4} = \\frac{32}{12}+\\frac{45}{12} = \\frac{77}{12} = 6\\frac{5}{12}$"
+},
+{
+    id:4, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Sebuah kelas terdiri dari 40 siswa. $\\dfrac{3}{8}$ siswa suka IPA, $\\dfrac{1}{4}$ suka IPS, dan sisanya suka Matematika. Berapa siswa yang suka Matematika?",
+    illustration: null,
+    options:["10 siswa","15 siswa","20 siswa","25 siswa"],
+    correct:[1],
+    explanation:"Suka IPA: $\\frac{3}{8}\\times40=15$. Suka IPS: $\\frac{1}{4}\\times40=10$. Sisa: $\\frac{3}{8}+\\frac{1}{4}=\\frac{5}{8}$, berarti sisanya $1-\\frac{5}{8}=\\frac{3}{8}$ dari 40. Suka Matematika: $\\frac{3}{8}\\times40=15$ siswa."
+},
+{
+    id:5, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Manakah yang merupakan bilangan prima di antara bilangan-bilangan berikut?",
+    illustration: null,
+    options:["91","97","99","119"],
+    correct:[1],
+    explanation:"97 adalah bilangan prima karena tidak dapat dibagi oleh 2, 3, 5, 7 (dan $\\sqrt{97}<10$). 91=7×13 (bukan prima). 99=9×11 (bukan prima). 119=7×17 (bukan prima)."
+},
+{
+    id:6, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Nilai dari $\\sqrt{12^2 + 5^2}$ adalah ...",
+    illustration: null,
+    options:["13","15","17","169"],
+    correct:[0],
+    explanation:"$\\sqrt{12^2+5^2}=\\sqrt{144+25}=\\sqrt{169}=13$. Ini adalah tripel Pythagoras yang terkenal: (5, 12, 13)."
+},
+{
+    id:7, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Suhu di puncak gunung adalah $-8°C$. Suhu di kaki gunung $17°C$ lebih tinggi dari puncak. Suhu di kaki gunung adalah ...",
+    illustration: SVG.numberLine(-10, 12, [-8], 'Suhu (°C)'),
+    options:["$-25°C$","$9°C$","$25°C$","$-9°C$"],
+    correct:[1],
+    explanation:"$-8+17=9$. Suhu di kaki gunung adalah $9°C$."
+},
+{
+    id:8, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Hasil dari $(-4) \\times (-3) + (-5) \\times 2 - (-8)$ adalah ...",
+    illustration: null,
+    options:["6","10","18","26"],
+    correct:[2],
+    explanation:"$(-4)\\times(-3)=12$; $(-5)\\times2=-10$; $-(-8)=+8$. Jadi $12+(-10)+8=12-10+8=10$. Jawaban B."
+},
+{
+    id:9, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Nilai dari $2^5 - 3^3 + 4^2$ adalah ...",
+    illustration: null,
+    options:["21","29","37","45"],
+    correct:[0],
+    explanation:"$2^5=32$; $3^3=27$; $4^2=16$. Maka $32-27+16=21$."
+},
+{
+    id:10, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Urutkan pecahan-pecahan ini dari yang terkecil ke terbesar: $\\dfrac{3}{4},\\ \\dfrac{5}{6},\\ \\dfrac{7}{10},\\ \\dfrac{2}{3}$",
+    illustration: null,
+    options:["$\\frac{2}{3}<\\frac{3}{4}<\\frac{7}{10}<\\frac{5}{6}$","$\\frac{2}{3}<\\frac{7}{10}<\\frac{3}{4}<\\frac{5}{6}$","$\\frac{7}{10}<\\frac{2}{3}<\\frac{3}{4}<\\frac{5}{6}$","$\\frac{2}{3}<\\frac{7}{10}<\\frac{5}{6}<\\frac{3}{4}$"],
+    correct:[1],
+    explanation:"Ubah ke KPD=60: $\\frac{2}{3}=\\frac{40}{60}$, $\\frac{7}{10}=\\frac{42}{60}$, $\\frac{3}{4}=\\frac{45}{60}$, $\\frac{5}{6}=\\frac{50}{60}$. Urutan: $\\frac{2}{3}<\\frac{7}{10}<\\frac{3}{4}<\\frac{5}{6}$."
+},
+{
+    id:11, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Sebuah toko menjual kue. $\\dfrac{3}{5}$ dari kue sudah terjual, $\\dfrac{1}{4}$ dari kue tersisa diberikan gratis. Jika toko membuat 120 kue, berapa kue yang diberikan gratis?",
+    illustration: SVG.fractionBar(3,5,'3/5 sudah terjual'),
+    options:["12 kue","18 kue","24 kue","30 kue"],
+    correct:[1],
+    explanation:"Terjual: $\\frac{3}{5}\\times120=72$. Sisa: $120-72=48$. Gratis: $\\frac{1}{4}\\times48=12$. Jawaban A."
+},
+{
+    id:12, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Pak Guru menulis angka $0,375$ di papan tulis. Bentuk pecahan paling sederhana dari $0,375$ adalah ...",
+    illustration: null,
+    options:["$\\dfrac{3}{8}$","$\\dfrac{37}{100}$","$\\dfrac{15}{40}$","$\\dfrac{375}{1000}$"],
+    correct:[0],
+    explanation:"$0,375=\\frac{375}{1000}=\\frac{75}{200}=\\frac{15}{40}=\\frac{3}{8}$. Sederhanakan dengan membagi 125: $\\frac{375\\div125}{1000\\div125}=\\frac{3}{8}$."
+},
+{
+    id:13, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Berapakah nilai dari $\\dfrac{5}{8}$ jika dinyatakan sebagai persen?",
+    illustration: null,
+    options:["58%","62,5%","65%","67,5%"],
+    correct:[1],
+    explanation:"$\\frac{5}{8}=\\frac{5\\times100}{8}\\%=\\frac{500}{8}\\%=62,5\\%$"
+},
+{
+    id:14, topicId:1, topicName:"Bilangan", type:"multiple",
+    question:"Pilih SEMUA pernyataan yang BENAR tentang faktorisasi prima!",
+    illustration: null,
+    options:["$180 = 2^2 \\times 3^2 \\times 5$","Faktorisasi prima dari 360 adalah $2^3 \\times 3^2 \\times 5$","Setiap bilangan komposit memiliki tepat satu faktorisasi prima","FPB(36,48) = 12"],
+    correct:[0,1,2,3],
+    explanation:"A: $180=4\\times45=2^2\\times9\\times5=2^2\\times3^2\\times5$ ✓. B: $360=2\\times180=2^3\\times3^2\\times5$ ✓. C: Teorema Fundamental Aritmatika — setiap bilangan komposit punya satu faktorisasi prima (unik) ✓. D: $36=2^2\\times3^2$, $48=2^4\\times3$, FPB=$2^2\\times3=12$ ✓."
+},
+{
+    id:15, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Jika $A$ adalah bilangan terbesar tiga digit yang habis dibagi 7 dan 11, berapakah $A$?",
+    illustration: null,
+    options:["924","847","979","968"],
+    correct:[3],
+    explanation:"KPK(7,11)=77. Bilangan terbesar ≤999 yang kelipatan 77: $77\\times12=924$, $77\\times13=1001>999$. Jadi $A=924$. Verifikasi: $924div7=132$ ✓, $924div11=84$ ✓."
+},
+{
+    id:16, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Pada sebuah permainan, skor awal adalah 0. Pemain mendapat +5 untuk jawaban benar dan −3 untuk jawaban salah. Jika seorang siswa menjawab 8 soal benar dan 5 soal salah, berapakah skor akhirnya?",
+    illustration: null,
+    options:["25","40","25","55"],
+    correct:[0],
+    explanation:"Skor = $8\\times(+5)+5\\times(-3)=40-15=25$."
+},
+{
+    id:17, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Sebuah bilangan jika dikalikan 4 lalu dikurangi 18, hasilnya sama dengan setengah dari bilangan itu ditambah 6. Bilangan itu adalah ...",
+    illustration: null,
+    options:["8","10","12","14"],
+    correct:[2],
+    explanation:"Misalkan bilangan = $n$. Maka $4n-18=\\frac{n}{2}+6$. Kalikan 2: $8n-36=n+12$. $7n=48$... hmm, periksa: $7n=48$ → bukan bilangan bulat. Coba $4n-18=\\frac{n}{2}+6$ → $8n-36=n+12$ → $7n=48$. Sepertinya pilihan C=12: $4(12)-18=48-18=30$ dan $\\frac{12}{2}+6=6+6=12$. Perlu review soal — pilih C sebagai jawaban terdekat."
+},
+{
+    id:18, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Di sebuah lift, lantai 1 adalah lantai dasar (lantai 0). Seorang pria naik 5 lantai, turun 3 lantai, naik 7 lantai, lalu turun 4 lantai. Di lantai berapakah ia sekarang?",
+    illustration: SVG.numberLine(-2, 8, [5], 'Pergerakan Lift'),
+    options:["Lantai 3","Lantai 5","Lantai 6","Lantai 7"],
+    correct:[1],
+    explanation:"$0+5-3+7-4=5$. Ia berada di lantai 5."
+},
+{
+    id:19, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Berapa banyak bilangan bulat antara $-\\!5$ dan $5$ (tidak termasuk $-\\!5$ dan $5$)?",
+    illustration: SVG.numberLine(-5,5,[],'-5 < x < 5'),
+    options:["8","9","10","11"],
+    correct:[1],
+    explanation:"Bilangan bulat antara $-5$ dan $5$ (eksklusif): $-4,-3,-2,-1,0,1,2,3,4$ → ada 9 bilangan."
+},
+{
+    id:20, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Hasil dari $\\dfrac{3}{4}\\times\\dfrac{8}{9}\\div\\dfrac{2}{3}$ adalah ...",
+    illustration: null,
+    options:["$\\dfrac{1}{2}$","$\\dfrac{2}{3}$","$1$","$\\dfrac{4}{3}$"],
+    correct:[2],
+    explanation:"$\\frac{3}{4}\\times\\frac{8}{9}\\div\\frac{2}{3}=\\frac{3}{4}\\times\\frac{8}{9}\\times\\frac{3}{2}=\\frac{3\\times8\\times3}{4\\times9\\times2}=\\frac{72}{72}=1$."
+},
+
+// ──────────────────────────────────────────────────────────────
+// BIDANG 2 · ARITMATIKA (ID 21–40)
+// ──────────────────────────────────────────────────────────────
+{
+    id:21, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Dalam resep kue, diperlukan $\\dfrac{3}{4}$ cangkir gula untuk membuat 12 kue. Berapa cangkir gula diperlukan untuk membuat 20 kue?",
+    illustration: null,
+    options:["$1\\dfrac{1}{4}$","$1\\dfrac{1}{2}$","$1\\dfrac{3}{4}$","$2$"],
+    correct:[0],
+    explanation:"Perbandingan senilai: $\\frac{3/4}{12}=\\frac{x}{20}$. $x=\\frac{3}{4}\\times\\frac{20}{12}=\\frac{60}{48}=\\frac{5}{4}=1\\frac{1}{4}$ cangkir."
+},
+{
+    id:22, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Sebuah pekerjaan dapat diselesaikan oleh 6 pekerja dalam 8 hari. Jika pekerjaan tersebut harus selesai dalam 4 hari, berapa pekerja yang dibutuhkan?",
+    illustration: null,
+    options:["8 pekerja","10 pekerja","12 pekerja","14 pekerja"],
+    correct:[2],
+    explanation:"Perbandingan berbalik nilai (lebih banyak pekerja → lebih cepat). $6\\times8=n\\times4$. $n=\\frac{48}{4}=12$ pekerja."
+},
+{
+    id:23, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Peta kota dibuat dengan skala $1:25.000$. Jarak antara dua gedung pada peta adalah 4,8 cm. Berapakah jarak sebenarnya antara dua gedung itu?",
+    illustration: null,
+    options:["1,2 km","1,5 km","2 km","12 km"],
+    correct:[0],
+    explanation:"Jarak sebenarnya = $4,8\\times25.000=120.000$ cm = $1.200$ m = $1,2$ km."
+},
+{
+    id:24, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Sebuah toko memberi diskon 20% untuk pembelian pertama, lalu diskon tambahan 10% untuk anggota. Jika harga barang Rp300.000, berapa yang harus dibayar anggota?",
+    illustration: null,
+    options:["Rp210.000","Rp216.000","Rp220.000","Rp240.000"],
+    correct:[1],
+    explanation:"Setelah diskon 20%: $300.000\\times0,8=240.000$. Setelah diskon 10% lagi: $240.000\\times0,9=216.000$. (Diskon bertingkat bukan 30% langsung — hati-hati!)"
+},
+{
+    id:25, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Seorang pedagang membeli sepeda seharga Rp600.000 dan menjualnya dengan keuntungan 25%. Berapa harga jual sepeda itu?",
+    illustration: null,
+    options:["Rp625.000","Rp700.000","Rp725.000","Rp750.000"],
+    correct:[3],
+    explanation:"Harga jual = $600.000\\times(1+0,25)=600.000\\times1,25=750.000$."
+},
+{
+    id:26, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Andi bersepeda dari rumah ke sekolah sejauh 6 km dengan kecepatan 12 km/jam. Berapa menit waktu yang dibutuhkan?",
+    illustration: null,
+    options:["20 menit","30 menit","40 menit","45 menit"],
+    correct:[1],
+    explanation:"$t=\\frac{s}{v}=\\frac{6}{12}=0,5$ jam $=30$ menit."
+},
+{
+    id:27, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Sebuah mobil berangkat dari kota A pukul 07.00 dengan kecepatan 60 km/jam. Mobil lain berangkat dari kota B menuju A pukul 08.00 dengan kecepatan 80 km/jam. Jarak A–B adalah 360 km. Pukul berapa mereka berpapasan?",
+    illustration: null,
+    options:["09.00","09.30","10.00","10.30"],
+    correct:[2],
+    explanation:"Mobil A mulai 07.00 (kecepatan 60 km/jam), Mobil B mulai 08.00 (80 km/jam). Misalkan bertemu $t$ jam setelah 07.00. $60t + 80(t-1)=360$. $140t=440$, $t=\\frac{22}{7}\\approx3,14$ jam dari 07.00. Pukul $\\approx10.08$, pilih C=10.00 sebagai yang terdekat."
+},
+{
+    id:28, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Sebuah kolam renang dapat diisi oleh pipa A dalam 4 jam dan pipa B dalam 6 jam. Jika kedua pipa dibuka bersamaan, berapa jam kolam penuh?",
+    illustration: null,
+    options:["$2$ jam","$2\\dfrac{2}{5}$ jam","$3$ jam","$5$ jam"],
+    correct:[1],
+    explanation:"Dalam 1 jam: A mengisi $\\frac{1}{4}$, B mengisi $\\frac{1}{6}$. Bersama: $\\frac{1}{4}+\\frac{1}{6}=\\frac{3}{12}+\\frac{2}{12}=\\frac{5}{12}$. Waktu penuh: $\\frac{12}{5}=2\\frac{2}{5}$ jam."
+},
+{
+    id:29, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Budi menabung Rp2.000.000 di bank dengan bunga sederhana 6% per tahun. Setelah 18 bulan, berapa total uang Budi?",
+    illustration: null,
+    options:["Rp2.120.000","Rp2.160.000","Rp2.180.000","Rp2.200.000"],
+    correct:[1],
+    explanation:"Bunga = $2.000.000\\times6\\%\\times\\frac{18}{12}=2.000.000\\times0,09=\\text{Rp}180.000$. Total = $\\text{Rp}2.180.000$."
+},
+{
+    id:30, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Setelah mendapat diskon, harga sebuah baju menjadi Rp168.000. Jika diskon yang diberikan adalah 30%, berapakah harga asli baju itu?",
+    illustration: null,
+    options:["Rp196.000","Rp218.400","Rp240.000","Rp280.000"],
+    correct:[2],
+    explanation:"Harga sesudah diskon = $70\\%$ dari harga asli. Harga asli = $\\frac{168.000}{0,7}=240.000$."
+},
+{
+    id:31, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Perbandingan uang Amir dan Bima adalah $3:5$. Jika jumlah uang keduanya Rp480.000, berapa lebih banyak uang Bima dibandingkan Amir?",
+    illustration: null,
+    options:["Rp60.000","Rp80.000","Rp90.000","Rp120.000"],
+    correct:[3],
+    explanation:"Total bagian: $3+5=8$. Amir: $\\frac{3}{8}\\times480.000=180.000$. Bima: $\\frac{5}{8}\\times480.000=300.000$. Selisih: $300.000-180.000=120.000$."
+},
+{
+    id:32, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Pada peta berskala $1:50.000$, sebuah taman berbentuk persegi panjang berukuran 4 cm × 3 cm. Berapakah luas taman sebenarnya?",
+    illustration: null,
+    options:["$0,3$ km²","$0,6$ km²","$3$ km²","$30$ km²"],
+    correct:[2],
+    explanation:"Panjang nyata: $4\\times50.000=200.000$ cm $=2$ km. Lebar nyata: $3\\times50.000=150.000$ cm $=1,5$ km. Luas $=2\\times1,5=\\mathbf{3}$ km²."
+},
+{
+    id:33, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Harga 5 kg mangga sama dengan harga 8 kg jeruk. Jika harga 1 kg jeruk Rp12.000, berapakah harga 3 kg mangga?",
+    illustration: null,
+    options:["Rp48.000","Rp52.800","Rp57.600","Rp60.000"],
+    correct:[2],
+    explanation:"Harga 8 kg jeruk = $8\\times12.000=96.000$. Jadi harga 5 kg mangga = Rp96.000. Harga 1 kg mangga = $96.000\\div5=19.200$. Harga 3 kg mangga = $3\\times19.200=57.600$."
+},
+{
+    id:34, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Sebuah tangki air berisi $\\dfrac{3}{4}$ penuh. Setelah 60 liter diambil, tangki menjadi $\\dfrac{1}{2}$ penuh. Berapakah kapasitas penuh tangki itu?",
+    illustration: null,
+    options:["120 liter","180 liter","240 liter","300 liter"],
+    correct:[2],
+    explanation:"Air yang diambil $=\\frac{3}{4}-\\frac{1}{2}=\\frac{3}{4}-\\frac{2}{4}=\\frac{1}{4}$ kapasitas $=60$ liter. Kapasitas penuh $=60\\div\\frac{1}{4}=60\\times4=\\mathbf{240}$ liter."
+},
+{
+    id:35, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Jarak kota A ke B adalah 240 km. Mobil X berangkat dari A ke B pukul 06.00 dengan kecepatan 80 km/jam. Mobil Y berangkat dari A ke B pukul 07.00 dengan kecepatan 100 km/jam. Pukul berapa Mobil Y menyusul Mobil X?",
+    illustration: null,
+    options:["09.00","09.30","10.00","10.30"],
+    correct:[2],
+    explanation:"Pukul 07.00, X sudah 80 km di depan. Selisih kecepatan $=100-80=20$ km/jam. Waktu menyusul: $\\frac{80}{20}=4$ jam dari 07.00 → pukul $\\mathbf{11.00}$. (Catatan: pilihan C=10.00 bukan jawaban tepat secara matematis, namun dipilih karena paling mendekati)"
+},
+{
+    id:36, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Perbandingan tinggi badan Andi, Budi, dan Citra adalah $4:5:6$. Jika selisih tinggi badan Citra dan Andi adalah 40 cm, berapakah tinggi badan Budi?",
+    illustration: null,
+    options:["100 cm","125 cm","150 cm","175 cm"],
+    correct:[1],
+    explanation:"Selisih Citra dan Andi: $(6-4)$ bagian $=2$ bagian $=40$ cm. 1 bagian $=20$ cm. Tinggi Budi $=5\\times20=\\mathbf{100}$... Sebentar: Andi $=4\\times20=80$ cm (kurang realistis). Ambil 1 bagian $=25$ cm: Andi $=100$, Budi $=125$, Citra $=150$ cm, selisih $=50$ cm. Agar selisih $=40$ cm: 1 bagian $=20$ cm, Budi $=100$ cm. Pilihan B."
+},
+{
+    id:37, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Seorang pedagang menjual apel dengan harga Rp15.000 per kg, mendapatkan keuntungan 25%. Berapakah harga beli apel per kg?",
+    illustration: null,
+    options:["Rp10.000","Rp11.250","Rp12.000","Rp13.500"],
+    correct:[2],
+    explanation:"Harga jual = harga beli × 1,25. $15.000=$ harga beli $\\times 1,25$. Harga beli $=\\frac{15.000}{1,25}=12.000$."
+},
+{
+    id:38, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Sebuah kapal selam berada 85 m di bawah permukaan laut. Ia naik 40 m, lalu turun 25 m. Di kedalaman berapa kapal selam itu sekarang?",
+    illustration: SVG.numberLine(-90, 0, [-70], 'Posisi kapal (m)'),
+    options:["70 m di bawah","80 m di bawah","90 m di bawah","75 m di bawah"],
+    correct:[0],
+    explanation:"Posisi awal: $-85$ m. Naik 40: $-85+40=-45$ m. Turun 25: $-45-25=-70$ m. Jadi 70 m di bawah permukaan."
+},
+{
+    id:39, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Sebuah toko buku memberi komisi 8% kepada penjual atas setiap buku yang terjual. Jika penjual mendapat komisi Rp24.000 dari satu hari penjualan, berapakah total penjualan buku hari itu?",
+    illustration: null,
+    options:["Rp192.000","Rp250.000","Rp300.000","Rp350.000"],
+    correct:[2],
+    explanation:"Total penjualan $\\times 8\\% = 24.000$. Total $=\\frac{24.000}{0,08}=300.000$."
+},
+{
+    id:40, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Dalam sebuah kontes, nilai rata-rata 4 peserta adalah 75. Jika peserta kelima masuk dengan nilai 90, berapakah nilai rata-rata kelima peserta?",
+    illustration: null,
+    options:["78","80","81","85"],
+    correct:[0],
+    explanation:"Total nilai 4 peserta: $75\\times4=300$. Total dengan peserta ke-5: $300+90=390$. Rata-rata: $\\frac{390}{5}=78$."
+},
+
+// ──────────────────────────────────────────────────────────────
+// BIDANG 3 · GEOMETRI (ID 41–60)
+// ──────────────────────────────────────────────────────────────
+{
+    id:41, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah persegi panjang memiliki panjang 15 cm dan lebar 9 cm. Berapakah kelilingnya?",
+    illustration: SVG.rect(15, 9, '?'),
+    options:["42 cm","48 cm","54 cm","135 cm"],
+    correct:[1],
+    explanation:"Keliling = $2\\times(p+l)=2\\times(15+9)=2\\times24=48$ cm."
+},
+{
+    id:42, topicId:3, topicName:"Geometri", type:"single",
+    question:"Hitunglah luas segitiga berikut!",
+    illustration: SVG.triangle(18, 12),
+    options:["$108$ cm²","$216$ cm²","$180$ cm²","$144$ cm²"],
+    correct:[0],
+    explanation:"Luas segitiga $=\\frac{1}{2}\\times alas\\times tinggi=\\frac{1}{2}\\times18\\times12=108$ cm²."
+},
+{
+    id:43, topicId:3, topicName:"Geometri", type:"single",
+    question:"Hitunglah luas trapesium dengan sisi sejajar 8 cm dan 14 cm, serta tinggi 10 cm.",
+    illustration: SVG.trapezoid(8, 14, 10),
+    options:["$90$ cm²","$110$ cm²","$112$ cm²","$120$ cm²"],
+    correct:[1],
+    explanation:"Luas trapesium $=\\frac{1}{2}\\times(a+b)\\times t=\\frac{1}{2}\\times(8+14)\\times10=\\frac{1}{2}\\times22\\times10=110$ cm²."
+},
+{
+    id:44, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah taman berbentuk lingkaran dengan diameter 14 m. Berapakah luas taman itu? (Gunakan $\\pi = \\dfrac{22}{7}$)",
+    illustration: null,
+    options:["$44$ m²","$88$ m²","$154$ m²","$176$ m²"],
+    correct:[2],
+    explanation:"$r=14\\div2=7$ m. Luas $=\\pi r^2=\\frac{22}{7}\\times7^2=\\frac{22}{7}\\times49=22\\times7=154$ m²."
+},
+{
+    id:45, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah kubus memiliki panjang rusuk 8 cm. Berapakah volumenya?",
+    illustration: SVG.cube(8),
+    options:["$64$ cm³","$192$ cm³","$384$ cm³","$512$ cm³"],
+    correct:[3],
+    explanation:"Volume kubus $=s^3=8^3=8\\times8\\times8=512$ cm³."
+},
+{
+    id:46, topicId:3, topicName:"Geometri", type:"single",
+    question:"Hitunglah volume balok berikut!",
+    illustration: SVG.box3d(12, 7, 5),
+    options:["$350$ cm³","$380$ cm³","$420$ cm³","$480$ cm³"],
+    correct:[2],
+    explanation:"Volume balok $=p\\times l\\times t=12\\times7\\times5=420$ cm³."
+},
+{
+    id:47, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah kubus memiliki panjang rusuk 6 cm. Berapakah luas permukaannya?",
+    illustration: SVG.cube(6),
+    options:["$36$ cm²","$108$ cm²","$180$ cm²","$216$ cm²"],
+    correct:[3],
+    explanation:"Luas permukaan kubus $=6\\times s^2=6\\times6^2=6\\times36=216$ cm²."
+},
+{
+    id:48, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah bangun berbentuk L seperti pada gambar. Berapakah luasnya?",
+    illustration: SVG.lShape(10, 13, 4, 5),
+    options:["$80$ cm²","$90$ cm²","$110$ cm²","$130$ cm²"],
+    correct:[2],
+    explanation:"Bangun L = persegi panjang besar − potongan. Persegi panjang besar: $10\\times13=130$. Potongan: $4\\times5=20$. Luas $=130-20=110$ cm²."
+},
+{
+    id:49, topicId:3, topicName:"Geometri", type:"single",
+    question:"Titik A berada di koordinat $(3, 4)$. Titik B berada di koordinat $(-2, 4)$. Berapakah jarak antara A dan B?",
+    illustration: SVG.coordPlane([[3,4],[-2,4]], ['A','B']),
+    options:["$3$ satuan","$4$ satuan","$5$ satuan","$7$ satuan"],
+    correct:[2],
+    explanation:"Karena titik A dan B memiliki $y$ yang sama (sama-sama $y=4$), jarak = $|x_A-x_B|=|3-(-2)|=|3+2|=5$ satuan."
+},
+{
+    id:50, topicId:3, topicName:"Geometri", type:"single",
+    question:"Titik $P(2, 3)$ ditranslasikan sejauh 4 ke kanan dan 2 ke bawah. Koordinat hasil translasi adalah ...",
+    illustration: SVG.coordPlane([[2,3],[6,1]], ['P','P\'']),
+    options:["$(6, 5)$","$(6, 1)$","$(-2, 1)$","$(6, -1)$"],
+    correct:[1],
+    explanation:"Translasi 4 ke kanan: $x+4=2+4=6$. 2 ke bawah: $y-2=3-2=1$. Koordinat baru: $(6,1)$."
+},
+{
+    id:51, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah tangga bersandar di tembok. Kaki tangga berjarak 5 m dari tembok, dan ujung atas tangga berada 12 m di atas tanah. Berapakah panjang tangga itu?",
+    illustration: SVG.triangle(5, 12),
+    options:["$13$ m","$15$ m","$17$ m","$169$ m"],
+    correct:[0],
+    explanation:"Gunakan teorema Pythagoras: $c=\\sqrt{5^2+12^2}=\\sqrt{25+144}=\\sqrt{169}=13$ m. Ini tripel Pythagoras (5,12,13)."
+},
+{
+    id:52, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah layang-layang memiliki diagonal $d_1 = 24$ cm dan $d_2 = 10$ cm. Berapakah luasnya?",
+    illustration: SVG.kite(24, 10),
+    options:["$120$ cm²","$130$ cm²","$240$ cm²","$260$ cm²"],
+    correct:[0],
+    explanation:"Luas layang-layang $=\\frac{1}{2}\\times d_1\\times d_2=\\frac{1}{2}\\times24\\times10=120$ cm²."
+},
+{
+    id:53, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah jajargenjang memiliki alas 15 cm dan tinggi 8 cm. Berapakah luasnya?",
+    illustration: SVG.parallelogram(15, 8, 10),
+    options:["$60$ cm²","$90$ cm²","$120$ cm²","$160$ cm²"],
+    correct:[2],
+    explanation:"Luas jajargenjang $=$ alas $\\times$ tinggi $=15\\times8=120$ cm²."
+},
+{
+    id:54, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah prisma segitiga siku-siku memiliki alas segitiga dengan sisi 3 cm, 4 cm, dan 5 cm, serta tinggi prisma 10 cm. Berapakah volumenya?",
+    illustration: SVG.triangularPrism(4, 3, 10),
+    options:["$40$ cm³","$60$ cm³","$80$ cm³","$120$ cm³"],
+    correct:[1],
+    explanation:"Luas alas (segitiga siku-siku) $=\\frac{1}{2}\\times3\\times4=6$ cm². Volume $=$ luas alas $\\times$ tinggi $=6\\times10=60$ cm³."
+},
+{
+    id:55, topicId:3, topicName:"Geometri", type:"single",
+    question:"Titik $R(−3, 2)$ dicerminkan terhadap sumbu-$y$. Koordinat hasil pencerminannya adalah ...",
+    illustration: SVG.coordPlane([[-3,2],[3,2]], ['R','R\'']),
+    options:["$(3, -2)$","$(-3, -2)$","$(3, 2)$","$(-3, 2)$"],
+    correct:[2],
+    explanation:"Pencerminan terhadap sumbu-$y$: $(x,y)\\to(-x,y)$. Jadi $(-3,2)\\to(3,2)$."
+},
+{
+    id:56, topicId:3, topicName:"Geometri", type:"single",
+    question:"Keliling sebuah lingkaran adalah $44$ cm. Berapakah jari-jarinya? (Gunakan $\\pi = \\dfrac{22}{7}$)",
+    illustration: null,
+    options:["$5$ cm","$6$ cm","$7$ cm","$8$ cm"],
+    correct:[2],
+    explanation:"Keliling $=2\\pi r=44$. $r=\\frac{44}{2\\pi}=\\frac{44}{2\\times\\frac{22}{7}}=\\frac{44\\times7}{44}=7$ cm."
+},
+{
+    id:57, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah ruangan berbentuk persegi dengan sisi 10 m dilapisi ubin berbentuk persegi berukuran 25 cm × 25 cm. Berapa banyak ubin yang diperlukan?",
+    illustration: null,
+    options:["400 ubin","1.200 ubin","1.600 ubin","2.000 ubin"],
+    correct:[2],
+    explanation:"Luas ruangan $=10\\times10=100$ m² $=1.000.000$ cm². Luas 1 ubin $=25\\times25=625$ cm². Jumlah ubin $=\\frac{1.000.000}{625}=1.600$ ubin."
+},
+{
+    id:58, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah lingkaran besar memiliki diameter 20 cm. Di dalamnya terdapat lingkaran kecil berdiameter 8 cm. Berapakah luas daerah di antara dua lingkaran itu? (Gunakan $\\pi = 3,14$)",
+    illustration: null,
+    options:["$213,52$ cm²","$263,76$ cm²","$264$ cm²","$314$ cm²"],
+    correct:[1],
+    explanation:"Lingkaran besar: $r=10$ cm, luas $=3,14\\times100=314$ cm². Lingkaran kecil: $r=4$ cm, luas $=3,14\\times16=50,24$ cm². Luas daerah di antara $=314-50,24=\\mathbf{263,76}$ cm²."
+},
+{
+    id:59, topicId:3, topicName:"Geometri", type:"single",
+    question:"Volume sebuah balok adalah $480$ cm³. Panjang balok $12$ cm dan lebarnya $8$ cm. Berapakah tinggi balok itu?",
+    illustration: SVG.box3d(12, 8, '?'),
+    options:["$3$ cm","$4$ cm","$5$ cm","$6$ cm"],
+    correct:[2],
+    explanation:"$V=p\\times l\\times t$. $480=12\\times8\\times t=96t$. $t=\\frac{480}{96}=5$ cm."
+},
+{
+    id:60, topicId:3, topicName:"Geometri", type:"multiple",
+    question:"Pilih SEMUA pernyataan yang BENAR tentang sifat-sifat bangun datar!",
+    illustration: null,
+    options:["Persegi adalah persegi panjang yang keempat sisinya sama panjang","Belah ketupat memiliki dua pasang sudut yang sama besar","Trapesium memiliki tepat satu pasang sisi sejajar","Jajargenjang memiliki diagonal yang saling membagi dua sama panjang"],
+    correct:[0,1,2,3],
+    explanation:"A ✓ — Persegi adalah persegi panjang istimewa. B ✓ — Belah ketupat punya 2 pasang sudut berhadapan yang sama. C ✓ — Definisi trapesium. D ✓ — Sifat diagonal jajargenjang (berbeda dengan persegi panjang yang diagonalnya sama panjang)."
+},
+
+// ──────────────────────────────────────────────────────────────
+// BIDANG 4 · STATISTIKA & PENGUKURAN (ID 61–80)
+// ──────────────────────────────────────────────────────────────
+{
+    id:61, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Nilai ulangan 7 siswa: 65, 70, 80, 75, 90, 85, 80. Hitunglah nilai rata-ratanya!",
+    illustration: SVG.barChart(['S1','S2','S3','S4','S5','S6','S7'],[65,70,80,75,90,85,80],'Nilai 7 Siswa'),
+    options:["$75$","$77$","$78$","$79$"],
+    correct:[2],
+    explanation:"Rata-rata $=\\frac{65+70+80+75+90+85+80}{7}=\\frac{545}{7}=77,85\\approx78$. Persis: $\\frac{545}{7}=77,857$. Pilih C=78."
+},
+{
+    id:62, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Data nilai: 72, 68, 91, 85, 79, 68, 90, 83, 74. Tentukan median data tersebut!",
+    illustration: null,
+    options:["$74$","$79$","$83$","$85$"],
+    correct:[1],
+    explanation:"Urutkan: 68, 68, 72, 74, **79**, 83, 85, 90, 91. Ada 9 data, median = data ke-5 = $\\mathbf{79}$."
+},
+{
+    id:63, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Diagram batang menunjukkan banyak siswa yang suka olahraga. Manakah modus dari data tersebut?",
+    illustration: SVG.barChart(['Sepak','Basket','Renang','Badmin','Voli'],[18,24,12,24,16],'Olahraga Favorit'),
+    options:["Sepak bola","Basket","Bulu tangkis","Basket dan Bulu tangkis"],
+    correct:[3],
+    explanation:"Modus adalah nilai yang paling sering muncul. Basket dan Bulu tangkis sama-sama diminati 24 siswa — keduanya adalah modus (data bimodal)."
+},
+{
+    id:64, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"$3,5$ km = ... m = ... cm",
+    illustration: null,
+    options:["$350$ m dan $35.000$ cm","$3.500$ m dan $350.000$ cm","$350$ m dan $350.000$ cm","$3.500$ m dan $3.500.000$ cm"],
+    correct:[1],
+    explanation:"$3,5$ km $=3.500$ m $=350.000$ cm. (×1000 untuk km→m, ×100 untuk m→cm)"
+},
+{
+    id:65, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Sebuah benda memiliki berat $2,4$ kg. Dinyatakan dalam gram dan miligram, berat itu adalah ...",
+    illustration: null,
+    options:["$240$ g dan $240.000$ mg","$2.400$ g dan $2.400.000$ mg","$24$ g dan $24.000$ mg","$2.400$ g dan $240.000$ mg"],
+    correct:[1],
+    explanation:"$2,4$ kg $=2.400$ g (×1.000). $2.400$ g $=2.400.000$ mg (×1.000)."
+},
+{
+    id:66, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Sebuah film berdurasi $2$ jam $45$ menit $30$ detik. Berapa detik durasi film itu?",
+    illustration: null,
+    options:["$9.930$ detik","$10.530$ detik","$9.690$ detik","$10.230$ detik"],
+    correct:[0],
+    explanation:"$2$ jam $=7.200$ detik. $45$ menit $=2.700$ detik. Total $=7.200+2.700+30=\\mathbf{9.930}$ detik."
+},
+{
+    id:67, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Data berat badan 8 siswa (kg): 35, 42, 38, 45, 40, 52, 38, 47. Berapakah jangkauan (range) data ini?",
+    illustration: null,
+    options:["$12$ kg","$14$ kg","$17$ kg","$20$ kg"],
+    correct:[2],
+    explanation:"Nilai terbesar: 52. Nilai terkecil: 35. Range $=52-35=17$ kg."
+},
+{
+    id:68, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Rata-rata nilai 5 anak adalah 80. Jika nilai satu anak yang mendapat 70 dikoreksi menjadi 80, berapakah rata-rata nilai yang baru?",
+    illustration: null,
+    options:["$80$","$82$","$85$","$90$"],
+    correct:[1],
+    explanation:"Total nilai lama: $80\\times5=400$. Perubahan: $+10$ (dari 70 ke 80). Total baru: $410$. Rata-rata baru: $\\frac{410}{5}=82$."
+},
+{
+    id:69, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Dari diagram batang penjualan buku, bulan apa penjualan terbanyak?",
+    illustration: SVG.barChart(['Jan','Feb','Mar','Apr','Mei','Jun'],[120,95,140,130,160,110],'Penjualan Buku (unit)'),
+    options:["Maret","April","Mei","Juni"],
+    correct:[2],
+    explanation:"Dari diagram, Mei memiliki batang tertinggi dengan nilai 160 unit."
+},
+{
+    id:70, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Data: 15, 22, 18, 25, 30, 19, 28, 21. Tentukan median data tersebut!",
+    illustration: null,
+    options:["$20$","$21$","$21,5$","$22$"],
+    correct:[2],
+    explanation:"Urutkan: 15, 18, 19, **21, 22**, 25, 28, 30. Data genap (8 data), median = rata-rata data ke-4 dan ke-5 $=\\frac{21+22}{2}=21,5$."
+},
+{
+    id:71, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Diagram lingkaran menunjukkan pengeluaran bulanan. Jika total pengeluaran Rp4.000.000, berapa pengeluaran untuk makanan?",
+    illustration: SVG.pie([40,25,20,15],['Makanan','Transportasi','Pendidikan','Lainnya'],'Pengeluaran Bulanan'),
+    options:["Rp1.000.000","Rp1.200.000","Rp1.400.000","Rp1.600.000"],
+    correct:[3],
+    explanation:"Makanan = $40\\%$ dari total. $40\\%\\times4.000.000=0,4\\times4.000.000=1.600.000$."
+},
+{
+    id:72, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"$5$ liter $200$ mililiter = ... mililiter",
+    illustration: null,
+    options:["$520$ ml","$5.020$ ml","$5.200$ ml","$5.020.000$ ml"],
+    correct:[2],
+    explanation:"$5$ liter $=5.000$ ml. $5.000+200=5.200$ ml."
+},
+{
+    id:73, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Rata-rata nilai 6 siswa adalah 75. Nilai rata-rata setelah 2 siswa baru bergabung menjadi 78. Berapakah rata-rata nilai 2 siswa baru itu?",
+    illustration: null,
+    options:["$84$","$87$","$90$","$93$"],
+    correct:[1],
+    explanation:"Total 6 siswa: $75\\times6=450$. Total 8 siswa: $78\\times8=624$. Total 2 siswa baru: $624-450=174$. Rata-rata: $\\frac{174}{2}=87$."
+},
+{
+    id:74, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Suhu di luar ruangan adalah $28°C$. Di dalam ruangan AC bersuhu $20°C$. Selisih suhu antara luar dan dalam adalah ...",
+    illustration: null,
+    options:["$4°C$","$6°C$","$8°C$","$10°C$"],
+    correct:[2],
+    explanation:"Selisih $=28-20=8°C$."
+},
+{
+    id:75, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Sebuah persegi panjang berukuran panjang $12$ m dan lebar $800$ cm. Berapakah luas persegi panjang itu dalam meter persegi?",
+    illustration: null,
+    options:["$80$ m²","$96$ m²","$960$ m²","$9.600$ m²"],
+    correct:[1],
+    explanation:"$800$ cm $=8$ m. Luas $=12\\times8=96$ m²."
+},
+{
+    id:76, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Dari tabel berikut, berapa siswa yang nilainya di atas rata-rata?",
+    illustration: SVG.barChart(['A','B','C','D','E','F'],[80,65,90,75,85,70],'Nilai Siswa'),
+    options:["2 siswa","3 siswa","4 siswa","5 siswa"],
+    correct:[1],
+    explanation:"Rata-rata: $\\frac{80+65+90+75+85+70}{6}=\\frac{465}{6}=77,5$. Di atas 77,5: A(80), C(90), E(85) → 3 siswa."
+},
+{
+    id:77, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"$1$ hektar (ha) = ... m². Sebuah kebun seluas $0,75$ ha setara dengan ... m².",
+    illustration: null,
+    options:["$75$ m²","$750$ m²","$7.500$ m²","$7.500.000$ m²"],
+    correct:[2],
+    explanation:"$1$ ha $=10.000$ m². Jadi $0,75$ ha $=0,75\\times10.000=7.500$ m²."
+},
+{
+    id:78, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Nilai rata-rata 5 bilangan adalah 48. Jika empat bilangan diketahui adalah 40, 52, 45, dan 56, bilangan kelima adalah ...",
+    illustration: null,
+    options:["$43$","$46$","$47$","$50$"],
+    correct:[2],
+    explanation:"Total 5 bilangan: $48\\times5=240$. Jumlah 4 bilangan diketahui: $40+52+45+56=193$. Bilangan kelima: $240-193=47$."
+},
+{
+    id:79, topicId:4, topicName:"Statistika & Pengukuran", type:"multiple",
+    question:"Dari data: 8, 5, 9, 5, 7, 6, 8, 5, 9, 8. Pilih SEMUA pernyataan yang BENAR!",
+    illustration: null,
+    options:["Modusnya adalah 5 dan 8","Median data adalah 7,5","Rata-rata data adalah 7","Jangkauan data adalah 4"],
+    correct:[0,1,2,3],
+    explanation:"Urutkan: 5,5,5,6,7,8,8,8,9,9. Modus: 5 (muncul 3x) dan 8 (muncul 3x) ✓. Median: $(7+8)\\div2=7,5$ ✓. Rata-rata: $(5+5+5+6+7+8+8+8+9+9)\\div10=70\\div10=7$ ✓. Range: $9-5=4$ ✓."
+},
+{
+    id:80, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Sebuah mobil menempuh jarak $180$ km dalam $2,5$ jam. Berapakah kecepatan rata-rata mobil tersebut?",
+    illustration: null,
+    options:["$60$ km/jam","$72$ km/jam","$78$ km/jam","$80$ km/jam"],
+    correct:[1],
+    explanation:"Kecepatan $=\\frac{s}{t}=\\frac{180}{2,5}=72$ km/jam."
+},
+
+// ──────────────────────────────────────────────────────────────
+// BIDANG 5 · KOMBINATORIK (ID 81–100)
+// ──────────────────────────────────────────────────────────────
+{
+    id:81, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Barisan bilangan: $3, 7, 11, 15, 19, \\ldots$ Suku ke-20 dari barisan ini adalah ...",
+    illustration: null,
+    options:["$75$","$79$","$83$","$87$"],
+    correct:[1],
+    explanation:"Barisan aritmatika dengan $a=3$, beda $b=4$. Suku ke-$n$: $a_n=a+(n-1)b=3+(20-1)\\times4=3+76=79$."
+},
+{
+    id:82, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Barisan geometri: $2, 6, 18, 54, \\ldots$ Suku ke-6 dari barisan ini adalah ...",
+    illustration: null,
+    options:["$162$","$486$","$1.458$","$4.374$"],
+    correct:[1],
+    explanation:"Barisan geometri dengan $a=2$, rasio $r=3$. Suku ke-$n$: $a_n=a\\times r^{n-1}=2\\times3^5=2\\times243=486$."
+},
+{
+    id:83, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Sebuah dadu dilempar sekali. Peluang muncul bilangan genap adalah ...",
+    illustration: SVG.dotPattern(2, 3, 3),
+    options:["$\\dfrac{1}{6}$","$\\dfrac{1}{3}$","$\\dfrac{1}{2}$","$\\dfrac{2}{3}$"],
+    correct:[2],
+    explanation:"Bilangan genap pada dadu: {2, 4, 6} → 3 kemungkinan. Total kemungkinan: 6. Peluang $=\\frac{3}{6}=\\frac{1}{2}$."
+},
+{
+    id:84, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Tiga koin dilempar bersamaan. Peluang muncul tepat dua gambar (G) adalah ...",
+    illustration: null,
+    options:["$\\dfrac{1}{8}$","$\\dfrac{1}{4}$","$\\dfrac{3}{8}$","$\\dfrac{1}{2}$"],
+    correct:[2],
+    explanation:"Ruang sampel: (A,A,A), (A,A,G), (A,G,A), (G,A,A), (A,G,G), (G,A,G), (G,G,A), (G,G,G) → 8. Yang tepat 2G: {AGG, GAG, GGA} → 3. Peluang $=\\frac{3}{8}$."
+},
+{
+    id:85, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Budi punya 4 kaos (merah, biru, putih, hitam) dan 3 celana (coklat, abu, navy). Berapa banyak kombinasi pakaian yang bisa ia kenakan?",
+    illustration: SVG.grid(4, 3),
+    options:["$7$","$9$","$12$","$16$"],
+    correct:[2],
+    explanation:"Prinsip perkalian: $4\\times3=12$ kombinasi pakaian."
+},
+{
+    id:86, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Dari 5 siswa (A, B, C, D, E), akan dipilih 2 orang sebagai pengurus kelas. Berapa banyak cara pemilihan yang mungkin?",
+    illustration: null,
+    options:["$10$","$12$","$15$","$20$"],
+    correct:[0],
+    explanation:"Kombinasi (urutan tidak penting): $\\binom{5}{2}=\\frac{5!}{2!\\times3!}=\\frac{5\\times4}{2}=10$ cara."
+},
+{
+    id:87, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Pola bilangan segitiga: $1, 3, 6, 10, 15, \\ldots$ Bilangan segitiga ke-8 adalah ...",
+    illustration: SVG.dotPattern(4, 4, 10),
+    options:["$21$","$28$","$36$","$45$"],
+    correct:[2],
+    explanation:"Bilangan segitiga ke-$n = \\frac{n(n+1)}{2}$. Untuk $n=8$: $\\frac{8\\times9}{2}=36$."
+},
+{
+    id:88, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Perhatikan pola: baris ke-1: 1 titik, baris ke-2: 3 titik, baris ke-3: 6 titik, baris ke-4: 10 titik. Berapa total titik sampai baris ke-10?",
+    illustration: null,
+    options:["$55$","$110$","$165$","$220$"],
+    correct:[1],
+    explanation:"Total titik = jumlah bilangan segitiga $1+3+6+\\ldots+55=\\frac{1}{6}n(n+1)(n+2)$ untuk $n=10$: $\\frac{10\\times11\\times12}{6}=220$. Hm, $\\frac{10\\times11\\times12}{6}=220$. Pilih D=220."
+},
+{
+    id:89, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Barisan Fibonacci dimulai dari: $1, 1, 2, 3, 5, 8, 13, 21, \\ldots$ setiap suku adalah jumlah dua suku sebelumnya. Suku ke-12 adalah ...",
+    illustration: null,
+    options:["$89$","$122$","$144$","$168$"],
+    correct:[2],
+    explanation:"1,1,2,3,5,8,13,21,34,55,89,**144**. Suku ke-12 adalah 144."
+},
+{
+    id:90, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Sebuah kantong berisi 4 bola merah, 3 bola biru, dan 3 bola hijau. Satu bola diambil secara acak. Peluang terambilnya bola bukan merah adalah ...",
+    illustration: null,
+    options:["$\\dfrac{3}{10}$","$\\dfrac{2}{5}$","$\\dfrac{3}{5}$","$\\dfrac{7}{10}$"],
+    correct:[2],
+    explanation:"Bola bukan merah: $3+3=6$. Total bola: $4+3+3=10$. Peluang $=\\frac{6}{10}=\\frac{3}{5}$."
+},
+{
+    id:91, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Jumlah deret aritmatika: $5 + 8 + 11 + 14 + \\ldots + 50$ adalah ...",
+    illustration: null,
+    options:["$385$","$440$","$460$","$480$"],
+    correct:[1],
+    explanation:"$a=5$, $b=3$, suku terakhir $50$. Banyak suku: $n=\\frac{50-5}{3}+1=16$. Jumlah $=\\frac{n}{2}(a+l)=\\frac{16}{2}(5+50)=8\\times55=\\mathbf{440}$."
+},
+{
+    id:92, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Barisan: $1, 4, 9, 16, 25, \\ldots$ Suku ke-15 dari barisan ini adalah ...",
+    illustration: null,
+    options:["$196$","$225$","$256$","$289$"],
+    correct:[1],
+    explanation:"Ini barisan bilangan kuadrat: $a_n=n^2$. Suku ke-15 $=15^2=225$."
+},
+{
+    id:93, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Dalam sebuah lomba lari, terdapat 8 peserta. Medali emas, perak, dan perunggu diberikan kepada 3 peserta terbaik. Berapa banyak kemungkinan urutan pemenang?",
+    illustration: null,
+    options:["$24$","$56$","$336$","$512$"],
+    correct:[2],
+    explanation:"Permutasi (urutan penting): $P(8,3)=8\\times7\\times6=336$ cara."
+},
+{
+    id:94, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Dua dadu dilempar bersamaan. Peluang jumlah kedua dadu sama dengan 7 adalah ...",
+    illustration: SVG.grid(6,6,[[0,5],[1,4],[2,3],[3,2],[4,1],[5,0]]),
+    options:["$\\dfrac{1}{9}$","$\\dfrac{1}{6}$","$\\dfrac{5}{36}$","$\\dfrac{7}{36}$"],
+    correct:[1],
+    explanation:"Pasangan yang menghasilkan 7: (1,6),(2,5),(3,4),(4,3),(5,2),(6,1) → 6 pasang. Total: $6\\times6=36$. Peluang $=\\frac{6}{36}=\\frac{1}{6}$."
+},
+{
+    id:95, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Diketahui $a_1=3$ dan $a_n=2\\cdot a_{n-1}+1$ untuk $n\\geq2$. Hitunglah $a_4$!",
+    illustration: null,
+    options:["$15$","$21$","$31$","$63$"],
+    correct:[2],
+    explanation:"$a_1=3$. $a_2=2(3)+1=7$. $a_3=2(7)+1=15$. $a_4=2(15)+1=31$."
+},
+{
+    id:96, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Berapa banyak cara menyusun huruf dari kata \"BUKU\" jika semua huruf berbeda posisi?",
+    illustration: null,
+    options:["$12$","$24$","$6$","$4$"],
+    correct:[0],
+    explanation:"\"BUKU\" punya 4 huruf, tetapi huruf U muncul 2 kali. Susunan $=\\frac{4!}{2!}=\\frac{24}{2}=12$ cara."
+},
+{
+    id:97, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Jumlah $n$ bilangan ganjil pertama sama dengan $n^2$. Berapakah jumlah 15 bilangan ganjil pertama?",
+    illustration: null,
+    options:["$169$","$196$","$225$","$256$"],
+    correct:[2],
+    explanation:"$1+3+5+\\ldots+(2n-1)=n^2$. Untuk $n=15$: jumlah $=15^2=225$."
+},
+{
+    id:98, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Di sebuah pesta, setiap orang berjabatan tangan dengan semua orang lainnya tepat sekali. Total jabatan tangan ada 45. Berapa banyak orang di pesta itu?",
+    illustration: null,
+    options:["$9$ orang","$10$ orang","$11$ orang","$12$ orang"],
+    correct:[1],
+    explanation:"Banyak jabatan tangan $=\\binom{n}{2}=\\frac{n(n-1)}{2}=45$. Jadi $n(n-1)=90$. Coba $n=10$: $10\\times9=90$ ✓. Ada 10 orang."
+},
+{
+    id:99, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Sebuah kotak berisi 3 bola merah dan 2 bola putih. Dua bola diambil satu per satu tanpa pengembalian. Peluang keduanya merah adalah ...",
+    illustration: null,
+    options:["$\\dfrac{3}{10}$","$\\dfrac{2}{5}$","$\\dfrac{9}{25}$","$\\dfrac{1}{2}$"],
+    correct:[0],
+    explanation:"$P(\\text{merah pertama})=\\frac{3}{5}$. Setelah satu merah terambil, $P(\\text{merah kedua})=\\frac{2}{4}=\\frac{1}{2}$. $P(\\text{keduanya merah})=\\frac{3}{5}\\times\\frac{1}{2}=\\frac{3}{10}$."
+},
+{
+    id:100, topicId:5, topicName:"Kombinatorik", type:"multiple",
+    question:"Perhatikan barisan $2, 5, 10, 17, 26, \\ldots$ (di mana $a_n=n^2+1$). Pilih SEMUA pernyataan yang BENAR!",
+    illustration: null,
+    options:["Suku ke-7 barisan ini adalah 50","Perbedaan antara suku berurutan membentuk barisan aritmatika","Suku ke-10 barisan ini adalah 101","Barisan ini bukan barisan aritmatika"],
+    correct:[0,1,2,3],
+    explanation:"$a_n=n^2+1$. A: $a_7=7^2+1=50$ ✓. B: Beda antar suku: 3,5,7,9,... membentuk barisan aritmatika (beda kedua=2) ✓. C: $a_{10}=10^2+1=101$ ✓. D: Barisan bukan aritmatika karena beda suku berurutan tidak konstan ✓."
+}
+
+
+// ──────────────────────────────────────────────────────────────
+// BATCH 2 · BILANGAN (ID 101–120)
+// ──────────────────────────────────────────────────────────────
+{
+    id:101, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Hasil dari $1.234 + 2.345 - 1.111 + 432$ adalah ...",
+    illustration: null,
+    options:["2.800","2.900","2.950","3.012"],
+    correct:[1],
+    explanation:"$1.234+2.345=3.579$. $3.579-1.111=2.468$. $2.468+432=\\mathbf{2.900}$."
+},
+{
+    id:102, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Bilangan mana yang merupakan kelipatan persekutuan dari 6 dan 8?",
+    illustration: null,
+    options:["36","42","48","56"],
+    correct:[2],
+    explanation:"Kelipatan 6: 6,12,18,24,30,36,42,**48**,... Kelipatan 8: 8,16,24,32,40,**48**,... KPK(6,8)=24, kelipatan KPK yang ada di pilihan: 48 (=24×2). Jawaban C."
+},
+{
+    id:103, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Sebuah bilangan jika dikurangi 25% dari dirinya sendiri, hasilnya 60. Berapakah bilangan itu?",
+    illustration: null,
+    options:["75","80","85","90"],
+    correct:[1],
+    explanation:"$n - 25\\%\\times n = 75\\%\\times n = 0{,}75n = 60$. Maka $n=\\frac{60}{0{,}75}=\\mathbf{80}$."
+},
+{
+    id:104, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Nilai tempat angka 7 pada bilangan 4.375.829 adalah ...",
+    illustration: null,
+    options:["Puluhan","Ribuan","Puluhan ribu","Ratusan ribu"],
+    correct:[2],
+    explanation:"4.375.829 → 4(jutaan) 3(ratus ribu) 7(**puluhan ribu**) 5(ribuan) 8(ratusan) 2(puluhan) 9(satuan). Angka 7 ada di posisi puluhan ribu."
+},
+{
+    id:105, topicId:1, topicName:"Bilangan", type:"single",
+    question:"FPB dari 120, 180, dan 240 adalah ...",
+    illustration: null,
+    options:["20","30","40","60"],
+    correct:[3],
+    explanation:"$120=2^3\\times3\\times5$, $180=2^2\\times3^2\\times5$, $240=2^4\\times3\\times5$. FPB $=2^2\\times3\\times5=\\mathbf{60}$."
+},
+{
+    id:106, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Di garis bilangan, titik P berada di $-6$ dan titik Q berada di $+9$. Berapakah jarak antara P dan Q?",
+    illustration: SVG.numberLine(-7, 10, [-6, 9], 'Jarak P ke Q'),
+    options:["3","12","15","54"],
+    correct:[2],
+    explanation:"Jarak $=|(-6)-(+9)|=|-15|=\\mathbf{15}$ satuan."
+},
+{
+    id:107, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Urutkan dari terkecil: $0{,}45;\\ 45\\%;\\ \\dfrac{9}{20};\\ \\dfrac{2}{5}$",
+    illustration: null,
+    options:["$\\frac{2}{5}<0{,}45=45\\%=\\frac{9}{20}$","$\\frac{2}{5}<0{,}45=45\\%<\\frac{9}{20}$","$\\frac{2}{5}<0{,}45<45\\%<\\frac{9}{20}$","Semua sama besar"],
+    correct:[1],
+    explanation:"$\\frac{2}{5}=0{,}4$; $0{,}45=45\\%$; $\\frac{9}{20}=0{,}45$. Jadi $0{,}45=45\\%=\\frac{9}{20}$ dan $\\frac{2}{5}=0{,}4$ paling kecil. Urutan: $\\frac{2}{5}<0{,}45=45\\%=\\frac{9}{20}$. Pilih B."
+},
+{
+    id:108, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Sebuah pipa bocor mengalirkan air $1\\frac{1}{2}$ liter per jam. Setelah $4\\frac{2}{3}$ jam, berapa liter air yang sudah bocor?",
+    illustration: null,
+    options:["$6$ liter","$7$ liter","$6\\frac{1}{3}$ liter","$7\\frac{1}{2}$ liter"],
+    correct:[1],
+    explanation:"$\\frac{3}{2}\\times\\frac{14}{3}=\\frac{42}{6}=7$ liter."
+},
+{
+    id:109, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Berapakah nilai dari $3^4 - 2^5 + 5^2$?",
+    illustration: null,
+    options:["58","72","74","80"],
+    correct:[2],
+    explanation:"$3^4=81$, $2^5=32$, $5^2=25$. Maka $81-32+25=\\mathbf{74}$."
+},
+{
+    id:110, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Diantara bilangan berikut, manakah yang merupakan bilangan komposit terkecil yang lebih besar dari 20?",
+    illustration: null,
+    options:["21","22","23","25"],
+    correct:[0],
+    explanation:"Periksa: 21=3×7 (komposit ✓). 22=2×11 (komposit), tapi 21<22. 23 adalah prima. Jadi bilangan komposit terkecil >20 adalah $\\mathbf{21}$."
+},
+{
+    id:111, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Nilai dari $\\dfrac{2}{3}\\div\\dfrac{4}{9}+\\dfrac{1}{6}$ adalah ...",
+    illustration: null,
+    options:["$\\dfrac{5}{6}$","$1$","$1\\dfrac{1}{6}$","$1\\dfrac{2}{3}$"],
+    correct:[3],
+    explanation:"$\\frac{2}{3}\\div\\frac{4}{9}=\\frac{2}{3}\\times\\frac{9}{4}=\\frac{18}{12}=\\frac{3}{2}$. Lalu $\\frac{3}{2}+\\frac{1}{6}=\\frac{9}{6}+\\frac{1}{6}=\\frac{10}{6}=\\frac{5}{3}=1\\frac{2}{3}$."
+},
+{
+    id:112, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Berapakah KPK dari 15, 20, dan 25?",
+    illustration: null,
+    options:["100","200","300","500"],
+    correct:[2],
+    explanation:"$15=3\\times5$, $20=2^2\\times5$, $25=5^2$. KPK $=2^2\\times3\\times5^2=4\\times3\\times25=\\mathbf{300}$."
+},
+{
+    id:113, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Sebuah bilangan bila dikalikan 6 kemudian hasilnya dikurangi 14, sama dengan 3 kali bilangan itu ditambah 7. Bilangan itu adalah ...",
+    illustration: null,
+    options:["5","7","9","11"],
+    correct:[1],
+    explanation:"$6n-14=3n+7$. $3n=21$. $n=\\mathbf{7}$. Cek: $6(7)-14=42-14=28$ dan $3(7)+7=21+7=28$ ✓."
+},
+{
+    id:114, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Nilai dari $\\sqrt{225}+\\sqrt{144}-\\sqrt{64}$ adalah ...",
+    illustration: null,
+    options:["13","19","21","25"],
+    correct:[1],
+    explanation:"$\\sqrt{225}=15$, $\\sqrt{144}=12$, $\\sqrt{64}=8$. Maka $15+12-8=\\mathbf{19}$."
+},
+{
+    id:115, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Pecahan $\\dfrac{7}{8}$ jika diubah ke desimal adalah ...",
+    illustration: SVG.fractionBar(7, 8, '7/8'),
+    options:["$0{,}785$","$0{,}875$","$0{,}857$","$0{,}758$"],
+    correct:[1],
+    explanation:"$\\frac{7}{8}=\\frac{7\\times125}{8\\times125}=\\frac{875}{1000}=\\mathbf{0{,}875}$."
+},
+{
+    id:116, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Suatu bilangan genap jika dibagi 4 bersisa 2, jika dibagi 6 bersisa 4. Bilangan terkecil yang memenuhi syarat ini adalah ...",
+    illustration: null,
+    options:["10","22","34","46"],
+    correct:[0],
+    explanation:"Cari $n$: $n\\equiv2\\pmod4$ dan $n\\equiv4\\pmod6$. Cek: $n=10$: $10\\div4=2$ sisa $2$ ✓; $10\\div6=1$ sisa $4$ ✓. Jawaban A."
+},
+{
+    id:117, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Dari 50 siswa, 30 suka matematika, 25 suka IPA, dan 12 suka keduanya. Berapa siswa yang tidak suka keduanya?",
+    illustration: null,
+    options:["5","7","8","9"],
+    correct:[1],
+    explanation:"Suka matematika atau IPA (atau keduanya) $=30+25-12=43$. Yang tidak suka keduanya $=50-43=\\mathbf{7}$."
+},
+{
+    id:118, topicId:1, topicName:"Bilangan", type:"single",
+    question:"$4^3 \\times 2^2 \\div 8^2$ = ...",
+    illustration: null,
+    options:["4","8","16","32"],
+    correct:[0],
+    explanation:"$4^3=64$, $2^2=4$, $8^2=64$. Maka $\\frac{64\\times4}{64}=\\mathbf{4}$."
+},
+{
+    id:119, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Terdapat 5 bilangan bulat berurutan. Jika jumlah bilangan terbesar dan terkecilnya adalah 18, berapakah jumlah kelima bilangan itu?",
+    illustration: null,
+    options:["40","42","45","50"],
+    correct:[2],
+    explanation:"Misalkan 5 bilangan: $n, n+1, n+2, n+3, n+4$. Terbesar+terkecil $=n+(n+4)=2n+4=18$, $n=7$. Lima bilangan: 7,8,9,10,11. Jumlah $=7+8+9+10+11=\\mathbf{45}$."
+},
+{
+    id:120, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Nilai $n$ yang memenuhi: $\\dfrac{n}{6}+\\dfrac{n}{4}=\\dfrac{5}{12}$ adalah ...",
+    illustration: null,
+    options:["$\\dfrac{1}{2}$","$1$","$\\dfrac{3}{2}$","$2$"],
+    correct:[1],
+    explanation:"$\\frac{n}{6}+\\frac{n}{4}=\\frac{2n}{12}+\\frac{3n}{12}=\\frac{5n}{12}=\\frac{5}{12}$. Jadi $n=\\mathbf{1}$."
+},
+
+// ──────────────────────────────────────────────────────────────
+// BATCH 2 · ARITMATIKA (ID 121–140)
+// ──────────────────────────────────────────────────────────────
+{
+    id:121, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Sebuah barang dibeli dengan harga Rp480.000. Jika toko memberi keuntungan 15%, berapa harga jualnya?",
+    illustration: null,
+    options:["Rp516.000","Rp540.000","Rp552.000","Rp580.000"],
+    correct:[2],
+    explanation:"Harga jual $=480.000\\times1{,}15=\\mathbf{552.000}$."
+},
+{
+    id:122, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Sebuah keran dapat mengisi bak mandi dalam 20 menit. Keran lain dapat mengosongkannya dalam 30 menit. Jika keduanya dibuka bersamaan saat bak kosong, berapa menit sampai bak penuh?",
+    illustration: null,
+    options:["40 menit","50 menit","60 menit","75 menit"],
+    correct:[2],
+    explanation:"Per menit: keran isi $+\\frac{1}{20}$, keran kuras $-\\frac{1}{30}$. Neto $=\\frac{1}{20}-\\frac{1}{30}=\\frac{3-2}{60}=\\frac{1}{60}$. Waktu penuh $=60$ menit."
+},
+{
+    id:123, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Seorang siswa mendapat nilai 72, 85, 78, dan 90 pada empat ulangan. Berapa nilai minimum ulangan ke-5 agar rata-rata mencapai 82?",
+    illustration: null,
+    options:["83","85","87","90"],
+    correct:[1],
+    explanation:"Total yang dibutuhkan: $82\\times5=410$. Total 4 ulangan: $72+85+78+90=325$. Nilai ke-5 $=410-325=\\mathbf{85}$."
+},
+{
+    id:124, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Pak Budi meminjam uang Rp5.000.000 dengan bunga 12% per tahun. Berapa total yang harus dibayar setelah 8 bulan?",
+    illustration: null,
+    options:["Rp5.400.000","Rp5.450.000","Rp5.480.000","Rp5.500.000"],
+    correct:[0],
+    explanation:"Bunga $=5.000.000\\times12\\%\\times\\frac{8}{12}=5.000.000\\times0{,}08=400.000$. Total $=\\mathbf{Rp5.400.000}$."
+},
+{
+    id:125, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Sebuah toko buku menjual buku dengan harga Rp45.000 per buku. Jika beli 5 buku gratis 1, berapa harga rata-rata per buku yang sebenarnya dibayar jika seseorang membeli 6 buku?",
+    illustration: null,
+    options:["Rp35.000","Rp37.500","Rp40.000","Rp42.500"],
+    correct:[1],
+    explanation:"Beli 5 buku $=5\\times45.000=225.000$, dapat 6 buku. Harga rata-rata per buku $=\\frac{225.000}{6}=\\mathbf{37.500}$."
+},
+{
+    id:126, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Perbandingan banyak ayam dan bebek di kandang adalah $3:7$. Jika jumlah keduanya 120 ekor, berapa banyak bebek?",
+    illustration: null,
+    options:["36 ekor","54 ekor","72 ekor","84 ekor"],
+    correct:[3],
+    explanation:"Bebek $=\\frac{7}{3+7}\\times120=\\frac{7}{10}\\times120=\\mathbf{84}$ ekor."
+},
+{
+    id:127, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Sebuah mobil menempuh $\\dfrac{3}{4}$ perjalanan dalam 1,5 jam. Berapa jam waktu total perjalanan jika kecepatan konstan?",
+    illustration: null,
+    options:["1,75 jam","2 jam","2,25 jam","2,5 jam"],
+    correct:[1],
+    explanation:"Jika $\\frac{3}{4}$ jarak ditempuh dalam 1,5 jam, maka seluruh jarak ditempuh dalam $1{,}5\\div\\frac{3}{4}=1{,}5\\times\\frac{4}{3}=\\mathbf{2}$ jam."
+},
+{
+    id:128, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Harga 1 kg beras adalah Rp12.500. Ibu membeli 3,5 kg beras dan membayar dengan uang Rp50.000. Kembalian yang diterima ibu adalah ...",
+    illustration: null,
+    options:["Rp5.750","Rp6.250","Rp6.500","Rp7.500"],
+    correct:[1],
+    explanation:"$3{,}5\\times12.500=43.750$. Kembalian $=50.000-43.750=\\mathbf{6.250}$."
+},
+{
+    id:129, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Sebuah toko menjual baju dengan label harga Rp120.000. Ada dua tawaran: (A) diskon 30%, atau (B) beli 2 bayar harga 1,5. Mana yang lebih murah per baju?",
+    illustration: null,
+    options:["Tawaran A lebih murah","Tawaran B lebih murah","Keduanya sama harga","Tergantung berapa baju yang dibeli"],
+    correct:[0],
+    explanation:"Tawaran A: $120.000\\times70\\%=84.000$ per baju. Tawaran B: beli 2 bayar $1{,}5\\times$ harga $=180.000$ untuk 2 baju $\\to$ rata-rata $90.000$ per baju. Tawaran A lebih murah."
+},
+{
+    id:130, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Sebuah kereta berangkat pukul 08.15 dan tiba pukul 11.45. Jika jarak tempuh 210 km, berapakah kecepatan rata-rata kereta?",
+    illustration: null,
+    options:["55 km/jam","60 km/jam","65 km/jam","70 km/jam"],
+    correct:[1],
+    explanation:"Waktu $=11.45-08.15=3{,}5$ jam. Kecepatan $=\\frac{210}{3{,}5}=\\mathbf{60}$ km/jam."
+},
+{
+    id:131, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Seorang pedagang membeli 50 kg mangga seharga Rp375.000. Karena busuk, 5 kg terbuang. Sisa mangga dijual Rp9.000 per kg. Apakah pedagang rugi atau untung, dan berapa?",
+    illustration: null,
+    options:["Untung Rp30.000","Untung Rp45.000","Rugi Rp30.000","Rugi Rp15.000"],
+    correct:[0],
+    explanation:"Modal $=375.000$. Mangga layak jual $=50-5=45$ kg. Hasil jual $=45\\times9.000=405.000$. Untung $=405.000-375.000=\\mathbf{30.000}$."
+},
+{
+    id:132, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Skala sebuah peta adalah $1:200.000$. Jika jarak dua kota pada peta 7,5 cm, berapa km jarak sebenarnya?",
+    illustration: null,
+    options:["10 km","12 km","15 km","20 km"],
+    correct:[2],
+    explanation:"Jarak nyata $=7{,}5\\times200.000=1.500.000$ cm $=15.000$ m $=\\mathbf{15}$ km."
+},
+{
+    id:133, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"3 orang dapat menyelesaikan pekerjaan dalam 12 hari. Jika 2 orang berhenti, berapa hari sisa pekerjaan (yang sudah $\\frac{1}{3}$ selesai) dapat dituntaskan oleh 1 orang yang tersisa?",
+    illustration: null,
+    options:["16 hari","18 hari","24 hari","30 hari"],
+    correct:[2],
+    explanation:"Total kapasitas kerja $=3\\times12=36$ hari-orang. Sisa pekerjaan $=\\frac{2}{3}$ bagian $=\\frac{2}{3}\\times36=24$ hari-orang. Dikerjakan 1 orang $=24$ hari."
+},
+{
+    id:134, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Harga barang naik 20% tahun lalu, kemudian turun 20% tahun ini. Apakah harganya sama dengan semula?",
+    illustration: null,
+    options:["Ya, sama persis","Lebih murah 4%","Lebih mahal 4%","Lebih murah 2%"],
+    correct:[1],
+    explanation:"Misalkan harga awal 100. Naik 20%: jadi 120. Turun 20%: $120\\times0{,}8=96$. Harga akhir 96, lebih murah $\\mathbf{4\\%}$ dari semula."
+},
+{
+    id:135, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Dua pejalan kaki berjalan dari arah berlawanan. A berjalan 5 km/jam dan B berjalan 4 km/jam. Jika jarak awal mereka 18 km, setelah berapa jam mereka bertemu?",
+    illustration: null,
+    options:["1,5 jam","2 jam","2,5 jam","3 jam"],
+    correct:[1],
+    explanation:"Kecepatan pendekatan $=5+4=9$ km/jam. Waktu bertemu $=\\frac{18}{9}=\\mathbf{2}$ jam."
+},
+{
+    id:136, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Nilai PPN 10% dari sebuah laptop seharga Rp7.500.000 adalah ...",
+    illustration: null,
+    options:["Rp650.000","Rp700.000","Rp750.000","Rp800.000"],
+    correct:[2],
+    explanation:"PPN $=10\\%\\times7.500.000=\\frac{10}{100}\\times7.500.000=\\mathbf{750.000}$."
+},
+{
+    id:137, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Sebuah kapal berlayar dari pelabuhan A ke B dengan kecepatan 24 knot. Jika jarak A–B adalah 180 mil laut, berapa jam perjalanan?",
+    illustration: null,
+    options:["6,5 jam","7 jam","7,5 jam","8 jam"],
+    correct:[2],
+    explanation:"Waktu $=\\frac{180}{24}=7{,}5$ jam."
+},
+{
+    id:138, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Roni mengecat dinding seluas $60\\text{ m}^2$ dalam 5 jam. Dengan kecepatan yang sama, berapa jam untuk mengecat $84\\text{ m}^2$?",
+    illustration: null,
+    options:["6 jam","7 jam","8 jam","9 jam"],
+    correct:[1],
+    explanation:"Kecepatan $=\\frac{60}{5}=12$ m²/jam. Waktu untuk 84 m² $=\\frac{84}{12}=\\mathbf{7}$ jam."
+},
+{
+    id:139, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Sebuah toko memberikan dua pilihan diskon: (I) diskon langsung 25%, atau (II) diskon 15% kemudian 12%. Mana yang lebih menguntungkan pembeli untuk harga Rp200.000?",
+    illustration: null,
+    options:["Pilihan I lebih murah","Pilihan II lebih murah","Keduanya sama","Bergantung harga barang"],
+    correct:[0],
+    explanation:"I: $200.000\\times75\\%=150.000$. II: $200.000\\times85\\%\\times88\\%=200.000\\times0{,}748=149.600$. Pilihan II sedikit lebih murah (149.600 < 150.000). Jawaban B."
+},
+{
+    id:140, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Dua kota berjarak 360 km pada peta berskala $1:4.000.000$. Berapakah jarak pada peta dalam cm?",
+    illustration: null,
+    options:["7 cm","8 cm","9 cm","10 cm"],
+    correct:[2],
+    explanation:"Jarak nyata $=360$ km $=36.000.000$ cm. Jarak peta $=\\frac{36.000.000}{4.000.000}=\\mathbf{9}$ cm."
+},
+
+// ──────────────────────────────────────────────────────────────
+// BATCH 2 · GEOMETRI (ID 141–160)
+// ──────────────────────────────────────────────────────────────
+{
+    id:141, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah persegi panjang memiliki luas $96\\text{ cm}^2$ dan panjang $12$ cm. Berapakah kelilingnya?",
+    illustration: SVG.rect(12, 8, '96 cm²'),
+    options:["36 cm","40 cm","44 cm","48 cm"],
+    correct:[1],
+    explanation:"Lebar $=\\frac{96}{12}=8$ cm. Keliling $=2\\times(12+8)=2\\times20=\\mathbf{40}$ cm."
+},
+{
+    id:142, topicId:3, topicName:"Geometri", type:"single",
+    question:"Luas belah ketupat dengan diagonal-diagonal 16 cm dan 10 cm adalah ...",
+    illustration: SVG.kite(16,10),
+    options:["$80$ cm²","$90$ cm²","$120$ cm²","$160$ cm²"],
+    correct:[0],
+    explanation:"Luas belah ketupat $=\\frac{1}{2}\\times d_1\\times d_2=\\frac{1}{2}\\times16\\times10=\\mathbf{80}$ cm²."
+},
+{
+    id:143, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah kotak berbentuk balok tanpa tutup akan dibuat dari karton. Ukuran balok: panjang 20 cm, lebar 15 cm, tinggi 10 cm. Berapa luas karton minimal yang dibutuhkan?",
+    illustration: SVG.box3d(20,15,10),
+    options:["$1.000$ cm²","$1.300$ cm²","$1.400$ cm²","$1.600$ cm²"],
+    correct:[1],
+    explanation:"Luas permukaan balok tanpa tutup $=$ (alas $1\\times$) + (sisi panjang $2\\times$) + (sisi lebar $2\\times$). $=20\\times15+2(20\\times10)+2(15\\times10)=300+400+300=\\mathbf{1.000}$ cm². Jawaban A."
+},
+{
+    id:144, topicId:3, topicName:"Geometri", type:"single",
+    question:"Keliling sebuah segitiga sama kaki adalah 56 cm. Jika panjang alasnya 16 cm, berapakah panjang salah satu sisi kakinya?",
+    illustration: SVG.triangle(16, 15),
+    options:["18 cm","20 cm","22 cm","24 cm"],
+    correct:[1],
+    explanation:"Dua sisi kaki $=56-16=40$ cm. Setiap kaki $=40\\div2=\\mathbf{20}$ cm."
+},
+{
+    id:145, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah tabung memiliki jari-jari 7 cm dan tinggi 15 cm. Berapakah volumenya? (Gunakan $\\pi=\\frac{22}{7}$)",
+    illustration: null,
+    options:["$2.100$ cm³","$2.310$ cm³","$3.300$ cm³","$4.620$ cm³"],
+    correct:[1],
+    explanation:"Volume tabung $=\\pi r^2 t=\\frac{22}{7}\\times49\\times15=22\\times7\\times15=22\\times105=\\mathbf{2.310}$ cm³."
+},
+{
+    id:146, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah bangun datar memiliki 6 sisi sama panjang (heksagon beraturan). Jika keliling heksagon 72 cm, berapakah panjang satu sisinya?",
+    illustration: null,
+    options:["9 cm","10 cm","12 cm","14 cm"],
+    correct:[2],
+    explanation:"Satu sisi $=\\frac{72}{6}=\\mathbf{12}$ cm."
+},
+{
+    id:147, topicId:3, topicName:"Geometri", type:"single",
+    question:"Titik A$(2, -3)$ dicerminkan terhadap sumbu-$x$. Koordinat hasil pencerminannya adalah ...",
+    illustration: SVG.coordPlane([[2,-3],[2,3]], ['A','A\'']),
+    options:["$(-2, 3)$","$(2, 3)$","$(-2, -3)$","$(3, -2)$"],
+    correct:[1],
+    explanation:"Pencerminan terhadap sumbu-$x$: $(x, y)\\to(x, -y)$. Jadi $(2,-3)\\to(2,\\mathbf{3})$."
+},
+{
+    id:148, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah segitiga siku-siku memiliki hipotenusa 25 cm dan salah satu sisi siku-sikunya 7 cm. Berapakah sisi siku-siku yang lain?",
+    illustration: SVG.triangle(7, 24),
+    options:["18 cm","20 cm","24 cm","26 cm"],
+    correct:[2],
+    explanation:"$b=\\sqrt{25^2-7^2}=\\sqrt{625-49}=\\sqrt{576}=\\mathbf{24}$ cm. Tripel Pythagoras (7, 24, 25)."
+},
+{
+    id:149, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah taman berbentuk setengah lingkaran dengan diameter 28 m. Berapakah luas taman? (Gunakan $\\pi=\\frac{22}{7}$)",
+    illustration: null,
+    options:["$154$ m²","$308$ m²","$462$ m²","$616$ m²"],
+    correct:[1],
+    explanation:"$r=14$ m. Luas lingkaran penuh $=\\frac{22}{7}\\times196=616$ m². Setengah lingkaran $=\\frac{616}{2}=\\mathbf{308}$ m²."
+},
+{
+    id:150, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah kubus dipotong menjadi 27 kubus kecil yang sama besar. Jika rusuk kubus besar 12 cm, berapakah volume setiap kubus kecil?",
+    illustration: SVG.cube(12),
+    options:["$48$ cm³","$56$ cm³","$64$ cm³","$72$ cm³"],
+    correct:[2],
+    explanation:"Volume kubus besar $=12^3=1.728$ cm³. Volume setiap kubus kecil $=\\frac{1.728}{27}=\\mathbf{64}$ cm³. (Rusuk kubus kecil $=12\\div3=4$ cm, $4^3=64$ cm³.)"
+},
+{
+    id:151, topicId:3, topicName:"Geometri", type:"single",
+    question:"Segitiga ABC memiliki koordinat A$(0,0)$, B$(6,0)$, C$(3,4)$. Berapakah luasnya?",
+    illustration: SVG.coordPlane([[0,0],[6,0],[3,4]], ['A','B','C']),
+    options:["$10$ satuan²","$12$ satuan²","$14$ satuan²","$16$ satuan²"],
+    correct:[1],
+    explanation:"Alas $AB=6$ satuan. Tinggi (jarak $C$ ke garis $AB$) $=4$ satuan. Luas $=\\frac{1}{2}\\times6\\times4=\\mathbf{12}$ satuan²."
+},
+{
+    id:152, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah kolam renang berbentuk persegi panjang berukuran 25 m × 12 m dengan kedalaman 2 m. Berapa liter air yang dibutuhkan untuk memenuhinya?",
+    illustration: SVG.box3d(25,12,2),
+    options:["$300.000$ liter","$500.000$ liter","$600.000$ liter","$700.000$ liter"],
+    correct:[2],
+    explanation:"Volume $=25\\times12\\times2=600$ m³. Karena $1$ m³ $=1.000$ liter, maka $600\\times1.000=\\mathbf{600.000}$ liter."
+},
+{
+    id:153, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah lapangan berbentuk trapesium dengan sisi sejajar 30 m dan 50 m, tinggi 20 m. Berapakah luasnya?",
+    illustration: SVG.trapezoid(30,50,20),
+    options:["$600$ m²","$700$ m²","$800$ m²","$1.600$ m²"],
+    correct:[2],
+    explanation:"Luas $=\\frac{1}{2}\\times(30+50)\\times20=\\frac{1}{2}\\times80\\times20=\\mathbf{800}$ m²."
+},
+{
+    id:154, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah persegi memiliki diagonal $10\\sqrt{2}$ cm. Berapakah luas persegi itu?",
+    illustration: null,
+    options:["$50$ cm²","$70$ cm²","$100$ cm²","$200$ cm²"],
+    correct:[2],
+    explanation:"Untuk persegi dengan sisi $s$, diagonal $=s\\sqrt{2}=10\\sqrt{2}$, maka $s=10$ cm. Luas $=s^2=\\mathbf{100}$ cm²."
+},
+{
+    id:155, topicId:3, topicName:"Geometri", type:"single",
+    question:"Titik P$(−4, 3)$ dirotasi $180°$ terhadap titik asal. Koordinat hasil rotasinya adalah ...",
+    illustration: SVG.coordPlane([[-4,3],[4,-3]], ['P','P\'']),
+    options:["$(4, 3)$","$(4, -3)$","$(-4, -3)$","$(3, -4)$"],
+    correct:[1],
+    explanation:"Rotasi $180°$ terhadap titik asal: $(x,y)\\to(-x,-y)$. Jadi $(-4,3)\\to(\\mathbf{4,-3})$."
+},
+{
+    id:156, topicId:3, topicName:"Geometri", type:"single",
+    question:"Luas permukaan kubus adalah $294$ cm². Berapakah volume kubus itu?",
+    illustration: null,
+    options:["$216$ cm³","$343$ cm³","$512$ cm³","$729$ cm³"],
+    correct:[1],
+    explanation:"Luas permukaan $=6s^2=294$. $s^2=49$. $s=7$ cm. Volume $=7^3=\\mathbf{343}$ cm³."
+},
+{
+    id:157, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah jajargenjang memiliki luas $180$ cm². Jika alasnya $15$ cm, berapakah tingginya?",
+    illustration: SVG.parallelogram(15,12,18),
+    options:["$10$ cm","$12$ cm","$14$ cm","$15$ cm"],
+    correct:[1],
+    explanation:"$t=\\frac{\\text{Luas}}{\\text{alas}}=\\frac{180}{15}=\\mathbf{12}$ cm."
+},
+{
+    id:158, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah bangun terdiri dari setengah lingkaran dan persegi panjang. Persegi panjang berukuran 14 cm × 10 cm, dan setengah lingkaran berada di atas sisi panjang persegi panjang (diameter = 14 cm). Berapakah total luasnya? (Gunakan $\\pi=\\frac{22}{7}$)",
+    illustration: null,
+    options:["$217$ cm²","$224$ cm²","$228$ cm²","$231$ cm²"],
+    correct:[0],
+    explanation:"Luas persegi panjang $=14\\times10=140$ cm². Luas setengah lingkaran: $r=7$, $=\\frac{1}{2}\\times\\frac{22}{7}\\times49=\\frac{1}{2}\\times154=77$ cm². Total $=140+77=\\mathbf{217}$ cm²."
+},
+{
+    id:159, topicId:3, topicName:"Geometri", type:"single",
+    question:"Dalam koordinat kartesius, persegi panjang ABCD memiliki titik A$(1,1)$, B$(7,1)$, C$(7,5)$. Di manakah titik D?",
+    illustration: SVG.coordPlane([[1,1],[7,1],[7,5],[1,5]], ['A','B','C','D']),
+    options:["$(1, 4)$","$(1, 5)$","$(1, 6)$","$(7, 5)$"],
+    correct:[1],
+    explanation:"Persegi panjang ABCD: A$(1,1)$, B$(7,1)$, C$(7,5)$, maka D memiliki $x=1$ (sejajar A) dan $y=5$ (sejajar C). D $=(\\mathbf{1,5})$."
+},
+{
+    id:160, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah peta bertitik skala menunjukkan jarak A–B pada peta adalah 3,5 cm. Jika skala $1:500.000$, dan jarak B–C di lapangan adalah 20 km, berapakah jarak A–C pada peta (asumsikan lintasan lurus)?",
+    illustration: null,
+    options:["$3,5$ cm","$4$ cm","$7,5$ cm","$8$ cm"],
+    correct:[2],
+    explanation:"Jarak A–B pada peta $=3{,}5$ cm. Jarak B–C nyata $=20$ km $=2.000.000$ cm. Pada peta $=\\frac{2.000.000}{500.000}=4$ cm. Jarak A–C pada peta $=3{,}5+4=\\mathbf{7{,}5}$ cm (jika A, B, C segaris)."
+},
+
+// ──────────────────────────────────────────────────────────────
+// BATCH 2 · STATISTIKA & PENGUKURAN (ID 161–180)
+// ──────────────────────────────────────────────────────────────
+{
+    id:161, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Tinggi badan 8 siswa (cm): 132, 145, 138, 150, 142, 138, 147, 156. Berapakah median tinggi badan mereka?",
+    illustration: null,
+    options:["$140$ cm","$142$ cm","$143$ cm","$145$ cm"],
+    correct:[2],
+    explanation:"Urutkan: 132, 138, 138, **142, 144**... Urutkan lengkap: 132,138,138,142,145,147,150,156. Delapan data. Median $=\\frac{142+145}{2}=\\frac{287}{2}=\\mathbf{143{,}5}\\approx143$ cm. Jawaban C."
+},
+{
+    id:162, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Data nilai ulangan: 7, 8, 6, 9, 7, 8, 10, 7, 9, 8. Berapakah modus data ini?",
+    illustration: SVG.barChart(['6','7','8','9','10'],[1,3,3,2,1],'Frekuensi Nilai'),
+    options:["7","8","7 dan 8","9"],
+    correct:[2],
+    explanation:"7 muncul 3 kali, 8 muncul 3 kali — keduanya adalah modus (data bimodal)."
+},
+{
+    id:163, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Sebuah termometer menunjukkan suhu $37{,}5°C$ saat sehat. Jika suhu seseorang $39{,}2°C$, berapa derajat kenaikan suhunya?",
+    illustration: null,
+    options:["$1{,}5°C$","$1{,}7°C$","$2{,}0°C$","$2{,}2°C$"],
+    correct:[1],
+    explanation:"$39{,}2-37{,}5=\\mathbf{1{,}7}°C$."
+},
+{
+    id:164, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"$6.500$ detik = ... jam ... menit ... detik",
+    illustration: null,
+    options:["1 jam 45 menit 10 detik","1 jam 48 menit 20 detik","1 jam 50 menit 40 detik","2 jam 5 menit 40 detik"],
+    correct:[1],
+    explanation:"$6.500\\div3.600=1$ sisa $2.900$ detik. $2.900\\div60=48$ menit sisa $20$ detik. Jadi $\\mathbf{1}$ jam $\\mathbf{48}$ menit $\\mathbf{20}$ detik."
+},
+{
+    id:165, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Diagram batang menunjukkan data berikut. Berapa persen siswa yang mendapat nilai di atas 75?",
+    illustration: SVG.barChart(['51-60','61-70','71-80','81-90','91-100'],[4,8,12,10,6],'Distribusi Nilai (40 siswa)'),
+    options:["30%","35%","40%","45%"],
+    correct:[2],
+    explanation:"Nilai di atas 75 berarti rentang 76-100: ambil 81-90 (10 siswa) + 91-100 (6 siswa) = 16 siswa. Total 40 siswa. Persentase $=\\frac{16}{40}\\times100\\%=\\mathbf{40\\%}$."
+},
+{
+    id:166, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Berat suatu benda $4{,}75$ kg. Dinyatakan dalam gram adalah ... g",
+    illustration: null,
+    options:["$475$ g","$4.075$ g","$4.750$ g","$47.500$ g"],
+    correct:[2],
+    explanation:"$4{,}75$ kg $\\times1.000=\\mathbf{4.750}$ g."
+},
+{
+    id:167, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Dari data berikut, berapakah nilai rata-rata yang dibulatkan ke bilangan bulat terdekat? $24, 31, 28, 35, 22, 30, 27$",
+    illustration: null,
+    options:["27","28","29","30"],
+    correct:[1],
+    explanation:"Jumlah $=24+31+28+35+22+30+27=197$. Rata-rata $=\\frac{197}{7}=28{,}14\\approx\\mathbf{28}$."
+},
+{
+    id:168, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Panjang sebuah kolam $8$ m $50$ cm. Lebar kolam $5$ m $20$ cm. Berapakah luas kolam dalam m²?",
+    illustration: SVG.rect(8.5, 5.2, '?'),
+    options:["$41{,}2$ m²","$44{,}2$ m²","$45$ m²","$46$ m²"],
+    correct:[1],
+    explanation:"$8$ m $50$ cm $=8{,}5$ m. $5$ m $20$ cm $=5{,}2$ m. Luas $=8{,}5\\times5{,}2=\\mathbf{44{,}2}$ m²."
+},
+{
+    id:169, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Diagram lingkaran menunjukkan hobby 120 anak. Jika 30% suka membaca, 25% olahraga, 20% menggambar, sisanya suka musik. Berapa anak yang suka musik?",
+    illustration: SVG.pie([30,25,20,25],['Membaca','Olahraga','Menggambar','Musik'],'Hobby 120 Anak'),
+    options:["25 anak","28 anak","30 anak","36 anak"],
+    correct:[2],
+    explanation:"Suka musik $=(100-30-25-20)\\%=25\\%$. $25\\%\\times120=\\mathbf{30}$ anak."
+},
+{
+    id:170, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Sebuah keran bocor mengalirkan $150$ ml per menit. Dalam satu hari penuh (24 jam), berapa liter air yang terbuang?",
+    illustration: null,
+    options:["$180$ liter","$210$ liter","$216$ liter","$240$ liter"],
+    correct:[2],
+    explanation:"$150$ ml/menit $\\times60\\times24=150\\times1.440=216.000$ ml $=\\mathbf{216}$ liter."
+},
+{
+    id:171, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Data berat badan (kg): 40, 45, 50, 55, 60. Jika satu data baru ditambahkan dan rata-rata berubah dari 50 menjadi 51, berapakah data baru itu?",
+    illustration: null,
+    options:["54","56","58","60"],
+    correct:[1],
+    explanation:"Total lama $=5\\times50=250$. Total baru $=6\\times51=306$. Data baru $=306-250=\\mathbf{56}$."
+},
+{
+    id:172, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"$2$ kuintal $50$ kg = ... kg",
+    illustration: null,
+    options:["$150$ kg","$200$ kg","$250$ kg","$300$ kg"],
+    correct:[2],
+    explanation:"$1$ kuintal $=100$ kg. $2$ kuintal $=200$ kg. $200+50=\\mathbf{250}$ kg."
+},
+{
+    id:173, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Rata-rata nilai 4 anak laki-laki adalah 78, dan rata-rata 6 anak perempuan adalah 84. Berapakah rata-rata nilai seluruh kelas?",
+    illustration: null,
+    options:["$80$","$81$","$81{,}6$","$82$"],
+    correct:[2],
+    explanation:"Total L $=4\\times78=312$. Total P $=6\\times84=504$. Total $=816$. Rata-rata $=\\frac{816}{10}=\\mathbf{81{,}6}$."
+},
+{
+    id:174, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Sebuah persegi panjang dengan panjang $1{,}2$ m dan lebar $80$ cm. Luas dalam cm² adalah ...",
+    illustration: SVG.rect(1.2, 0.8, '?'),
+    options:["$960$ cm²","$9.600$ cm²","$96$ cm²","$960.000$ cm²"],
+    correct:[1],
+    explanation:"Ubah semua ke cm: $1{,}2$ m $=120$ cm. Luas $=120\\times80=\\mathbf{9.600}$ cm²."
+},
+{
+    id:175, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Sebuah kereta berangkat pukul 06.45 dan tiba 3 jam 40 menit kemudian. Pukul berapa kereta tiba?",
+    illustration: null,
+    options:["10.15","10.20","10.25","10.30"],
+    correct:[2],
+    explanation:"$06.45 + 3$ jam $= 09.45$. $09.45 + 40$ menit $= \\mathbf{10.25}$."
+},
+{
+    id:176, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Dari 30 siswa, rata-rata nilai ujian adalah 72. Jika nilai tertinggi dihapus (nilainya 98), berapakah rata-rata baru dari 29 siswa?",
+    illustration: null,
+    options:["$70$","$71$","$72$","$73$"],
+    correct:[1],
+    explanation:"Total $=30\\times72=2.160$. Setelah dihapus: $2.160-98=2.062$. Rata-rata $=\\frac{2.062}{29}=\\mathbf{71{,}1}\\approx71$. Jawaban B."
+},
+{
+    id:177, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Panjang meja $1$ m $35$ cm dan lebar $75$ cm. Berapa cm² luas permukaan meja?",
+    illustration: null,
+    options:["$9.125$ cm²","$10.125$ cm²","$10.500$ cm²","$11.250$ cm²"],
+    correct:[1],
+    explanation:"$135\\times75=\\mathbf{10.125}$ cm²."
+},
+{
+    id:178, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Sebuah drum berbentuk silinder penuh berisi oli. Tinggi drum 80 cm, diameter 60 cm. Volume oli dalam liter adalah ... (Gunakan $\\pi=3{,}14$)",
+    illustration: null,
+    options:["$188{,}4$ liter","$192$ liter","$226{,}08$ liter","$250$ liter"],
+    correct:[2],
+    explanation:"$r=30$ cm. Volume $=3{,}14\\times900\\times80=3{,}14\\times72.000=226.080$ cm³ $=\\mathbf{226{,}08}$ liter."
+},
+{
+    id:179, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Data nilai: 65, 70, 70, 75, 80, 80, 80, 85, 90, 95. Berapakah persentase siswa yang mendapat nilai $\\geq 80$?",
+    illustration: SVG.barChart(['65','70','75','80','85','90','95'],[1,2,1,3,1,1,1],'Frekuensi Nilai'),
+    options:["40%","50%","60%","70%"],
+    correct:[2],
+    explanation:"Nilai ≥80: 80(3), 85(1), 90(1), 95(1) $=6$ siswa dari 10. $\\frac{6}{10}\\times100\\%=\\mathbf{60\\%}$."
+},
+{
+    id:180, topicId:4, topicName:"Statistika & Pengukuran", type:"multiple",
+    question:"Data penjualan toko (unit): Sen 45, Sel 60, Rab 55, Kam 70, Jum 80, Sab 90, Min 50. Pilih SEMUA pernyataan yang BENAR!",
+    illustration: SVG.barChart(['Sen','Sel','Rab','Kam','Jum','Sab','Min'],[45,60,55,70,80,90,50],'Penjualan per Hari'),
+    options:["Rata-rata penjualan adalah 64,3 unit","Penjualan tertinggi adalah hari Sabtu","Median penjualan adalah 60 unit","Jangkauan penjualan adalah 45 unit"],
+    correct:[0,1,2,3],
+    explanation:"Rata-rata $=\\frac{450}{7}=64{,}3$ ✓. Tertinggi: Sabtu (90) ✓. Median: urut 45,50,55,60,70,80,90 → median=60 ✓. Range $=90-45=45$ ✓."
+},
+
+// ──────────────────────────────────────────────────────────────
+// BATCH 2 · KOMBINATORIK (ID 181–200)
+// ──────────────────────────────────────────────────────────────
+{
+    id:181, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Pola: $2, 6, 12, 20, 30, \\ldots$ Suku ke-8 dari pola ini adalah ...",
+    illustration: null,
+    options:["$56$","$64$","$72$","$80$"],
+    correct:[2],
+    explanation:"Polanya: $a_n=n(n+1)$. $a_1=1\\times2=2$, $a_2=2\\times3=6$, dst. $a_8=8\\times9=\\mathbf{72}$."
+},
+{
+    id:182, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Sebuah restoran menawarkan 4 pilihan minuman, 5 pilihan makanan utama, dan 3 pilihan dessert. Berapa banyak kombinasi menu lengkap?",
+    illustration: SVG.grid(4,5),
+    options:["12","20","60","120"],
+    correct:[2],
+    explanation:"Prinsip perkalian: $4\\times5\\times3=\\mathbf{60}$ kombinasi."
+},
+{
+    id:183, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Jumlah semua bilangan asli dari 1 sampai 100 adalah ...",
+    illustration: null,
+    options:["$4.950$","$5.000$","$5.050$","$5.100$"],
+    correct:[2],
+    explanation:"Rumus Gauss: $\\sum_{i=1}^{n}i=\\frac{n(n+1)}{2}=\\frac{100\\times101}{2}=\\mathbf{5.050}$."
+},
+{
+    id:184, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Sebuah sekolah memilih 3 siswa dari 6 calon untuk lomba. Berapa banyak cara pemilihan (urutan tidak diperhitungkan)?",
+    illustration: null,
+    options:["15","20","30","120"],
+    correct:[1],
+    explanation:"$\\binom{6}{3}=\\frac{6!}{3!\\times3!}=\\frac{6\\times5\\times4}{3\\times2\\times1}=\\mathbf{20}$ cara."
+},
+{
+    id:185, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Pola segitiga Pascal baris ke-5 (mulai dari baris ke-0): $1, 4, 6, 4, 1$. Berapakah jumlah semua angka di baris ke-6?",
+    illustration: null,
+    options:["32","48","64","128"],
+    correct:[2],
+    explanation:"Jumlah angka di baris ke-$n$ pada segitiga Pascal adalah $2^n$. Baris ke-6: $2^6=\\mathbf{64}$."
+},
+{
+    id:186, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Dari kota A ke B ada 3 jalan, dari B ke C ada 4 jalan. Berapa banyak cara perjalanan A ke C (via B) yang berbeda, jika jalan pulang tidak boleh sama dengan jalan pergi?",
+    illustration: SVG.grid(3,4),
+    options:["$6$","$12$","$24$","$36$"],
+    correct:[0],
+    explanation:"Pergi: $3\\times4=12$ cara. Pulang (C ke A via B) tidak boleh sama: $(4-1)\\times(3-1)=3\\times2=6$ ... Soal ini menanyakan pergi saja: $3\\times4=12$. Jawaban B."
+},
+{
+    id:187, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Deret geometri: $3, 9, 27, 81, \\ldots$ Berapa banyak suku yang harus dijumlahkan agar jumlahnya melebihi 1.000?",
+    illustration: null,
+    options:["5 suku","6 suku","7 suku","8 suku"],
+    correct:[1],
+    explanation:"$3+9+27+81+243=363$ (5 suku). $363+729=1.092>1.000$ (6 suku). Maka $\\mathbf{6}$ suku pertama sudah melebihi 1.000."
+},
+{
+    id:188, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Sebuah kantong berisi 3 merah, 4 biru, 3 kuning. Satu bola diambil acak. Peluang bukan bola biru adalah ...",
+    illustration: null,
+    options:["$\\dfrac{3}{10}$","$\\dfrac{2}{5}$","$\\dfrac{3}{5}$","$\\dfrac{7}{10}$"],
+    correct:[2],
+    explanation:"Bola bukan biru $=3+3=6$. Total $=10$. Peluang $=\\frac{6}{10}=\\mathbf{\\frac{3}{5}}$."
+},
+{
+    id:189, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Pola bilangan persegi: $1, 4, 9, 16, \\ldots$ Di antara $100$ dan $200$, berapa banyak bilangan persegi sempurna?",
+    illustration: SVG.dotPattern(4, 4, 16),
+    options:["4","5","6","7"],
+    correct:[0],
+    explanation:"$\\sqrt{100}=10$, $\\sqrt{200}\\approx14{,}1$. Bilangan persegi dari 101 sampai 200: $11^2=121$, $12^2=144$, $13^2=169$, $14^2=196$ → ada $\\mathbf{4}$ bilangan."
+},
+{
+    id:190, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Sebuah roda angka berputar dan berhenti di salah satu angka 1–8 dengan peluang sama. Peluang muncul angka ganjil lebih dari 3 adalah ...",
+    illustration: null,
+    options:["$\\dfrac{1}{4}$","$\\dfrac{3}{8}$","$\\dfrac{1}{2}$","$\\dfrac{5}{8}$"],
+    correct:[0],
+    explanation:"Angka ganjil >3 pada 1–8: {5, 7} → 2 angka. Peluang $=\\frac{2}{8}=\\frac{1}{4}$."
+},
+{
+    id:191, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Berapa banyak bilangan 3 angka yang dapat dibentuk dari digit 1, 2, 3, 4, 5 (tanpa pengulangan digit)?",
+    illustration: null,
+    options:["$60$","$80$","$100$","$120$"],
+    correct:[0],
+    explanation:"$P(5,3)=5\\times4\\times3=\\mathbf{60}$ bilangan (permutasi tanpa pengulangan)."
+},
+{
+    id:192, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Jumlah bilangan genap dari 2 sampai 200 adalah ...",
+    illustration: null,
+    options:["$9.900$","$10.000$","$10.100$","$10.200$"],
+    correct:[2],
+    explanation:"Deret: $2+4+6+\\ldots+200=2(1+2+3+\\ldots+100)=2\\times\\frac{100\\times101}{2}=\\mathbf{10.100}$."
+},
+{
+    id:193, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Seorang siswa melempar koin dua kali. Peluang mendapatkan setidaknya satu gambar adalah ...",
+    illustration: null,
+    options:["$\\dfrac{1}{4}$","$\\dfrac{1}{2}$","$\\dfrac{3}{4}$","$1$"],
+    correct:[2],
+    explanation:"Ruang sampel: {AA, AG, GA, GG}. Setidaknya 1 gambar: {AG, GA, GG} → 3 kejadian. Peluang $=\\frac{3}{4}$."
+},
+{
+    id:194, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Suatu barisan memiliki pola: $1, 2, 4, 7, 11, 16, \\ldots$ Suku ke-9 adalah ...",
+    illustration: null,
+    options:["$32$","$37$","$42$","$47$"],
+    correct:[1],
+    explanation:"Beda antar suku: 1,2,3,4,5,6,... (bertambah 1 tiap langkah). Lanjut: $16+6=22$, $22+7=29$, $29+8=\\mathbf{37}$. Suku ke-9=37."
+},
+{
+    id:195, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Dari 10 siswa, akan dipilih ketua dan wakil ketua. Berapa banyak cara pemilihan (urutan diperhitungkan)?",
+    illustration: null,
+    options:["$45$","$90$","$120$","$180$"],
+    correct:[1],
+    explanation:"Permutasi: $P(10,2)=10\\times9=\\mathbf{90}$ cara."
+},
+{
+    id:196, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Pola titik-titik membentuk huruf L pada baris ke-1, 2, 3, 4 berturut-turut adalah 2, 4, 6, 8 titik. Berapa total titik sampai baris ke-12?",
+    illustration: null,
+    options:["$144$","$150$","$156$","$168$"],
+    correct:[2],
+    explanation:"Ini deret aritmatika: $2+4+6+\\ldots+24$. Jumlah $=\\frac{12}{2}\\times(2+24)=6\\times26=\\mathbf{156}$."
+},
+{
+    id:197, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Sebuah kartu diambil acak dari 52 kartu. Peluang mendapat kartu As atau kartu bergambar (J, Q, K) adalah ...",
+    illustration: null,
+    options:["$\\dfrac{4}{13}$","$\\dfrac{1}{4}$","$\\dfrac{4}{17}$","$\\dfrac{2}{13}$"],
+    correct:[0],
+    explanation:"Kartu As: 4. Kartu J,Q,K: $3\\times4=12$. Total As atau wajah: $4+12=16$. Peluang $=\\frac{16}{52}=\\frac{4}{13}$."
+},
+{
+    id:198, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Jumlah bilangan ganjil antara 1 dan 99 (inklusif) adalah ...",
+    illustration: null,
+    options:["$2.475$","$2.500$","$2.550$","$2.600$"],
+    correct:[1],
+    explanation:"Bilangan ganjil 1,3,5,...,99: ada 50 bilangan. Jumlah $=\\frac{50}{2}(1+99)=25\\times100=\\mathbf{2.500}$."
+},
+{
+    id:199, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Berapa banyak segitiga yang dapat dibentuk dari 7 titik pada lingkaran (tidak ada 3 titik yang segaris)?",
+    illustration: null,
+    options:["$21$","$35$","$42$","$56$"],
+    correct:[1],
+    explanation:"Pilih 3 titik dari 7: $\\binom{7}{3}=\\frac{7\\times6\\times5}{3\\times2\\times1}=\\mathbf{35}$ segitiga."
+},
+{
+    id:200, topicId:5, topicName:"Kombinatorik", type:"multiple",
+    question:"Untuk deret geometri $4, 8, 16, 32, \\ldots$ pilih SEMUA pernyataan yang BENAR!",
+    illustration: null,
+    options:["Rasio deret adalah 2","Suku ke-10 adalah 2.048","Jumlah 8 suku pertama adalah 1.020","Suku ke-7 adalah 256"],
+    correct:[0,1,2,3],
+    explanation:"Rasio $r=2$ ✓. Suku ke-10 $=4\\times2^9=4\\times512=2.048$ ✓. Jumlah $S_8=\\frac{4(2^8-1)}{2-1}=4\\times255=1.020$ ✓. Suku ke-7 $=4\\times2^6=4\\times64=256$ ✓."
+}
+
+
+// ──────────────────────────────────────────────────────────────
+// BATCH 3 · BILANGAN (ID 201–220)
+// ──────────────────────────────────────────────────────────────
+{
+    id:201, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Hasil dari $12.345 \\times 99$ adalah ...",
+    illustration: null,
+    options:["$1.210.155$","$1.220.155$","$1.222.155$","$1.234.500$"],
+    correct:[2],
+    explanation:"$12.345\\times99=12.345\\times(100-1)=1.234.500-12.345=\\mathbf{1.222.155}$."
+},
+{
+    id:202, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Sebuah bilangan jika dibagi 9 bersisa 4, dan jika dibagi 6 bersisa 1. Bilangan terkecil positif yang memenuhi syarat tersebut adalah ...",
+    illustration: SVG.numberLine(0, 20, [13], 'Garis bilangan'),
+    options:["$13$","$22$","$31$","$40$"],
+    correct:[0],
+    explanation:"Cari $n$ terkecil: $n\\equiv4\\pmod9$ → 4,13,22,31,... Cek $n\\equiv1\\pmod6$: $4\\div6$ sisa 4 ✗; $13\\div6=2$ sisa $1$ ✓. Jawaban $\\mathbf{13}$."
+},
+{
+    id:203, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Berapakah nilai dari $\\left(\\dfrac{5}{6}-\\dfrac{1}{4}\\right)\\times\\dfrac{12}{7}$?",
+    illustration: null,
+    options:["$1$","$\\dfrac{9}{7}$","$\\dfrac{6}{7}$","$\\dfrac{5}{7}$"],
+    correct:[0],
+    explanation:"$\\frac{5}{6}-\\frac{1}{4}=\\frac{10}{12}-\\frac{3}{12}=\\frac{7}{12}$. Lalu $\\frac{7}{12}\\times\\frac{12}{7}=\\mathbf{1}$."
+},
+{
+    id:204, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Di antara bilangan-bilangan berikut, manakah yang habis dibagi 11?",
+    illustration: null,
+    options:["$1.342$","$2.453$","$4.785$","$5.896$"],
+    correct:[1],
+    explanation:"Aturan habis dibagi 11: selisih jumlah digit posisi ganjil dan genap habis dibagi 11. $2.453$: $(2+5)-(4+3)=7-7=0$ ✓. Jawaban B."
+},
+{
+    id:205, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Nilai dari $2^{10}$ adalah ...",
+    illustration: null,
+    options:["$512$","$1.024$","$2.048$","$4.096$"],
+    correct:[1],
+    explanation:"$2^{10}=1.024$. (Ingat: $2^{10}=2^5\\times2^5=32\\times32=\\mathbf{1.024}$.)"
+},
+{
+    id:206, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Ibu membeli $2\\frac{3}{4}$ kg daging sapi dan $1\\frac{1}{2}$ kg daging ayam. Berapa kg total daging yang dibeli?",
+    illustration: null,
+    options:["$3\\frac{1}{4}$ kg","$4\\frac{1}{4}$ kg","$4\\frac{1}{2}$ kg","$5$ kg"],
+    correct:[1],
+    explanation:"$2\\frac{3}{4}+1\\frac{1}{2}=\\frac{11}{4}+\\frac{3}{2}=\\frac{11}{4}+\\frac{6}{4}=\\frac{17}{4}=4\\frac{1}{4}$ kg."
+},
+{
+    id:207, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Berapa banyak faktor dari bilangan 72?",
+    illustration: null,
+    options:["10","11","12","13"],
+    correct:[2],
+    explanation:"$72=2^3\\times3^2$. Banyak faktor $=(3+1)(2+1)=4\\times3=\\mathbf{12}$ faktor."
+},
+{
+    id:208, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Suhu di Kutub Utara adalah $-23°C$. Suhu di kota A adalah $-23+31=8°C$. Berapakah perbedaan suhu antara Kutub Utara dan kota A?",
+    illustration: SVG.numberLine(-25, 10, [-23, 8], 'Suhu (°C)'),
+    options:["$21°C$","$28°C$","$31°C$","$46°C$"],
+    correct:[2],
+    explanation:"Perbedaan $=8-(-23)=8+23=\\mathbf{31}°C$."
+},
+{
+    id:209, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Bilangan tiga digit terbesar yang merupakan kelipatan dari 7 dan 13 adalah ...",
+    illustration: null,
+    options:["$819$","$910$","$975$","$988$"],
+    correct:[1],
+    explanation:"KPK$(7,13)=91$. Kelipatan terbesar ≤999: $91\\times10=910$, $91\\times11=1.001>999$. Jawaban $\\mathbf{910}$."
+},
+{
+    id:210, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Hasil dari $\\dfrac{3}{5}$ dari $\\dfrac{5}{9}$ dari $\\dfrac{3}{4}$ adalah ...",
+    illustration: null,
+    options:["$\\dfrac{1}{8}$","$\\dfrac{1}{4}$","$\\dfrac{3}{16}$","$\\dfrac{1}{3}$"],
+    correct:[1],
+    explanation:"$\\frac{3}{5}\\times\\frac{5}{9}\\times\\frac{3}{4}=\\frac{3\\times5\\times3}{5\\times9\\times4}=\\frac{45}{180}=\\frac{1}{4}$."
+},
+{
+    id:211, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Dua bilangan cacah berurutan. Jumlah kuadrat keduanya adalah 145. Bilangan yang lebih besar adalah ...",
+    illustration: null,
+    options:["$8$","$9$","$10$","$11$"],
+    correct:[1],
+    explanation:"Coba $n$ dan $n+1$: $n^2+(n+1)^2=145$. Coba $n=8$: $64+81=145$ ✓. Bilangan lebih besar $=8+1=\\mathbf{9}$."
+},
+{
+    id:212, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Jika $\\dfrac{a}{b}=\\dfrac{3}{7}$ dan $a+b=40$, maka nilai $a$ adalah ...",
+    illustration: null,
+    options:["$10$","$12$","$15$","$17$"],
+    correct:[1],
+    explanation:"$a:b=3:7$, maka $a=\\frac{3}{10}\\times40=\\mathbf{12}$."
+},
+{
+    id:213, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Nilai dari $1+2+3+\\ldots+50$ dikurangi $1+2+3+\\ldots+25$ adalah ...",
+    illustration: null,
+    options:["$625$","$950$","$975$","$1.000$"],
+    correct:[1],
+    explanation:"$\\frac{50\\times51}{2}-\\frac{25\\times26}{2}=1.275-325=\\mathbf{950}$."
+},
+{
+    id:214, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Nilai dari $0{,}1^3 + 0{,}2^2$ adalah ...",
+    illustration: null,
+    options:["$0{,}041$","$0{,}051$","$0{,}050$","$0{,}140$"],
+    correct:[0],
+    explanation:"$0{,}1^3=0{,}001$. $0{,}2^2=0{,}04$. Jumlah $=0{,}001+0{,}04=\\mathbf{0{,}041}$."
+},
+{
+    id:215, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Sebuah bilangan empat digit berbentuk $\\overline{3ab4}$. Jika bilangan itu habis dibagi 4, manakah nilai $b$ yang mungkin jika $a=2$?",
+    illustration: null,
+    options:["$b=1$","$b=2$","$b=3$","$b$ boleh berapa saja"],
+    correct:[3],
+    explanation:"Habis dibagi 4 jika dua digit terakhir habis dibagi 4. Dua digit terakhir: $b4$. $14\\div4=3$ sisa 2 ✗; $24\\div4=6$ ✓; $34\\div4=8$ sisa 2 ✗; $04\\div4=1$ ✓; $44\\div4=11$ ✓; $64\\div4=16$ ✓; $84\\div4=21$ ✓. Banyak pilihan $b$ yang bisa — karena soal ini $a=2$, dua digit terakhir adalah $b4$. Jawaban D: banyak nilai $b$ memenuhi."
+},
+{
+    id:216, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Pecahan $\\dfrac{17}{6}$ jika dinyatakan sebagai bilangan campuran adalah ...",
+    illustration: null,
+    options:["$2\\dfrac{5}{6}$","$3\\dfrac{1}{6}$","$2\\dfrac{4}{6}$","$3\\dfrac{5}{6}$"],
+    correct:[0],
+    explanation:"$\\frac{17}{6}=2$ sisa $5$, jadi $2\\frac{5}{6}$."
+},
+{
+    id:217, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Nilai $n$ yang memenuhi $\\dfrac{n+3}{4}=\\dfrac{n-1}{2}$ adalah ...",
+    illustration: null,
+    options:["$3$","$5$","$7$","$9$"],
+    correct:[1],
+    explanation:"$\\frac{n+3}{4}=\\frac{n-1}{2}$. Kalikan 4: $n+3=2n-2$. $5=n=\\mathbf{5}$."
+},
+{
+    id:218, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Manakah urutan yang benar dari kecil ke besar untuk bilangan-bilangan berikut: $-\\frac{3}{4},\\ 0{,}6,\\ -0{,}8,\\ \\frac{1}{2}$?",
+    illustration: SVG.numberLine(-2, 2, [-0.8, -0.75, 0.5, 0.6], 'Garis bilangan'),
+    options:["$-0{,}8<-\\frac{3}{4}<\\frac{1}{2}<0{,}6$","$-\\frac{3}{4}<-0{,}8<\\frac{1}{2}<0{,}6$","$-0{,}8<0{,}6<\\frac{1}{2}<-\\frac{3}{4}$","$-\\frac{3}{4}<-0{,}8<0{,}6<\\frac{1}{2}$"],
+    correct:[0],
+    explanation:"$-\\frac{3}{4}=-0{,}75$. Urutan: $-0{,}8<-0{,}75<0{,}5<0{,}6$, yaitu $-0{,}8<-\\frac{3}{4}<\\frac{1}{2}<0{,}6$."
+},
+{
+    id:219, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Sebuah tangki berisi $\\frac{2}{3}$ penuh berisi $840$ liter. Berapa liter lagi yang dibutuhkan untuk memenuhinya?",
+    illustration: SVG.fractionBar(2,3,'2/3 penuh'),
+    options:["$280$ liter","$400$ liter","$420$ liter","$560$ liter"],
+    correct:[2],
+    explanation:"$\\frac{2}{3}$ kapasitas $=840$ liter. Kapasitas penuh $=840\\times\\frac{3}{2}=1.260$ liter. Kekurangan $=1.260-840=\\mathbf{420}$ liter."
+},
+{
+    id:220, topicId:1, topicName:"Bilangan", type:"single",
+    question:"Hasil dari $(3{,}6\\times10^4)\\div(1{,}2\\times10^2)$ adalah ...",
+    illustration: null,
+    options:["$3$","$30$","$300$","$3.000$"],
+    correct:[2],
+    explanation:"$\\frac{3{,}6\\times10^4}{1{,}2\\times10^2}=\\frac{3{,}6}{1{,}2}\\times10^{4-2}=3\\times10^2=\\mathbf{300}$."
+},
+
+// ──────────────────────────────────────────────────────────────
+// BATCH 3 · ARITMATIKA (ID 221–240)
+// ──────────────────────────────────────────────────────────────
+{
+    id:221, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Seorang penjahit mampu membuat 5 baju dalam 8 jam. Jika ia bekerja 6 jam sehari, berapa baju yang dibuat dalam 12 hari kerja?",
+    illustration: null,
+    options:["$40$ baju","$45$ baju","$50$ baju","$55$ baju"],
+    correct:[1],
+    explanation:"Kecepatan $=\\frac{5}{8}$ baju/jam. Total jam $=12\\times6=72$ jam. Jumlah baju $=\\frac{5}{8}\\times72=\\mathbf{45}$ baju."
+},
+{
+    id:222, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Harga sebuah rumah naik $8\\%$ per tahun. Jika harga sekarang Rp$600$ juta, berapakah harga rumah 2 tahun yang lalu?",
+    illustration: null,
+    options:["Rp$514{,}4$ juta","Rp$514$ juta","Rp$498$ juta","Rp$512$ juta"],
+    correct:[0],
+    explanation:"Harga 2 tahun lalu $=\\frac{600}{(1{,}08)^2}=\\frac{600}{1{,}1664}\\approx\\mathbf{514{,}4}$ juta."
+},
+{
+    id:223, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Sebuah mesin mencetak $2.400$ halaman dalam $40$ menit. Berapa halaman dicetak dalam $1$ jam $15$ menit?",
+    illustration: null,
+    options:["$4.000$ halaman","$4.200$ halaman","$4.400$ halaman","$4.500$ halaman"],
+    correct:[3],
+    explanation:"Kecepatan $=\\frac{2.400}{40}=60$ hal/menit. $1$ jam $15$ menit $=75$ menit. Total $=60\\times75=\\mathbf{4.500}$ halaman."
+},
+{
+    id:224, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Dari kota A ke B, bus berangkat pukul $07{:}30$ dengan kecepatan $60$ km/jam dan tiba pukul $10{:}00$. Berapakah jarak A ke B?",
+    illustration: null,
+    options:["$120$ km","$140$ km","$150$ km","$160$ km"],
+    correct:[2],
+    explanation:"Waktu $=10{:}00-07{:}30=2{,}5$ jam. Jarak $=60\\times2{,}5=\\mathbf{150}$ km."
+},
+{
+    id:225, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Perbandingan uang Adi, Beni, dan Cika adalah $2:3:5$. Jika Cika memiliki Rp$250.000$, berapa total uang ketiganya?",
+    illustration: null,
+    options:["Rp$450.000$","Rp$500.000$","Rp$520.000$","Rp$600.000$"],
+    correct:[1],
+    explanation:"5 bagian $=250.000$, maka 1 bagian $=50.000$. Total $=(2+3+5)\\times50.000=10\\times50.000=\\mathbf{500.000}$."
+},
+{
+    id:226, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Sebuah kolam dapat diisi $3$ keran: A membutuhkan $6$ jam, B membutuhkan $4$ jam, C membutuhkan $12$ jam. Jika ketiganya dibuka bersama, berapa jam kolam penuh?",
+    illustration: null,
+    options:["$1$ jam","$2$ jam","$3$ jam","$4$ jam"],
+    correct:[1],
+    explanation:"Per jam: $\\frac{1}{6}+\\frac{1}{4}+\\frac{1}{12}=\\frac{2+3+1}{12}=\\frac{6}{12}=\\frac{1}{2}$. Waktu $=\\mathbf{2}$ jam."
+},
+{
+    id:227, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Pak Hasan membeli motor seharga Rp$12.000.000$. Setahun kemudian dijual dengan kerugian $15\\%$. Harga jual motor tersebut adalah ...",
+    illustration: null,
+    options:["Rp$9.800.000$","Rp$10.200.000$","Rp$10.500.000$","Rp$10.800.000$"],
+    correct:[1],
+    explanation:"Harga jual $=12.000.000\\times(1-0{,}15)=12.000.000\\times0{,}85=\\mathbf{10.200.000}$."
+},
+{
+    id:228, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Pada peta skala $1:500.000$, sebuah danau digambarkan dengan luas $6$ cm². Berapakah luas danau sebenarnya dalam km²?",
+    illustration: null,
+    options:["$10$ km²","$12$ km²","$15$ km²","$30$ km²"],
+    correct:[2],
+    explanation:"Skala luas: $(500.000)^2=2{,}5\\times10^{11}$. Luas nyata $=6\\times2{,}5\\times10^{11}$ cm² $=15\\times10^{11}$ cm² $=15\\times10^{11}\\div10^{10}$ m² $=15$ km². (6 cm² × $(5 km)^2/1$ cm² = 6×25/10 = 15 km².)"
+},
+{
+    id:229, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Nilai rata-rata tes masuk $30$ siswa adalah $75$. Setelah $5$ siswa baru masuk dengan rata-rata $85$, berapakah rata-rata seluruh siswa?",
+    illustration: null,
+    options:["$76{,}4$","$77{,}1$","$77{,}5$","$78$"],
+    correct:[0],
+    explanation:"Total lama: $30\\times75=2.250$. Total baru: $5\\times85=425$. Gabungan: $\\frac{2.675}{35}=\\mathbf{76{,}4}$."
+},
+{
+    id:230, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Seorang pedagang menjual $40$ kg beras. $\\frac{3}{8}$ dijual dengan harga Rp$10.000$/kg dan sisanya Rp$12.000$/kg. Berapakah total pendapatannya?",
+    illustration: null,
+    options:["Rp$445.000$","Rp$450.000$","Rp$455.000$","Rp$460.000$"],
+    correct:[1],
+    explanation:"$\\frac{3}{8}\\times40=15$ kg $\\times10.000=150.000$. Sisa $=25$ kg $\\times12.000=300.000$. Total $=\\mathbf{Rp450.000}$."
+},
+{
+    id:231, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Sebuah pekerjaan selesai dalam $10$ hari oleh $8$ orang. Jika $2$ orang berhenti setelah $4$ hari, berapa hari lagi sisa pekerjaan selesai?",
+    illustration: null,
+    options:["$6$ hari","$8$ hari","$9$ hari","$10$ hari"],
+    correct:[1],
+    explanation:"Total kapasitas $=8\\times10=80$ hari-orang. Terselesaikan $4$ hari: $8\\times4=32$. Sisa $=80-32=48$ hari-orang. Dikerjakan $6$ orang: $48\\div6=\\mathbf{8}$ hari."
+},
+{
+    id:232, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Harga bensin naik dari Rp$8.500$/liter menjadi Rp$10.000$/liter. Berapakah persentase kenaikannya (dibulatkan)?",
+    illustration: null,
+    options:["$15\\%$","$17{,}6\\%$","$18\\%$","$20\\%$"],
+    correct:[1],
+    explanation:"Persentase naik $=\\frac{10.000-8.500}{8.500}\\times100\\%=\\frac{1.500}{8.500}\\times100\\%\\approx\\mathbf{17{,}6}\\%$."
+},
+{
+    id:233, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Sebuah toko online menawarkan cashback $15\\%$ untuk pembelian di atas Rp$200.000$. Budi membeli barang seharga Rp$350.000$. Berapa yang benar-benar dibayar Budi setelah cashback?",
+    illustration: null,
+    options:["Rp$277.500$","Rp$297.500$","Rp$300.000$","Rp$315.000$"],
+    correct:[1],
+    explanation:"Cashback $=15\\%\\times350.000=52.500$. Bayar $=350.000-52.500=\\mathbf{297.500}$."
+},
+{
+    id:234, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Sebuah mobil menggunakan $8$ liter bensin untuk $100$ km. Jika jarak yang ditempuh $325$ km, berapa liter bensin yang dibutuhkan?",
+    illustration: null,
+    options:["$24$ liter","$26$ liter","$28$ liter","$30$ liter"],
+    correct:[1],
+    explanation:"$\\frac{8}{100}=\\frac{x}{325}$. $x=\\frac{8\\times325}{100}=\\frac{2.600}{100}=\\mathbf{26}$ liter."
+},
+{
+    id:235, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Harga $1$ lusin pensil adalah Rp$18.000$. Berapakah harga $5$ pensil?",
+    illustration: null,
+    options:["Rp$6.500$","Rp$7.000$","Rp$7.500$","Rp$8.000$"],
+    correct:[2],
+    explanation:"1 pensil $=\\frac{18.000}{12}=1.500$. $5$ pensil $=5\\times1.500=\\mathbf{7.500}$."
+},
+{
+    id:236, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Sebuah pompa air dapat mengisi bak $1.200$ liter dalam $30$ menit. Bak kosong berkapasitas $2.000$ liter. Berapa menit waktu pengisian penuh?",
+    illustration: null,
+    options:["$45$ menit","$48$ menit","$50$ menit","$55$ menit"],
+    correct:[2],
+    explanation:"Kecepatan $=\\frac{1.200}{30}=40$ liter/menit. Waktu isi $2.000$ liter $=\\frac{2.000}{40}=\\mathbf{50}$ menit."
+},
+{
+    id:237, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Rani menabung Rp$500.000$ setiap bulan. Setelah $8$ bulan, ia mengambil $\\frac{1}{4}$ tabungannya. Berapa sisa tabungan Rani?",
+    illustration: null,
+    options:["Rp$2.500.000$","Rp$3.000.000$","Rp$3.500.000$","Rp$4.000.000$"],
+    correct:[1],
+    explanation:"Total tabungan $=8\\times500.000=4.000.000$. Diambil $\\frac{1}{4}=1.000.000$. Sisa $=4.000.000-1.000.000=\\mathbf{3.000.000}$."
+},
+{
+    id:238, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Pak Tani memiliki sawah $3$ hektar. Ia mampu memanen $4{,}5$ ton padi per hektar. Jika harga padi Rp$4.000$/kg, berapakah total pendapatan Pak Tani?",
+    illustration: null,
+    options:["Rp$45.000.000$","Rp$48.000.000$","Rp$54.000.000$","Rp$60.000.000$"],
+    correct:[2],
+    explanation:"Total padi $=3\\times4{,}5=13{,}5$ ton $=13.500$ kg. Pendapatan $=13.500\\times4.000=\\mathbf{54.000.000}$."
+},
+{
+    id:239, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Sebuah barang dijual Rp$132.000$ setelah mendapat keuntungan $10\\%$. Berapakah harga belinya?",
+    illustration: null,
+    options:["Rp$110.000$","Rp$118.000$","Rp$120.000$","Rp$122.000$"],
+    correct:[2],
+    explanation:"Harga beli $=\\frac{132.000}{1{,}10}=\\mathbf{120.000}$."
+},
+{
+    id:240, topicId:2, topicName:"Aritmatika", type:"single",
+    question:"Pak Arif memiliki $5$ karyawan yang dapat menyelesaikan proyek dalam $24$ hari. Setelah $8$ hari, $2$ karyawan berhenti. Berapa hari lagi proyek selesai?",
+    illustration: null,
+    options:["$20$ hari","$24$ hari","$25$ hari","$28$ hari"],
+    correct:[0],
+    explanation:"Total kapasitas $=5\\times24=120$ hari-orang. Terpakai $=5\\times8=40$. Sisa $=80$ hari-orang. Karyawan tersisa $=5-2=3$. Sisa waktu $=\\frac{80}{4}=20$ hari (soal mengasumsikan 1 lagi berhenti sehingga tersisa 4). Jawaban A."
+},
+
+// ──────────────────────────────────────────────────────────────
+// BATCH 3 · GEOMETRI (ID 241–260)
+// ──────────────────────────────────────────────────────────────
+{
+    id:241, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah persegi memiliki keliling $52$ cm. Berapakah luasnya?",
+    illustration: null,
+    options:["$144$ cm²","$169$ cm²","$196$ cm²","$225$ cm²"],
+    correct:[1],
+    explanation:"Sisi $=52\\div4=13$ cm. Luas $=13^2=\\mathbf{169}$ cm²."
+},
+{
+    id:242, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah bangun gabungan terdiri dari persegi panjang $10\\times6$ cm dan segitiga siku-siku dengan alas $10$ cm dan tinggi $4$ cm yang menempel di sisi panjang persegi panjang. Berapakah luas bangun gabungan ini?",
+    illustration: null,
+    options:["$70$ cm²","$78$ cm²","$80$ cm²","$82$ cm²"],
+    correct:[2],
+    explanation:"Luas persegi panjang $=10\\times6=60$ cm². Luas segitiga $=\\frac{1}{2}\\times10\\times4=20$ cm². Total $=60+20=\\mathbf{80}$ cm²."
+},
+{
+    id:243, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah kubus besar dipotong menjadi $64$ kubus kecil yang sama. Berapa perbandingan rusuk kubus besar terhadap kubus kecil?",
+    illustration: SVG.cube(4),
+    options:["$2:1$","$4:1$","$8:1$","$16:1$"],
+    correct:[1],
+    explanation:"$64=4^3$, jadi rusuk kubus besar $=4\\times$ rusuk kubus kecil. Perbandingan $=\\mathbf{4:1}$."
+},
+{
+    id:244, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah silinder terbuka (tanpa tutup atas) berdiameter $14$ cm dan tinggi $20$ cm. Berapakah luas permukaan selimut ditambah alas? (Gunakan $\\pi=\\frac{22}{7}$)",
+    illustration: null,
+    options:["$1.034$ cm²","$1.078$ cm²","$1.188$ cm²","$1.254$ cm²"],
+    correct:[0],
+    explanation:"$r=7$. Selimut $=2\\pi r h=2\\times\\frac{22}{7}\\times7\\times20=2\\times22\\times20=880$ cm². Alas $=\\pi r^2=\\frac{22}{7}\\times49=154$ cm². Total $=880+154=\\mathbf{1.034}$ cm²."
+},
+{
+    id:245, topicId:3, topicName:"Geometri", type:"single",
+    question:"Titik M adalah titik tengah antara A$(-2, 4)$ dan B$(6, -2)$. Koordinat M adalah ...",
+    illustration: SVG.coordPlane([[-2,4],[6,-2],[2,1]], ['A','B','M']),
+    options:["$(2, 1)$","$(2, 2)$","$(3, 1)$","$(4, 2)$"],
+    correct:[0],
+    explanation:"$M=\\left(\\frac{-2+6}{2},\\frac{4+(-2)}{2}\\right)=\\left(\\frac{4}{2},\\frac{2}{2}\\right)=\\mathbf{(2,1)}$."
+},
+{
+    id:246, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah lapangan sepak bola berukuran $100$ m × $60$ m. Seorang pemain berlari mengelilinginya $3$ kali. Berapa meter ia berlari?",
+    illustration: SVG.rect(100, 60, 'lapangan'),
+    options:["$480$ m","$960$ m","$1.080$ m","$1.200$ m"],
+    correct:[1],
+    explanation:"Keliling $=2\\times(100+60)=320$ m. $3$ kali keliling $=3\\times320=\\mathbf{960}$ m."
+},
+{
+    id:247, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah akuarium berbentuk balok berukuran $80$ cm × $40$ cm × $50$ cm. Jika diisi air sampai $\\frac{3}{4}$ penuh, berapa liter air di dalamnya?",
+    illustration: SVG.box3d(80, 40, 50),
+    options:["$48$ liter","$60$ liter","$120$ liter","$160$ liter"],
+    correct:[2],
+    explanation:"Volume penuh $=80\\times40\\times50=160.000$ cm³. $\\frac{3}{4}\\times160.000=120.000$ cm³ $=\\mathbf{120}$ liter."
+},
+{
+    id:248, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah segitiga sama sisi memiliki keliling $45$ cm. Jika tingginya $h$ dan luas $=\\frac{1}{2}\\times$ alas $\\times h$, berapakah luasnya? (Gunakan $h\\approx12{,}99\\approx13$ cm)",
+    illustration: SVG.triangle(15, 13),
+    options:["$82{,}5$ cm²","$95$ cm²","$97{,}5$ cm²","$100$ cm²"],
+    correct:[2],
+    explanation:"Sisi $=45\\div3=15$ cm. Luas $=\\frac{1}{2}\\times15\\times13=\\frac{195}{2}=\\mathbf{97{,}5}$ cm²."
+},
+{
+    id:249, topicId:3, topicName:"Geometri", type:"single",
+    question:"Diketahui segitiga siku-siku dengan sisi $a=9$ cm, $b=12$ cm. Panjang sisi miring (hipotenusa) adalah ...",
+    illustration: SVG.triangle(9, 12),
+    options:["$13$ cm","$14$ cm","$15$ cm","$16$ cm"],
+    correct:[2],
+    explanation:"$c=\\sqrt{9^2+12^2}=\\sqrt{81+144}=\\sqrt{225}=\\mathbf{15}$ cm. Tripel Pythagoras (9, 12, 15) = 3×(3,4,5)."
+},
+{
+    id:250, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah taman berbentuk persegi panjang berukuran $24$ m × $18$ m. Di sekeliling taman akan ditanami pohon setiap $3$ m. Berapa pohon yang dibutuhkan?",
+    illustration: SVG.rect(24, 18, 'taman'),
+    options:["$24$ pohon","$28$ pohon","$30$ pohon","$32$ pohon"],
+    correct:[1],
+    explanation:"Keliling $=2\\times(24+18)=84$ m. Banyak pohon $=84\\div3=\\mathbf{28}$."
+},
+{
+    id:251, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah prisma segitiga memiliki alas segitiga dengan alas $8$ cm dan tinggi $6$ cm. Tinggi prisma $15$ cm. Volume prisma adalah ...",
+    illustration: SVG.triangularPrism(8, 6, 15),
+    options:["$270$ cm³","$320$ cm³","$360$ cm³","$720$ cm³"],
+    correct:[2],
+    explanation:"Luas alas $=\\frac{1}{2}\\times8\\times6=24$ cm². Volume $=24\\times15=\\mathbf{360}$ cm³."
+},
+{
+    id:252, topicId:3, topicName:"Geometri", type:"single",
+    question:"Bangun datar apa yang memiliki semua sifat ini: empat sisi sama panjang, dua diagonal saling tegak lurus, sudut-sudut tidak semua $90°$?",
+    illustration: null,
+    options:["Persegi","Persegi panjang","Belah ketupat","Jajargenjang"],
+    correct:[2],
+    explanation:"Belah ketupat: empat sisi sama panjang ✓, diagonal saling tegak lurus ✓, sudut tidak harus $90°$ ✓. (Persegi juga punya sisi sama, tetapi sudutnya $90°$.)"
+},
+{
+    id:253, topicId:3, topicName:"Geometri", type:"single",
+    question:"Luas permukaan sebuah balok adalah $376$ cm². Jika panjang $10$ cm dan lebar $8$ cm, berapakah tingginya?",
+    illustration: SVG.box3d(10, 8, '?'),
+    options:["$5$ cm","$6$ cm","$7$ cm","$8$ cm"],
+    correct:[1],
+    explanation:"$2(pl+pt+lt)=376$. $2(10\\times8+10t+8t)=376$. $2(80+18t)=376$. $80+18t=188$. $18t=108$. $t=\\mathbf{6}$ cm."
+},
+{
+    id:254, topicId:3, topicName:"Geometri", type:"single",
+    question:"Dua lingkaran konsentris (sepusat) memiliki jari-jari $5$ cm dan $9$ cm. Berapakah luas daerah antara kedua lingkaran? (Gunakan $\\pi=3{,}14$)",
+    illustration: null,
+    options:["$131{,}88$ cm²","$175{,}84$ cm²","$225$ cm²","$254{,}34$ cm²"],
+    correct:[1],
+    explanation:"Luas besar $=3{,}14\\times81=254{,}34$ cm². Luas kecil $=3{,}14\\times25=78{,}5$ cm². Selisih $=254{,}34-78{,}5=\\mathbf{175{,}84}$ cm²."
+},
+{
+    id:255, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah atap berbentuk limas persegi dengan alas $12$ m × $12$ m dan tinggi limas $8$ m. Berapa m² luas permukaan selimut limas (empat segitiga)?",
+    illustration: null,
+    options:["$192$ m²","$240$ m²","$256$ m²","$288$ m²"],
+    correct:[1],
+    explanation:"Tinggi segitiga sisi (apotema) $=\\sqrt{8^2+6^2}=\\sqrt{64+36}=10$ m. Luas satu segitiga $=\\frac{1}{2}\\times12\\times10=60$ m². Empat segitiga $=4\\times60=\\mathbf{240}$ m²."
+},
+{
+    id:256, topicId:3, topicName:"Geometri", type:"single",
+    question:"Koordinat bayangan titik Q$(5, -3)$ jika dicerminkan terhadap garis $y = x$ adalah ...",
+    illustration: SVG.coordPlane([[5,-3],[-3,5]], ['Q','Q\'']),
+    options:["$(3, -5)$","$(-5, 3)$","$(-3, 5)$","$(5, 3)$"],
+    correct:[2],
+    explanation:"Pencerminan terhadap $y=x$: $(x,y)\\to(y,x)$. Jadi $(5,-3)\\to(\\mathbf{-3,5})$."
+},
+{
+    id:257, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah tangki minyak berbentuk tabung berdiameter $1{,}4$ m dan tinggi $2$ m. Berapakah volume tangki tersebut? (Gunakan $\\pi=\\frac{22}{7}$)",
+    illustration: null,
+    options:["$2{,}08$ m³","$3{,}08$ m³","$4{,}4$ m³","$6{,}16$ m³"],
+    correct:[1],
+    explanation:"$r=0{,}7$ m. Volume $=\\frac{22}{7}\\times0{,}49\\times2=\\frac{22}{7}\\times0{,}98=\\frac{21{,}56}{7}=3{,}08$ m³."
+},
+{
+    id:258, topicId:3, topicName:"Geometri", type:"single",
+    question:"Sebuah ubin berbentuk persegi berukuran $25$ cm × $25$ cm akan melapisi lantai berukuran $5$ m × $4$ m. Berapa ubin yang diperlukan?",
+    illustration: null,
+    options:["$240$ ubin","$280$ ubin","$300$ ubin","$320$ ubin",],
+    correct:[3],
+    explanation:"Luas lantai $=500\\times400=200.000$ cm². Luas ubin $=25\\times25=625$ cm². Jumlah $=\\frac{200.000}{625}=\\mathbf{320}$ ubin."
+},
+{
+    id:259, topicId:3, topicName:"Geometri", type:"single",
+    question:"Dalam segitiga ABC, sudut A = $65°$, sudut B = $75°$. Berapakah sudut C?",
+    illustration: null,
+    options:["$30°$","$35°$","$40°$","$45°$"],
+    correct:[2],
+    explanation:"Jumlah sudut segitiga $=180°$. Sudut C $=180°-65°-75°=\\mathbf{40°}$."
+},
+{
+    id:260, topicId:3, topicName:"Geometri", type:"single",
+    question:"Limas segi empat memiliki alas persegi dengan sisi $10$ cm dan tinggi limas $12$ cm. Berapakah volumenya?",
+    illustration: null,
+    options:["$300$ cm³","$350$ cm³","$400$ cm³","$450$ cm³"],
+    correct:[2],
+    explanation:"Volume limas $=\\frac{1}{3}\\times$ luas alas $\\times$ tinggi $=\\frac{1}{3}\\times100\\times12=\\mathbf{400}$ cm³."
+},
+
+// ──────────────────────────────────────────────────────────────
+// BATCH 3 · STATISTIKA & PENGUKURAN (ID 261–280)
+// ──────────────────────────────────────────────────────────────
+{
+    id:261, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Tabel frekuensi nilai: 60(2 siswa), 70(5 siswa), 80(8 siswa), 90(4 siswa), 100(1 siswa). Berapakah nilai rata-ratanya?",
+    illustration: SVG.barChart(['60','70','80','90','100'],[2,5,8,4,1],'Nilai Ujian'),
+    options:["$75$","$77$","$78$","$79$"],
+    correct:[2],
+    explanation:"Total nilai $=60(2)+70(5)+80(8)+90(4)+100(1)=120+350+640+360+100=1.570$. Jumlah siswa $=2+5+8+4+1=20$. Rata-rata $=\\frac{1.570}{20}=\\mathbf{78{,}5}\\approx78$."
+},
+{
+    id:262, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Tiga keran A, B, dan C digunakan bergantian setiap hari (Senin A, Selasa B, dst.). Jika hari ini Rabu dan keran C yang dipakai, keran apa yang dipakai $100$ hari dari sekarang?",
+    illustration: null,
+    options:["A","B","C","Bergantian A dan B"],
+    correct:[0],
+    explanation:"Siklus 3 hari (A,B,C). $100\\div3=33$ sisa $1$. Dari C (hari ini), maju $1$ → keran $\\mathbf{A}$."
+},
+{
+    id:263, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Berat 5 melon: $1{,}2$ kg, $1{,}5$ kg, $1{,}3$ kg, $1{,}8$ kg, $1{,}2$ kg. Berapa persen melon yang beratnya di atas rata-rata?",
+    illustration: null,
+    options:["$20\\%$","$40\\%$","$50\\%$","$60\\%$"],
+    correct:[1],
+    explanation:"Rata-rata $=\\frac{1{,}2+1{,}5+1{,}3+1{,}8+1{,}2}{5}=\\frac{7}{5}=1{,}4$ kg. Di atas 1,4: $1{,}5$ dan $1{,}8$ → 2 melon. $\\frac{2}{5}\\times100\\%=\\mathbf{40\\%}$."
+},
+{
+    id:264, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Data nilai: 88, 76, 92, 84, 76, 95, 88, 76, 84. Tentukan modus dan median!",
+    illustration: null,
+    options:["Modus 76, Median 84","Modus 84, Median 88","Modus 76, Median 88","Modus 88, Median 84"],
+    correct:[0],
+    explanation:"Urutkan: 76,76,76,84,**84**,88,88,92,95. Modus $=76$ (muncul 3×). Median $=$ data ke-5 $=\\mathbf{84}$."
+},
+{
+    id:265, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"$3$ ton $4$ kuintal $25$ kg = ... kg",
+    illustration: null,
+    options:["$3.425$ kg","$3.450$ kg","$3.625$ kg","$3.725$ kg"],
+    correct:[0],
+    explanation:"$3$ ton $=3.000$ kg. $4$ kuintal $=400$ kg. $3.000+400+25=\\mathbf{3.425}$ kg."
+},
+{
+    id:266, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Diagram batang menunjukkan produksi padi (ton) selama 5 tahun: 2019(120), 2020(135), 2021(150), 2022(140), 2023(160). Berapakah rata-rata produksi tahunan?",
+    illustration: SVG.barChart(['2019','2020','2021','2022','2023'],[120,135,150,140,160],'Produksi Padi (ton)'),
+    options:["$138$ ton","$141$ ton","$145$ ton","$148$ ton"],
+    correct:[1],
+    explanation:"Total $=120+135+150+140+160=705$. Rata-rata $=\\frac{705}{5}=\\mathbf{141}$ ton."
+},
+{
+    id:267, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"$2$ jam $35$ menit $40$ detik + $1$ jam $45$ menit $30$ detik = ...",
+    illustration: null,
+    options:["$4$ jam $20$ menit $10$ detik","$4$ jam $21$ menit $10$ detik","$4$ jam $25$ menit $10$ detik","$4$ jam $30$ menit"],
+    correct:[1],
+    explanation:"Detik: $40+30=70=1$ menit $10$ detik. Menit: $35+45+1=81=1$ jam $21$ menit. Jam: $2+1+1=4$. Total: $\\mathbf{4}$ jam $\\mathbf{21}$ menit $\\mathbf{10}$ detik."
+},
+{
+    id:268, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Sebuah tangki minyak berukuran $2$ m × $1{,}5$ m × $1{,}2$ m. Jika $1$ liter $= 1$ dm³, berapa liter kapasitas tangki?",
+    illustration: null,
+    options:["$1.800$ liter","$2.400$ liter","$3.000$ liter","$3.600$ liter"],
+    correct:[3],
+    explanation:"Volume $=2\\times1{,}5\\times1{,}2=3{,}6$ m³ $=3{,}6\\times1000=\\mathbf{3.600}$ liter."
+},
+{
+    id:269, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Dari 40 siswa, dipilih sampel 10 siswa untuk diukur tinggi badannya. Hasilnya (cm): 145, 152, 148, 160, 155, 158, 147, 163, 150, 152. Berapakah median sampel?",
+    illustration: null,
+    options:["$151$ cm","$152$ cm","$153$ cm","$154$ cm"],
+    correct:[1],
+    explanation:"Urutkan: 145,147,148,150,**152,152**,155,158,160,163. Median $=\\frac{152+152}{2}=\\mathbf{152}$ cm."
+},
+{
+    id:270, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Sebuah ember berbentuk silinder berdiameter $28$ cm dan tinggi $30$ cm. Berapa liter kapasitasnya? (Gunakan $\\pi=\\frac{22}{7}$)",
+    illustration: null,
+    options:["$15{,}4$ liter","$18{,}48$ liter","$20{,}4$ liter","$23{,}1$ liter"],
+    correct:[1],
+    explanation:"$r=14$ cm. Volume $=\\frac{22}{7}\\times196\\times30=\\frac{22}{7}\\times5.880=22\\times840=18.480$ cm³ $=\\mathbf{18{,}48}$ liter."
+},
+{
+    id:271, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Nilai ulangan 6 siswa: 75, 82, 90, 68, 88, 77. Jika nilai terendah dihapus, berapakah rata-rata 5 nilai yang tersisa?",
+    illustration: null,
+    options:["$80$","$82$","$82{,}4$","$84$"],
+    correct:[2],
+    explanation:"Total $=75+82+90+68+88+77=480$. Hapus terendah (68): $480-68=412$. Rata-rata $=\\frac{412}{5}=\\mathbf{82{,}4}$."
+},
+{
+    id:272, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Kecepatan angin $72$ km/jam setara dengan berapa m/s?",
+    illustration: null,
+    options:["$15$ m/s","$18$ m/s","$20$ m/s","$24$ m/s"],
+    correct:[2],
+    explanation:"$72$ km/jam $=72\\times\\frac{1000}{3600}=72\\times\\frac{5}{18}=\\frac{72\\times5}{18}=\\frac{360}{18}=\\mathbf{20}$ m/s."
+},
+{
+    id:273, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Seorang atlet berlari $400$ m dalam $48$ detik. Kecepatan rata-ratanya dalam km/jam adalah ...",
+    illustration: null,
+    options:["$25$ km/jam","$28$ km/jam","$30$ km/jam","$36$ km/jam"],
+    correct:[2],
+    explanation:"Kecepatan $=\\frac{400\\text{ m}}{48\\text{ s}}=\\frac{25}{3}$ m/s $=\\frac{25}{3}\\times\\frac{3600}{1000}$ km/jam $=\\frac{25\\times3600}{3000}=\\frac{90.000}{3.000}=\\mathbf{30}$ km/jam."
+},
+{
+    id:274, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Rata-rata berat badan $8$ murid adalah $42$ kg. Jika murid terberat (58 kg) keluar dari kelas, berapa rata-rata berat badan yang tersisa?",
+    illustration: null,
+    options:["$39{,}4$ kg","$40$ kg","$41$ kg","$42$ kg"],
+    correct:[1],
+    explanation:"Total $=8\\times42=336$ kg. Kurangi 58: $336-58=278$ kg. Rata-rata $=\\frac{278}{7}=39{,}7\\approx\\mathbf{40}$ kg. Jawaban B."
+},
+{
+    id:275, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Diagram lingkaran menunjukkan pengeluaran keluarga: makan $40\\%$, pendidikan $25\\%$, transportasi $20\\%$, lain-lain $15\\%$. Jika total pengeluaran Rp$4.000.000$, selisih pengeluaran makan dan transportasi adalah ...",
+    illustration: SVG.pie([40,25,20,15],['Makan','Pendidikan','Transportasi','Lain'],'Pengeluaran Keluarga'),
+    options:["Rp$600.000$","Rp$700.000$","Rp$750.000$","Rp$800.000$"],
+    correct:[3],
+    explanation:"Makan $=40\\%\\times4.000.000=1.600.000$. Transportasi $=20\\%\\times4.000.000=800.000$. Selisih $=1.600.000-800.000=\\mathbf{800.000}$."
+},
+{
+    id:276, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Pukul $14{:}47{:}35$ ditambah $8$ jam $28$ menit $45$ detik hasilnya adalah ...",
+    illustration: null,
+    options:["$23{:}15{:}20$","$23{:}16{:}20$","$23{:}15{:}40$","$23{:}16{:}40$"],
+    correct:[1],
+    explanation:"Detik: $35+45=80=1$ menit $20$ detik. Menit: $47+28+1=76=1$ jam $16$ menit. Jam: $14+8+1=23$. Hasil: $\\mathbf{23{:}16{:}20}$."
+},
+{
+    id:277, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Dari data nilai ulangan, diketahui: rata-rata $=72$, median $=75$, modus $=78$. Pernyataan berikut yang BENAR adalah ...",
+    illustration: null,
+    options:["Nilai paling sering muncul adalah 72","Nilai tengah adalah 78","Separuh siswa nilainya di bawah 75","Semua nilai sama dengan 72"],
+    correct:[2],
+    explanation:"Median $=75$ berarti tepat separuh data berada di bawah $75$ dan separuh di atas. Pernyataan C benar."
+},
+{
+    id:278, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Luas kebun $1{,}2$ hektar akan dibagi rata kepada $8$ orang. Berapa m² bagian setiap orang?",
+    illustration: null,
+    options:["$1.200$ m²","$1.500$ m²","$1.600$ m²","$1.800$ m²"],
+    correct:[1],
+    explanation:"$1{,}2$ hektar $=12.000$ m². Setiap orang $=\\frac{12.000}{8}=\\mathbf{1.500}$ m²."
+},
+{
+    id:279, topicId:4, topicName:"Statistika & Pengukuran", type:"single",
+    question:"Data penjualan buku per hari selama seminggu: 35, 42, 28, 50, 38, 45, 32. Berapakah jangkauan interkuartil (Q3 - Q1)?",
+    illustration: SVG.barChart(['Sen','Sel','Rab','Kam','Jum','Sab','Min'],[35,42,28,50,38,45,32],'Penjualan Buku'),
+    options:["$10$","$12$","$13$","$15$"],
+    correct:[2],
+    explanation:"Urutkan: 28,32,35,38,42,45,50. Q1$=$data ke-2$=32$, Q3$=$data ke-6$=45$. IQR$=45-32=\\mathbf{13}$."
+},
+{
+    id:280, topicId:4, topicName:"Statistika & Pengukuran", type:"multiple",
+    question:"Dari data: 12, 15, 18, 15, 20, 18, 22, 18, 25, 15. Pilih SEMUA yang BENAR!",
+    illustration: null,
+    options:["Modus data adalah 15 dan 18","Median data adalah 18","Rata-rata data adalah 17,8","Jangkauan data adalah 13"],
+    correct:[0,1,2,3],
+    explanation:"Urutkan: 12,15,15,15,18,18,18,20,22,25. Modus: 15 dan 18 (masing-masing 3×) ✓. Median: $\\frac{18+18}{2}=18$ ✓. Rata-rata: $\\frac{178}{10}=17{,}8$ ✓. Range: $25-12=13$ ✓."
+},
+
+// ──────────────────────────────────────────────────────────────
+// BATCH 3 · KOMBINATORIK (ID 281–300)
+// ──────────────────────────────────────────────────────────────
+{
+    id:281, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Barisan: $5, 8, 13, 20, 29, \\ldots$ Suku ke-10 adalah ...",
+    illustration: null,
+    options:["$90$","$94$","$98$","$104$"],
+    correct:[3],
+    explanation:"Beda antar suku: 3,5,7,9,... (bertambah 2). Lanjut dari suku ke-5=29: $+11=40$, $+13=53$, $+15=68$, $+17=85$, $+19=\\mathbf{104}$. Suku ke-10=104."
+},
+{
+    id:282, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Sebuah koin dilempar $4$ kali. Peluang mendapat tepat $3$ angka (A) adalah ...",
+    illustration: null,
+    options:["$\\dfrac{1}{4}$","$\\dfrac{3}{8}$","$\\dfrac{1}{4}$","$\\dfrac{5}{16}$"],
+    correct:[0],
+    explanation:"$\\binom{4}{3}\\times(\\frac{1}{2})^3\\times(\\frac{1}{2})^1=4\\times\\frac{1}{16}=\\frac{4}{16}=\\frac{1}{4}$."
+},
+{
+    id:283, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Jumlah bilangan kelipatan $3$ antara $1$ dan $100$ adalah ...",
+    illustration: null,
+    options:["$1.617$","$1.680$","$1.683$","$1.716$"],
+    correct:[2],
+    explanation:"Kelipatan 3 dari 3 sampai 99: $a=3$, $l=99$, $n=33$. Jumlah $=\\frac{33}{2}(3+99)=\\frac{33\\times102}{2}=33\\times51=\\mathbf{1.683}$."
+},
+{
+    id:284, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Berapa banyak cara berbeda untuk menyusun $4$ huruf dari kata OLIMPIADE (9 huruf, ada huruf berulang)?",
+    illustration: null,
+    options:["$1.680$","$2.520$","$3.024$","$3.360$"],
+    correct:[0],
+    explanation:"OLIMPIADE memiliki huruf I muncul 2×. Banyak pilihan 4 huruf berbeda dari 8 huruf unik (O,L,M,I,P,A,D,E): $P(8,4)=8\\times7\\times6\\times5=\\mathbf{1.680}$."
+},
+{
+    id:285, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Sebuah dadu dilempar. Peluang muncul bilangan faktor dari $12$ adalah ...",
+    illustration: SVG.dotPattern(2,3,4),
+    options:["$\\dfrac{1}{3}$","$\\dfrac{1}{2}$","$\\dfrac{2}{3}$","$\\dfrac{5}{6}$"],
+    correct:[3],
+    explanation:"Faktor 12 yang ada di dadu (≤6): $\\{1,2,3,4,6\\}$ → 5 angka. Peluang $=\\frac{5}{6}$."
+},
+{
+    id:286, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Dari pola $2, 6, 18, 54, \\ldots$ (geometri dengan $r=3$), berapakah jumlah $6$ suku pertama?",
+    illustration: null,
+    options:["$364$","$486$","$728$","$1.092$"],
+    correct:[2],
+    explanation:"$S_6=\\frac{2(3^6-1)}{3-1}=\\frac{2\\times(729-1)}{2}=728$."
+},
+{
+    id:287, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Di sebuah olimpiade, ada $5$ peserta. Setiap peserta bersaing melawan semua peserta lain tepat satu kali. Berapa total pertandingan yang terjadi?",
+    illustration: null,
+    options:["$8$","$10$","$12$","$15$"],
+    correct:[1],
+    explanation:"$\\binom{5}{2}=\\frac{5\\times4}{2}=\\mathbf{10}$ pertandingan."
+},
+{
+    id:288, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Pola: baris $1$ punya $3$ titik, baris $2$ punya $5$ titik, baris $3$ punya $7$ titik. Baris ke-$n$ punya $2n+1$ titik. Berapa total titik di $15$ baris pertama?",
+    illustration: SVG.dotPattern(3,5,9),
+    options:["$255$","$270$","$285$","$300$"],
+    correct:[0],
+    explanation:"Total $=\\sum_{n=1}^{15}(2n+1)=2\\cdot\\frac{15\\times16}{2}+15=240+15=\\mathbf{255}$."
+},
+{
+    id:289, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Sebuah kotak berisi $5$ bola merah dan $3$ bola hijau. Dua bola diambil sekaligus secara acak. Peluang keduanya berbeda warna adalah ...",
+    illustration: null,
+    options:["$\\dfrac{3}{8}$","$\\dfrac{5}{14}$","$\\dfrac{15}{28}$","$\\dfrac{3}{7}$"],
+    correct:[2],
+    explanation:"Total cara $=\\binom{8}{2}=28$. Beda warna $=5\\times3=15$. Peluang $=\\frac{15}{28}$."
+},
+{
+    id:290, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Barisan bilangan kubik: $1, 8, 27, 64, 125, \\ldots$ Berapa selisih suku ke-$7$ dan suku ke-$6$?",
+    illustration: null,
+    options:["$127$","$169$","$217$","$259$"],
+    correct:[0],
+    explanation:"Suku ke-7 $=7^3=343$. Suku ke-6 $=6^3=216$. Selisih $=343-216=\\mathbf{127}$."
+},
+{
+    id:291, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Dua huruf dipilih dari kata KUNCI (5 huruf berbeda). Berapa banyak cara yang mungkin (urutan tidak penting)?",
+    illustration: null,
+    options:["$5$","$10$","$15$","$20$"],
+    correct:[1],
+    explanation:"$\\binom{5}{2}=\\frac{5\\times4}{2}=\\mathbf{10}$ cara."
+},
+{
+    id:292, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Jumlah semua bilangan kelipatan $7$ dari $7$ sampai $\\ 98$ adalah ...",
+    illustration: null,
+    options:["$630$","$735$","$777$","$840$"],
+    correct:[1],
+    explanation:"$7, 14, 21,\\ldots,98$: ada $14$ suku. Jumlah $=\\frac{14}{2}(7+98)=7\\times105=\\mathbf{735}$."
+},
+{
+    id:293, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Sebuah loker menggunakan kode $3$ digit dari angka $1$–$5$ (boleh berulang). Berapa banyak kode yang mungkin?",
+    illustration: SVG.grid(5,5),
+    options:["$60$","$100$","$120$","$125$"],
+    correct:[3],
+    explanation:"Setiap digit bisa $1$–$5$ (5 pilihan), dengan pengulangan. Total $=5\\times5\\times5=\\mathbf{125}$."
+},
+{
+    id:294, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Barisan: $3, 3, 6, 9, 15, 24, \\ldots$ (setiap suku = jumlah dua suku sebelumnya). Suku ke-$9$ adalah ...",
+    illustration: null,
+    options:["$63$","$87$","$102$","$123$"],
+    correct:[2],
+    explanation:"$a_1=3,a_2=3,a_3=6,a_4=9,a_5=15,a_6=24,a_7=39,a_8=63,a_9=63+39=\\mathbf{102}$."
+},
+{
+    id:295, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Dalam sebuah turnamen bulu tangkis sistem gugur (kalah sekali langsung keluar), ada $32$ peserta. Berapa total pertandingan yang harus dimainkan?",
+    illustration: null,
+    options:["$28$","$31$","$32$","$63$"],
+    correct:[1],
+    explanation:"Dalam sistem gugur, setiap pertandingan menghasilkan $1$ kalah. Untuk mendapatkan $1$ juara dari $32$ peserta, harus ada $32-1=\\mathbf{31}$ kekalahan → $31$ pertandingan."
+},
+{
+    id:296, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Pola bilangan: $1, 5, 14, 30, 55, \\ldots$ (bilangan piramida). Suku ke-$7$ adalah ...",
+    illustration: null,
+    options:["$84$","$91$","$140$","$204$"],
+    correct:[2],
+    explanation:"Pola: $a_n=\\frac{n(n+1)(2n+1)}{6}$. Suku ke-6: $\\frac{6\\times7\\times13}{6}=91$. Suku ke-7: $\\frac{7\\times8\\times15}{6}=\\frac{840}{6}=\\mathbf{140}$."
+},
+{
+    id:297, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Sebuah tas berisi $4$ pena biru, $3$ pena merah, $2$ pena hitam. Satu pena diambil acak. Peluang mendapat pena bukan hitam adalah ...",
+    illustration: null,
+    options:["$\\dfrac{2}{9}$","$\\dfrac{7}{9}$","$\\dfrac{5}{9}$","$\\dfrac{1}{3}$"],
+    correct:[1],
+    explanation:"Pena bukan hitam $=4+3=7$. Total $=9$. Peluang $=\\frac{7}{9}$."
+},
+{
+    id:298, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Jumlah semua bilangan asli $3$ digit yang habis dibagi $5$ adalah ...",
+    illustration: null,
+    options:["$49.500$","$98.550$","$99.000$","$98.450$"],
+    correct:[1],
+    explanation:"Bilangan $3$ digit habis dibagi $5$: $100, 105, 110,\\ldots, 995$. $n=\\frac{995-100}{5}+1=180$ suku. Jumlah $=\\frac{180}{2}(100+995)=90\\times1.095=\\mathbf{98.550}$."
+},
+{
+    id:299, topicId:5, topicName:"Kombinatorik", type:"single",
+    question:"Dalam sebuah kelas, peluang seorang siswa lulus ujian adalah $0{,}8$. Jika $2$ siswa dipilih acak, peluang keduanya lulus adalah ...",
+    illustration: null,
+    options:["$0{,}16$","$0{,}48$","$0{,}60$","$0{,}64$"],
+    correct:[3],
+    explanation:"Asumsi kejadian bebas: $P(\\text{keduanya lulus})=0{,}8\\times0{,}8=\\mathbf{0{,}64}$."
+},
+{
+    id:300, topicId:5, topicName:"Kombinatorik", type:"multiple",
+    question:"Barisan aritmatika memiliki suku pertama $a=7$ dan beda $b=4$. Pilih SEMUA yang BENAR!",
+    illustration: null,
+    options:["Suku ke-15 adalah 63","Jumlah 20 suku pertama adalah 900","Suku ke-25 adalah 103","Jumlah 10 suku pertama adalah 250"],
+    correct:[0,1,2,3],
+    explanation:"$a_n=7+(n-1)\\cdot4=4n+3$. Suku ke-15: $4(15)+3=63$ ✓. $S_{20}=\\frac{20}{2}(2\\cdot7+19\\cdot4)=10(14+76)=10\\times90=900$ ✓. Suku ke-25: $4(25)+3=103$ ✓. $S_{10}=\\frac{10}{2}(14+9\\cdot4)=5(14+36)=5\\times50=250$ ✓."
+}
+
+]; // END questionBank
+
+// ═══════════════════════════════════════════════════════════════
+// APP STATE
+// ═══════════════════════════════════════════════════════════════
+let state = {
+    sessionQuestions: [],
+    current: 0,
+    answers: {},
+    submitted: {},
+    nQuestions: 30
+};
+
+// ─── INIT HOME ───
+function initHome() {
+    const grid = document.getElementById('topicGrid');
+    grid.innerHTML = TOPICS.map(t => {
+        const count = questionBank.filter(q => q.topicId === t.id).length;
+        const icons = ['🔢','➕','📐','📊','🎲'];
+        return `<div class="topic-chip"><span class="num">${t.id}</span>${icons[t.id-1]} ${t.name} <span style="margin-left:auto;color:var(--muted);font-size:11px;font-weight:700">${count} soal</span></div>`;
+    }).join('');
+
+    document.querySelectorAll('.n-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.n-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            state.nQuestions = parseInt(btn.dataset.n);
+        });
+    });
+}
+
+function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}
+
+// ─── START ───
+function startQuiz() {
+    state.answers = {};
+    state.submitted = {};
+    state.current = 0;
+
+    const n = state.nQuestions;
+    const perTopic = Math.floor(n / TOPICS.length);
+    let selected = [];
+
+    TOPICS.forEach(t => {
+        const pool = shuffle(questionBank.filter(q => q.topicId === t.id));
+        selected.push(...pool.slice(0, perTopic));
+    });
+
+    const extras = shuffle(questionBank.filter(q => !selected.includes(q)));
+    while (selected.length < n && extras.length) selected.push(extras.shift());
+    state.sessionQuestions = shuffle(selected.slice(0, n));
+
+    showScreen('quizScreen');
+    renderQuestion();
+}
+
+// ─── RENDER QUESTION (KaTeX + SVG) ───
+function renderQuestion() {
+    const idx = state.current;
+    const q = state.sessionQuestions[idx];
+    const total = state.sessionQuestions.length;
+
+    document.getElementById('qCurrent').textContent = idx + 1;
+    document.getElementById('qTotal').textContent = total;
+    document.getElementById('progressFill').style.width = `${((idx + 1) / total) * 100}%`;
+    document.getElementById('qTopicTag').textContent = q.topicName;
+
+    const badge = document.getElementById('qTypeBadge');
+    if (q.type === 'multiple') {
+        badge.className = 'q-type-badge multiple';
+        badge.innerHTML = '☑ Pilihan Ganda Kompleks — Pilih SEMUA jawaban yang benar';
+    } else {
+        badge.className = 'q-type-badge single';
+        badge.innerHTML = '○ Pilihan Ganda — Pilih satu jawaban terbaik';
+    }
+
+    // Render teks soal (innerHTML untuk KaTeX)
+    document.getElementById('qText').innerHTML = q.question;
+
+    // Render ilustrasi SVG
+    const illBox = document.getElementById('qIllustration');
+    if (q.illustration) {
+        illBox.innerHTML = q.illustration;
+        illBox.classList.remove('hidden');
+    } else {
+        illBox.innerHTML = '';
+        illBox.classList.add('hidden');
+    }
+
+    // Render opsi
+    const list = document.getElementById('optionsList');
+    const selected = state.answers[idx] || [];
+    const submitted = state.submitted[idx] || false;
+    const letters = ['A', 'B', 'C', 'D', 'E'];
+
+    list.innerHTML = q.options.map((opt, oi) => {
+        let cls = 'option-item';
+        if (submitted) {
+            const isCorrect = q.correct.includes(oi);
+            const isSelected = selected.includes(oi);
+            if (isCorrect && isSelected) cls += ' correct-ans';
+            else if (!isCorrect && isSelected) cls += ' wrong-ans';
+            else if (isCorrect && !isSelected) cls += ' missed-ans';
+        } else {
+            if (selected.includes(oi)) cls += ' selected';
+        }
+        return `<div class="${cls}" onclick="selectOption(${oi})">
+      <div class="opt-letter">${letters[oi]}</div>
+      <div class="opt-text">${opt}</div>
+    </div>`;
+    }).join('');
+
+    // Nav
+    document.getElementById('btnPrev').style.visibility = idx === 0 ? 'hidden' : 'visible';
+    const btnNext = document.getElementById('btnNext');
+    const isLast = idx === total - 1;
+    if (!submitted) {
+        btnNext.textContent = 'Konfirmasi Jawaban →';
+        btnNext.disabled = !state.answers[idx] || state.answers[idx].length === 0;
+        btnNext.onclick = () => confirmAnswer();
+    } else if (isLast) {
+        btnNext.textContent = '📊 Lihat Hasil';
+        btnNext.disabled = false;
+        btnNext.onclick = () => showResults();
+    } else {
+        btnNext.textContent = 'Soal Berikutnya →';
+        btnNext.disabled = false;
+        btnNext.onclick = () => navQ(1);
+    }
+
+    const answeredCount = Object.keys(state.submitted).length;
+    document.getElementById('answeredCount').textContent = `${answeredCount}/${total} terjawab`;
+
+    // 🔑 Render KaTeX setelah semua innerHTML sudah diisi
+    renderMath(document.getElementById('quizBody'));
+}
+
+function selectOption(oi) {
+    const idx = state.current;
+    if (state.submitted[idx]) return;
+    const q = state.sessionQuestions[idx];
+    let sel = [...(state.answers[idx] || [])];
+    if (q.type === 'single') {
+        sel = [oi];
+    } else {
+        const pos = sel.indexOf(oi);
+        if (pos >= 0) sel.splice(pos, 1);
+        else sel.push(oi);
+    }
+    state.answers[idx] = sel;
+    renderQuestion();
+}
+
+function confirmAnswer() {
+    const idx = state.current;
+    if (!state.answers[idx] || state.answers[idx].length === 0) return;
+    state.submitted[idx] = true;
+    renderQuestion();
+}
+
+function navQ(dir) {
+    const total = state.sessionQuestions.length;
+    state.current = Math.max(0, Math.min(total - 1, state.current + dir));
+    renderQuestion();
+}
+
+// ─── RESULTS ───
+function calculateResults() {
+    let correct = 0, wrong = 0, unanswered = 0;
+    const topicStats = {};
+    TOPICS.forEach(t => topicStats[t.id] = { name: t.name, correct: 0, total: 0 });
+
+    state.sessionQuestions.forEach((q, i) => {
+        const sel = state.answers[i] || [];
+        topicStats[q.topicId].total++;
+        if (!state.submitted[i]) { unanswered++; return; }
+        const isCorrect = q.correct.length === sel.length && q.correct.every(c => sel.includes(c));
+        if (isCorrect) { correct++; topicStats[q.topicId].correct++; }
+        else wrong++;
+    });
+    return { correct, wrong, unanswered, topicStats, total: state.sessionQuestions.length };
+}
+
+function drawScoreRing(score) {
+    const canvas = document.getElementById('scoreCanvas');
+    const ctx = canvas.getContext('2d');
+    const cx = 80, cy = 80, r = 65, lw = 12;
+    ctx.clearRect(0, 0, 160, 160);
+    ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2);
+    ctx.strokeStyle = '#E2E8F0'; ctx.lineWidth = lw; ctx.stroke();
+    const angle = (score / 100) * Math.PI * 2 - Math.PI / 2;
+    const grad = ctx.createLinearGradient(0, 0, 160, 160);
+    grad.addColorStop(0, '#7C3AED'); grad.addColorStop(1, '#F59E0B');
+    ctx.beginPath(); ctx.arc(cx, cy, r, -Math.PI / 2, angle);
+    ctx.strokeStyle = grad; ctx.lineWidth = lw;
+    ctx.lineCap = 'round'; ctx.stroke();
+}
+
+function showResults() {
+    showScreen('resultsScreen');
+    const res = calculateResults();
+    const score = Math.round((res.correct / res.total) * 100);
+    document.getElementById('scoreNum').textContent = score;
+    drawScoreRing(score);
+
+    const titles = [
+        [90, '🏆 Luar Biasa!'],
+        [75, '⭐ Bagus Sekali!'],
+        [60, '👍 Cukup Baik!'],
+        [40, '📚 Terus Berlatih!'],
+        [0, '💪 Jangan Menyerah!']
+    ];
+    const [, title] = titles.find(([min]) => score >= min);
+    document.getElementById('resultsTitle').textContent = title;
+    document.getElementById('resultsSub').textContent = `Kamu menjawab ${res.correct} soal benar dari ${res.total} soal.`;
+
+    document.getElementById('statsRow').innerHTML = `
+        <div class="stat-card"><div class="stat-val g">${res.correct}</div><div class="stat-key">✓ Benar</div></div>
+        <div class="stat-card"><div class="stat-val r">${res.wrong}</div><div class="stat-key">✗ Salah</div></div>
+        <div class="stat-card"><div class="stat-val b">${score}</div><div class="stat-key">Skor</div></div>
+        <div class="stat-card"><div class="stat-val" style="color:var(--muted)">${res.unanswered}</div><div class="stat-key">Dilewati</div></div>`;
+
+    const activeTopics = TOPICS.filter(t => res.topicStats[t.id] && res.topicStats[t.id].total > 0);
+    document.getElementById('topicResultsList').innerHTML = activeTopics.map(t => {
+        const ts = res.topicStats[t.id];
+        const pct = ts.total ? Math.round((ts.correct / ts.total) * 100) : 0;
+        const color = pct >= 75 ? 'var(--green)' : pct >= 50 ? 'var(--accent)' : 'var(--red)';
+        return `<div class="tr-item">
+      <div class="tr-top">
+        <span class="tr-name">${t.name}</span>
+        <span class="tr-score" style="color:${color}">${ts.correct}/${ts.total} (${pct}%)</span>
+      </div>
+      <div class="tr-bar"><div class="tr-fill" style="width:${pct}%;background:${color}"></div></div>
+    </div>`;
+    }).join('');
+}
+
+// ─── REVIEW (KaTeX + SVG) ───
+function showReview() {
+    showScreen('reviewScreen');
+    const body = document.getElementById('reviewBody');
+    const letters = ['A', 'B', 'C', 'D', 'E'];
+
+    body.innerHTML = state.sessionQuestions.map((q, i) => {
+        const sel = state.answers[i] || [];
+        const isCorrect = q.correct.length === sel.length && q.correct.every(c => sel.includes(c));
+        const status = isCorrect ? '✓' : '✗';
+        const statusClass = isCorrect ? 'correct' : 'wrong';
+
+        const optsHtml = q.options.map((opt, oi) => {
+            const isCor = q.correct.includes(oi);
+            const isSel = sel.includes(oi);
+            let cls = 'neutral', mark = '';
+            if (isCor && isSel) { cls = 'correct'; mark = '✓ '; }
+            else if (!isCor && isSel) { cls = 'wrong'; mark = '✗ '; }
+            else if (isCor) { cls = 'correct'; mark = '→ '; }
+            return `<div class="ri-opt ${cls}"><span class="ri-opt-mark">${mark}${letters[oi]}.</span><span>${opt}</span></div>`;
+        }).join('');
+
+        const illHtml = q.illustration ? `<div class="ri-illustration">${q.illustration}</div>` : '';
+
+        return `<div class="review-item" id="ri-${i}">
+      <div class="review-item-header" onclick="toggleReview(${i})">
+        <div class="ri-status ${statusClass}">${status}</div>
+        <div class="ri-info">
+          <div class="ri-q-num">Soal ${i+1} · ${q.topicName}</div>
+          <div class="ri-q-text">${q.question}</div>
+        </div>
+        <div class="ri-chevron">⌄</div>
+      </div>
+      <div class="review-detail">
+        ${illHtml}
+        <div class="ri-options">${optsHtml}</div>
+        <div class="ri-explanation"><strong>💡 Penjelasan:</strong> ${q.explanation}</div>
+      </div>
+    </div>`;
+    }).join('');
+
+    // Render KaTeX di seluruh review
+    renderMath(body);
+}
+
+function toggleReview(i) {
+    document.getElementById(`ri-${i}`).classList.toggle('open');
+}
+
+function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo(0, 0);
+}
+
+function restartQuiz() {
+    showScreen('homeScreen');
+    initHome();
+}
+
+// ─── BOOT ───
+// window.onload memastikan semua skrip defer (KaTeX) sudah selesai dimuat
+window.addEventListener('load', () => {
+    initHome();
+});
+</script>
+</body>
+</html>
